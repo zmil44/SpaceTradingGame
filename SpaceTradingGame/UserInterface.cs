@@ -115,6 +115,9 @@ namespace SpaceTradingGame
                     case 2:
                         choice = DisplaySellMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
                         break;
+                    case 3:
+                        choice = TravelMenu(player, earth, alphaCentauri, gliese);
+                        break;
                 }
 
 
