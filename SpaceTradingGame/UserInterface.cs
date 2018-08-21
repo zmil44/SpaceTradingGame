@@ -118,6 +118,10 @@ namespace SpaceTradingGame
                     case 3:
                         choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese);
                         break;
+                    default:
+                        choice = 0;
+                        break;
+
                 }
 
 
