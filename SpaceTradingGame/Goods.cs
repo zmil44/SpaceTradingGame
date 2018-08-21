@@ -8,5 +8,17 @@ namespace SpaceTradingGame
 {
     class Goods
     {
+        private string _nameOfGood;
+        private decimal _priceOfGood;
+        private double _weightOfGoodInPounds;
+
+        private void CreateGood(string name, decimal price, double weight)
+        {
+            _nameOfGood = name;
+            _priceOfGood = price;
+            _weightOfGoodInPounds = weight;
+        }
+
+
     }
 }
