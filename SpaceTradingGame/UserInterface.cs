@@ -51,6 +51,8 @@ namespace SpaceTradingGame
             Planet gliese = new Planet();
             gliese.CreatePlanet("Gliese", "Plo Koon", 23.62, 24.02, 0);
 
+            Trade userTrade = new Trade();
+
             //Create user
             Console.Write("\nPlease enter your name: ");
             string name = Console.ReadLine();
