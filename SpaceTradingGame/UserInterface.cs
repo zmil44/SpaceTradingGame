@@ -51,6 +51,7 @@ namespace SpaceTradingGame
             Planet gliese = new Planet();
             gliese.CreatePlanet("Gliese", "Plo Koon", 23.62, 24.02, 0);
 
+            //create trade 
             Trade userTrade = new Trade();
 
             //Create user
@@ -59,6 +60,8 @@ namespace SpaceTradingGame
             User player = new User();
             player.CreateUser(name);
             
+            //create warpSpeed
+            WarpSpeed travel = new WarpSpeed();
 
            
         }
