@@ -24,5 +24,30 @@ namespace SpaceTradingGame
             _distanceToAlphaCentauri = distanceAlphaCentauri;
             _distanceToGliese = distanceGliese;
         }
+
+        private string GetPlanetName()
+        {
+            return _planetName;
+        }
+
+        private string GetTraderName()
+        {
+            return _traderName;
+        }
+
+        private double GetDistanceToEarth()
+        {
+            return _distanceToEarth;
+        }
+
+        private double GetDistanceToAlphaCentauri()
+        {
+            return _distanceToAlphaCentauri;
+        }
+
+        private double GetDistanceToGliese()
+        {
+            return _distanceToGliese;
+        }
     }
 }
