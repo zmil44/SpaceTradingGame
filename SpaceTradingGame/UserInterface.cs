@@ -59,13 +59,116 @@ namespace SpaceTradingGame
             string name = Console.ReadLine();
             User player = new User();
             player.CreateUser(name);
-            
+
             //create warpSpeed
             WarpSpeed travel = new WarpSpeed();
+            int choice = -2;
 
-           
+            do
+            {
+                if (player.GetCurrentLocation() == "Earth")
+                {
+                    gold.SetPriceOfGood(12000m);
+                    diamond.SetPriceOfGood(1400m);
+                    uranium.SetPriceOfGood(70m);
+                    oil.SetPriceOfGood(66.30m);
+                    wood.SetPriceOfGood(10m);
+                    copper.SetPriceOfGood(2.50m);
+                    darkMatter.SetPriceOfGood(450000m);
+                }
+                else if (player.GetCurrentLocation() == "Gliese")
+                {
+                    gold.SetPriceOfGood(3585m);
+                    diamond.SetPriceOfGood(600m);
+                    uranium.SetPriceOfGood(200m);
+                    oil.SetPriceOfGood(10.18m);
+                    wood.SetPriceOfGood(10.98m);
+                    copper.SetPriceOfGood(17.25m);
+                    darkMatter.SetPriceOfGood(300000m);
+                }
+                else
+                {
+                    gold.SetPriceOfGood(12000m);
+                    diamond.SetPriceOfGood(3000m);
+                    uranium.SetPriceOfGood(70m);
+                    oil.SetPriceOfGood(50.25m);
+                    wood.SetPriceOfGood(65.30m);
+                    copper.SetPriceOfGood(1.50m);
+                    darkMatter.SetPriceOfGood(100000m);
+                }
+
+                do
+                {
+
+                    try
+                    {
+                        Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
+                                          "1. Buy \n2. Sell\n3. Travel\n-1. Quit");
+                        choice = GetInput();
+
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine("Im sorry you did not enter a valid input. Please try again.");
+                        
+                    }
+                } while ( choice > 3||(choice<=0 && choice!=-1));
+
+                switch (choice)
+                {
+                    case 1:
+                        do
+                        {
+                            ClearScreen();
+                            Console.WriteLine($"What goods would you like to buy? " +
+                                              "\nEnter the corresponding number to decide: " +
+                                              "\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
+                                              "\n 2. {diamonds.GetNameOfGood()}\tprice: {diamonds.GetPriceOfGood()}" +
+                                              "\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
+                                              "\n 4. {oil.GetNameOfGood()}\tprice: {oil.GetPriceOfGood()}" +
+                                              "\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
+                                              "\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
+                                              "\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
+                                              "\n 0 to return to original screen");
+                            choice = GetInput();
+                        } while (choice < 0 || choice > 7);
+
+                        break;
+                }
+
+
+            } while (choice != -1 || player.GetUserTime() < 40 ||
+                     (player.GetCredits() == 0 && player.GetCurrentCargo().Count == 0));
+
         }
 
+        private void ClearScreen()
+        {
+            for (int i = 0; i < Console.LargestWindowHeight; i++)
+            {
+                Console.WriteLine();
+            }
+        }
 
+        private int GetInput()
+        {
+            int choice=-2;
+            bool badInput;
+            do
+            {
+                try
+                {
+                    choice = int.Parse(Console.ReadLine());
+                    badInput = false;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Im sorry you did not enter a valid input. Please try again.");
+                    badInput = true;
+                }
+            } while (badInput);
+
+            return choice;
+        }
     }
 }
