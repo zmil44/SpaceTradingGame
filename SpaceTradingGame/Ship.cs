@@ -19,5 +19,25 @@ namespace SpaceTradingGame
             _shipMaxWarpSpeed = maxWarpSpeed;
             _shipCost = cost;
         }
+
+        private string GetShipName()
+        {
+            return _shipName;
+        }
+
+        private int GetCargoSpace()
+        {
+            return _shipCargoSpace;
+        }
+
+        private int GetMaxWarpSpeed()
+        {
+            return _shipMaxWarpSpeed;
+        }
+
+        private int GetShipCost()
+        {
+            return _shipCost;
+        }
     }
 }
