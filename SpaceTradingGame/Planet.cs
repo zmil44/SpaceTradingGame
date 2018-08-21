@@ -15,7 +15,7 @@ namespace SpaceTradingGame
         private string _traderName;
 
 
-        private void CreatePlanet(string name, string trader, double distanceEarth, double distanceAlphaCentauri,
+        public void CreatePlanet(string name, string trader, double distanceEarth, double distanceAlphaCentauri,
             double distanceGliese)
         {
             _planetName = name;
@@ -25,27 +25,27 @@ namespace SpaceTradingGame
             _distanceToGliese = distanceGliese;
         }
 
-        private string GetPlanetName()
+        public string GetPlanetName()
         {
             return _planetName;
         }
 
-        private string GetTraderName()
+        public string GetTraderName()
         {
             return _traderName;
         }
 
-        private double GetDistanceToEarth()
+        public double GetDistanceToEarth()
         {
             return _distanceToEarth;
         }
 
-        private double GetDistanceToAlphaCentauri()
+        public double GetDistanceToAlphaCentauri()
         {
             return _distanceToAlphaCentauri;
         }
 
-        private double GetDistanceToGliese()
+        public double GetDistanceToGliese()
         {
             return _distanceToGliese;
         }
