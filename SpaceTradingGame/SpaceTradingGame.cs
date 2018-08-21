@@ -10,6 +10,9 @@ namespace SpaceTradingGame
     {
         static void Main(string[] args)
         {
+            Story userStory = new Story();
+            userStory.SetStory();
+            userStory.DisplayStory();
         }
     }
 }
