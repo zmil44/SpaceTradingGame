@@ -12,29 +12,29 @@ namespace SpaceTradingGame
         private decimal _priceOfGood;
         private double _weightOfGoodInPounds;
 
-        private void CreateGood(string name, decimal price, double weight)
+        public void CreateGood(string name, decimal price, double weight)
         {
             _nameOfGood = name;
             _priceOfGood = price;
             _weightOfGoodInPounds = weight;
         }
 
-        private string GetNameOfGood()
+        public string GetNameOfGood()
         {
             return _nameOfGood;
         }
 
-        private decimal GetPriceOfGood()
+        public decimal GetPriceOfGood()
         {
             return _priceOfGood;
         }
 
-        private void SetPriceOfGood(decimal price)
+        public void SetPriceOfGood(decimal price)
         {
             _priceOfGood = price;
         }
 
-        private double GetWeightOfGood()
+        public double GetWeightOfGood()
         {
             return _weightOfGoodInPounds;
         }
