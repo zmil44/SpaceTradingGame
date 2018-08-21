@@ -48,6 +48,7 @@
     <Compile Include="Story.cs" />
     <Compile Include="Trade.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="WarpSpeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
