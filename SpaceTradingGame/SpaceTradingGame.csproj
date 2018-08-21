@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Goods.cs" />
+    <Compile Include="Planet.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="SpaceTradingGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
