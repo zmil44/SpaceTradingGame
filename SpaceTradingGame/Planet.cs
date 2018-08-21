@@ -8,5 +8,21 @@ namespace SpaceTradingGame
 {
     class Planet
     {
+        private double _distanceToEarth;
+        private double _distanceToAlphaCentauri;
+        private double _distanceToGliese;
+        private string _planetName;
+        private string _traderName;
+
+
+        private void CreatePlanet(string name, string trader, double distanceEarth, double distanceAlphaCentauri,
+            double distanceGliese)
+        {
+            _planetName = name;
+            _traderName = trader;
+            _distanceToEarth = distanceEarth;
+            _distanceToAlphaCentauri = distanceAlphaCentauri;
+            _distanceToGliese = distanceGliese;
+        }
     }
 }
