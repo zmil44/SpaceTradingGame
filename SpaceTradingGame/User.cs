@@ -17,7 +17,7 @@ namespace SpaceTradingGame
         private string _currentLocation = "Earth";
         private List<string> cargo = new List<string>();
 
-        private void SetUser(string userName, string userShipType, decimal userCredits, double userTime, decimal userTotalCreditsEarned)
+        public void SetUser(string userName, string userShipType, decimal userCredits, double userTime, decimal userTotalCreditsEarned)
         {
             _name = userName;
             _shipType = userShipType;
@@ -26,67 +26,67 @@ namespace SpaceTradingGame
             _totalCreditsEarned = userTotalCreditsEarned;
         }
 
-        private string GetUserName()
+        public string GetUserName()
         {
             return _name;
         }
 
-        private string GetShipType()
+        public string GetShipType()
         {
             return _shipType;
         }
 
-        private void SetShipType(string shipType)
+        public void SetShipType(string shipType)
         {
             _shipType = shipType;
         }
 
-        private decimal GetCredits()
+        public decimal GetCredits()
         {
             return _credits;
         }
 
-        private void SetCredits(decimal credits)
+        public void SetCredits(decimal credits)
         {
             _credits += credits;
         }
 
-        private double GetUserTime()
+        public double GetUserTime()
         {
             return _time;
         }
 
-        private void SetUserTime(double userTime)
+        public void SetUserTime(double userTime)
         {
             _time = userTime;
         }
 
-        private decimal GetTotalCreditsEarned()
+        public decimal GetTotalCreditsEarned()
         {
             return _totalCreditsEarned;
         }
 
-        private void SetTotalCreditsEarned(decimal creditsEarned)
+        public void SetTotalCreditsEarned(decimal creditsEarned)
         {
             _totalCreditsEarned += creditsEarned;
         }
 
-        private string GetCurrentLocation()
+        public string GetCurrentLocation()
         {
             return _currentLocation;
         }
 
-        private void SetCurrentLocation(string planet)
+        public void SetCurrentLocation(string planet)
         {
             _currentLocation = planet;
         }
 
-        private List<string> GetCurrentCargo()
+        public List<string> GetCurrentCargo()
         {
             return cargo;
         }
 
-        private void AddCargo(string good, int cargoSpace)
+        public void AddCargo(string good, int cargoSpace)
         {
             if (cargo.Count < cargoSpace)
             {
