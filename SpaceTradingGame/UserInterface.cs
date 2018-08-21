@@ -99,40 +99,19 @@ namespace SpaceTradingGame
 
                 do
                 {
-
-                    try
-                    {
+                        ClearScreen();
                         Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
                                           "1. Buy \n2. Sell\n3. Travel\n-1. Quit");
                         choice = GetInput();
 
-                    }
-                    catch (FormatException e)
-                    {
-                        Console.WriteLine("Im sorry you did not enter a valid input. Please try again.");
-                        
-                    }
-                } while ( choice > 3||(choice<=0 && choice!=-1));
+                } while ( choice<-1 || choice > 3|| choice==0  );
 
                 switch (choice)
                 {
                     case 1:
-                        do
-                        {
-                            ClearScreen();
-                            Console.WriteLine($"What goods would you like to buy? " +
-                                              "\nEnter the corresponding number to decide: " +
-                                              "\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
-                                              "\n 2. {diamonds.GetNameOfGood()}\tprice: {diamonds.GetPriceOfGood()}" +
-                                              "\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
-                                              "\n 4. {oil.GetNameOfGood()}\tprice: {oil.GetPriceOfGood()}" +
-                                              "\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
-                                              "\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
-                                              "\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
-                                              "\n 0 to return to original screen");
-                            choice = GetInput();
-                        } while (choice < 0 || choice > 7);
-
+                        choice = DisplayBuyMenu(gold, uranium, diamond, oil, wood, copper, darkMatter);
+                        break;
+                    case 2:
                         break;
                 }
 
@@ -167,6 +146,28 @@ namespace SpaceTradingGame
                     badInput = true;
                 }
             } while (badInput);
+
+            return choice;
+        }
+
+        private int DisplayBuyMenu(Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter)
+        {
+            int choice = -1;
+            do
+            {
+                ClearScreen();
+                Console.WriteLine("What goods would you like to buy? " +
+                                  "\nEnter the corresponding number to decide: " +
+                                  $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
+                                  $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
+                                  $"\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
+                                  $"\n 4. {oil.GetNameOfGood()}\t\tprice: {oil.GetPriceOfGood()}" +
+                                  $"\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
+                                  $"\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
+                                  $"\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
+                                  "\n 0 to return to original screen");
+                choice = GetInput();
+            } while (choice < 0 || choice > 7);
 
             return choice;
         }
