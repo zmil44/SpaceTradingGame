@@ -1,4 +1,6 @@
-﻿using System;
+﻿//finsih coding logic for menu where when i select something i can actually do something
+//fix issue where -1 wont let me exit game
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -121,7 +123,6 @@ namespace SpaceTradingGame
                     default:
                         choice = 0;
                         break;
-
                 }
 
 
