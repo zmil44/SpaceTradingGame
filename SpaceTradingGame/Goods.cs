@@ -29,6 +29,11 @@ namespace SpaceTradingGame
             return _priceOfGood;
         }
 
+        private void SetPriceOfGood(decimal price)
+        {
+            _priceOfGood = price;
+        }
+
         private double GetWeightOfGood()
         {
             return _weightOfGoodInPounds;
