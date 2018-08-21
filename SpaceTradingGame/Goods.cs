@@ -19,6 +19,19 @@ namespace SpaceTradingGame
             _weightOfGoodInPounds = weight;
         }
 
+        private string GetNameOfGood()
+        {
+            return _nameOfGood;
+        }
 
+        private decimal GetPriceOfGood()
+        {
+            return _priceOfGood;
+        }
+
+        private double GetWeightOfGood()
+        {
+            return _weightOfGoodInPounds;
+        }
     }
 }
