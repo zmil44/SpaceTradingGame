@@ -76,5 +76,9 @@ namespace SpaceTradingGame
             return _currentLocation;
         }
 
+        private void SetCurrentLocation(string planet)
+        {
+            _currentLocation = planet;
+        }
     }
 }

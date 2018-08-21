@@ -40,9 +40,6 @@ namespace SpaceTradingGame
             return _shipCost;
         }
 
-        private string BuyShip()
-        {
-            return _shipName;
-        }
+
     }
 }
