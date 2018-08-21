@@ -10,13 +10,13 @@ namespace SpaceTradingGame
     {
         private string _nameOfGood;
         private decimal _priceOfGood;
-        private double _weightOfGoodInPounds;
+        
 
-        public void CreateGood(string name, decimal price, double weight)
+        public void CreateGood(string name, decimal price)
         {
             _nameOfGood = name;
             _priceOfGood = price;
-            _weightOfGoodInPounds = weight;
+            
         }
 
         public string GetNameOfGood()
@@ -34,9 +34,5 @@ namespace SpaceTradingGame
             _priceOfGood = price;
         }
 
-        public double GetWeightOfGood()
-        {
-            return _weightOfGoodInPounds;
-        }
     }
 }
