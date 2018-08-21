@@ -110,9 +110,10 @@ namespace SpaceTradingGame
                 switch (choice)
                 {
                     case 1:
-                        choice = DisplayBuyMenu(gold, uranium, diamond, oil, wood, copper, darkMatter);
+                        choice = DisplayBuyMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
                         break;
                     case 2:
+                        choice = DisplaySellMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
                         break;
                 }
 
@@ -151,7 +152,7 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayBuyMenu(Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter)
+        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter)
         {
             int choice = -1;
             do
@@ -173,7 +174,7 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplaySellMenu(Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
+        private int DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
             Goods darkMatter)
         {
             int choice = -1;
@@ -189,11 +190,29 @@ namespace SpaceTradingGame
                                   $"\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
                                   $"\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
                                   $"\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
+                                  $"\n8. Display current inventory" +
                                   "\n 0 to return to original screen");
                 choice = GetInput();
+                if (choice == 8)
+                {
+                    DisplayInventory(player);
+                    
+                }
             } while (choice < 0 || choice > 7);
 
             return choice;
+        }
+
+        private void DisplayInventory(User player)
+        {
+            ClearScreen();
+            Console.WriteLine("Here is your current inventory. Press enter to continue");
+            foreach (var item in player.GetCurrentCargo())
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.Read();
         }
     }
 }
