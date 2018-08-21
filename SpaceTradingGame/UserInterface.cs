@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SpaceTradingGame
 {
@@ -157,6 +158,29 @@ namespace SpaceTradingGame
             {
                 ClearScreen();
                 Console.WriteLine("What goods would you like to buy? " +
+                                  "\nEnter the corresponding number to decide: " +
+                                  $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
+                                  $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
+                                  $"\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
+                                  $"\n 4. {oil.GetNameOfGood()}\t\tprice: {oil.GetPriceOfGood()}" +
+                                  $"\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
+                                  $"\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
+                                  $"\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
+                                  "\n 0 to return to original screen");
+                choice = GetInput();
+            } while (choice < 0 || choice > 7);
+
+            return choice;
+        }
+
+        private int DisplaySellMenu(Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
+            Goods darkMatter)
+        {
+            int choice = -1;
+            do
+            {
+                ClearScreen();
+                Console.WriteLine("What goods would you like to sell? " +
                                   "\nEnter the corresponding number to decide: " +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
                                   $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
