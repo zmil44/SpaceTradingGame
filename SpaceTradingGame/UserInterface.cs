@@ -59,6 +59,7 @@ namespace SpaceTradingGame
             User player = new User();
             player.CreateUser(name);
             
+
            
         }
 
