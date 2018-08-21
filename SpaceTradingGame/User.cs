@@ -17,7 +17,7 @@ namespace SpaceTradingGame
         private string _currentLocation = "Earth";
         private List<string> cargo = new List<string>();
 
-        public void SetUser(string userName, string userShipType, decimal userCredits, double userTime, decimal userTotalCreditsEarned)
+        public void CreateUser(string userName, string userShipType, decimal userCredits, double userTime, decimal userTotalCreditsEarned)
         {
             _name = userName;
             _shipType = userShipType;

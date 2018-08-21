@@ -8,7 +8,7 @@ namespace SpaceTradingGame
 {
     class UserInterface
     {
-        public void CreateObjects()
+        public void CreateObjects(string name)
         {
             //create and display story
             Story userStory = new Story();
@@ -42,11 +42,18 @@ namespace SpaceTradingGame
             milleniumFalcon.CreateShip("Simiyar-Class Light Freighter", 50, 3, 400000);
             Ship imperialStarDestroyer = new Ship();
             imperialStarDestroyer.CreateShip("Imperial-Class Star Destroyer", 1000, 7, 500000);
+
+            //Create user
+            User player = new User();
+            player.CreateUser(name,"Simiyar-Class Light Freighter",25000,0,0);
+
         }
 
         public void RunUserInterface()
         {
-            CreateObjects();
+            Console.Write("\nPlease enter your name: ");
+            string name = Console.ReadLine();
+            CreateObjects(name);
            
         }
 
