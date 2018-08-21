@@ -10,6 +10,8 @@ namespace SpaceTradingGame
     {
         static void Main(string[] args)
         {
+            Console.WindowHeight=Console.LargestWindowHeight;
+            Console.WindowWidth = Console.LargestWindowWidth;
             Story userStory = new Story();
             userStory.SetStory();
             userStory.DisplayStory();
