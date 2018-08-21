@@ -43,6 +43,14 @@ namespace SpaceTradingGame
             Ship imperialStarDestroyer = new Ship();
             imperialStarDestroyer.CreateShip("Imperial-Class Star Destroyer", 1000, 7, 500000);
 
+            //Create Planets
+            Planet earth = new Planet();
+            earth.CreatePlanet("Earth", "Adam Thielen", 0, 4.367, 23.62);
+            Planet alphaCentauri = new Planet();
+            alphaCentauri.CreatePlanet("Aplha Centauri"," ",4.367, 0, 24.02);
+            Planet gliese = new Planet();
+            gliese.CreatePlanet("Gliese", "Orgrim Doomhammer", 23.62,24.02,0);
+
             //Create user
             User player = new User();
             player.CreateUser(name,"Simiyar-Class Light Freighter",25000,0,0);
