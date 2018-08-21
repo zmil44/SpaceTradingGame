@@ -47,7 +47,7 @@ namespace SpaceTradingGame
             Planet earth = new Planet();
             earth.CreatePlanet("Earth", "Adam Thielen", 0, 4.367, 23.62);
             Planet alphaCentauri = new Planet();
-            alphaCentauri.CreatePlanet("Aplha Centauri", " ", 4.367, 0, 24.02);
+            alphaCentauri.CreatePlanet("Aplha Centauri", "Prophet Velen", 4.367, 0, 24.02);
             Planet gliese = new Planet();
             gliese.CreatePlanet("Gliese", "Orgrim Doomhammer", 23.62, 24.02, 0);
 
