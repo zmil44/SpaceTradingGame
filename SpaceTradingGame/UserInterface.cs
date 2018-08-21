@@ -53,7 +53,7 @@ namespace SpaceTradingGame
 
             //Create user
             User player = new User();
-            player.CreateUser(name,"Simiyar-Class Light Freighter",25000,0,0);
+            player.CreateUser(name);
 
         }
 
