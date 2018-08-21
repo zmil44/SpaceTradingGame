@@ -14,6 +14,7 @@ namespace SpaceTradingGame
         private decimal _credits=0;
         private double _time=0;
         private decimal _totalCreditsEarned=0;
+        private string _currentLocation = "Earth";
 
 
         private void SetUser(string userName, string userShipType, decimal userCredits, double userTime, decimal userTotalCreditsEarned)
@@ -68,6 +69,16 @@ namespace SpaceTradingGame
         private void SetTotalCreditsEarned(decimal creditsEarned)
         {
             _totalCreditsEarned += creditsEarned;
+        }
+
+        private string GetCurrentLocation()
+        {
+            return _currentLocation;
+        }
+
+        private void SetCurrentLocation(string planet)
+        {
+            _currentLocation = planet;
         }
     }
 }
