@@ -140,7 +140,14 @@ namespace SpaceTradingGame
                 try
                 {
                     choice = int.Parse(Console.ReadLine());
-                    badInput = false;
+                    if (choice == -2)
+                    {
+                        badInput = true;
+                    }
+                    else
+                    {
+                        badInput = false;
+                    }
                 }
                 catch (FormatException e)
                 {
@@ -167,8 +174,14 @@ namespace SpaceTradingGame
                                   $"\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
                                   $"\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
                                   $"\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
+                                  $"\n 8. Display current inventory" +
                                   "\n 0 to return to original screen");
                 choice = GetInput();
+                if (choice == 8)
+                {
+                    DisplayInventory(player);
+
+                }
             } while (choice < 0 || choice > 7);
 
             return choice;
