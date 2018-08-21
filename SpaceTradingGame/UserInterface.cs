@@ -116,7 +116,7 @@ namespace SpaceTradingGame
                         choice = DisplaySellMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
                         break;
                     case 3:
-                        choice = TravelMenu(player, earth, alphaCentauri, gliese);
+                        choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese);
                         break;
                 }
 
@@ -215,6 +215,41 @@ namespace SpaceTradingGame
                     
                 }
             } while (choice < 0 || choice > 7);
+
+            return choice;
+        }
+
+        private int DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese)
+        {
+            int choice = -1;
+            do
+            {
+                ClearScreen();
+                Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
+                if (player.GetCurrentLocation() == earth.GetPlanetName())
+                {
+                    Console.WriteLine(
+                        $"You can travel to \n1. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {alphaCentauri.GetDistanceToEarth()}" +
+                        $"\n2. {gliese.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
+                        $"\n0. return to previous menu");
+                }
+                else if (player.GetCurrentLocation() == alphaCentauri.GetPlanetName())
+                {
+                    Console.WriteLine(
+                        $"You can travel to \n1. {earth.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {earth.GetDistanceToAlphaCentauri()}" +
+                        $"\n2. {gliese.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToAlphaCentauri()}" +
+                        $"\n0. Return to previous menu");
+                }
+                else
+                {
+                    Console.WriteLine(
+                        $"You can travel to \n1. {earth.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
+                        $"\n2. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {alphaCentauri.GetDistanceToGliese()}" +
+                        $"\n0. return to previous menu");
+                }
+
+                choice = GetInput();
+            }while(choice<0||choice>2);
 
             return choice;
         }
