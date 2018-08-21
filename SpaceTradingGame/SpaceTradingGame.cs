@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceTradingGame
 {
-    class Program
+    class SpaceTradingGame
     {
         static void Main(string[] args)
         {
