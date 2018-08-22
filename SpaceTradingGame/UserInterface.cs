@@ -147,20 +147,14 @@ namespace SpaceTradingGame
         private int GetInput()
         {
             int choice=-2;
-            bool badInput;
+            bool badInput=false;
             do
             {
                 try
                 {
                     choice = int.Parse(Console.ReadLine());
-                    if (choice == -2)
-                    {
-                        badInput = true;
-                    }
-                    else
-                    {
-                        badInput = false;
-                    }
+                    badInput = false;
+
                 }
                 catch (FormatException e)
                 {
@@ -174,12 +168,13 @@ namespace SpaceTradingGame
 
         private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter)
         {
-            int choice = -1;
+            int choice = -2;
             do
             {
                 ClearScreen();
                 Console.WriteLine("What goods would you like to buy? " +
                                   "\nEnter the corresponding number to decide: " +
+                                  $"\n You currently have {player.GetCredits()} credits" +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
                                   $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
                                   $"\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
@@ -264,12 +259,29 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayShipBuyMenu(User player, Ship simiyanShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
+        private int DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
             imperialStarDestroyer)
         {
             int choice = -2;
+            do
+            {
+                ClearScreen();
+                Console.WriteLine(
+                    "Welcome to the Joe's Ship Dealership. Here you are able to purchase a new ship while selling your current one." +
+                    $"\nYou currently have {player.GetCredits()} credits\n Ships we currently have in stock are as follows: " +
+                    $"\n1. Simiyar-Class Light Freighter \tPrice: {simiyarShip.GetShipCost()} credits\t Cargo Space: " +
+                    $"{simiyarShip.GetCargoSpace()}\tMax warp speed: {simiyarShip.GetMaxWarpSpeed()}" +
+                    $"\n2. Trade Federation Cruiser \t Price: {tradeFederationCruiser.GetShipCost()} credits\t Cargo Space: " +
+                    $"{tradeFederationCruiser.GetCargoSpace()}\tMax warp speed: {tradeFederationCruiser.GetMaxWarpSpeed()}" +
+                    $"\n3. CR90 Corvette \t\t Price {cr90Corvette.GetShipCost()} credits\t Cargo Space: {cr90Corvette.GetCargoSpace()}" +
+                    $"\tMax warp speed: {cr90Corvette.GetMaxWarpSpeed()}" +
+                    $"\n4. Millenuim Falcon \t Price: {milleniumFalcon.GetShipCost()}\t Cargo Space: {milleniumFalcon.GetCargoSpace()}" +
+                    $"\tMax warp Speed: {milleniumFalcon.GetMaxWarpSpeed()}" +
+                    "\n0. Return to previous menu");
+                choice = GetInput();
+            } while (choice < 0 || choice > 4);
 
-            return choice
+            return choice;
         }
 
         private void DisplayInventory(User player)
