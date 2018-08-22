@@ -215,7 +215,7 @@ namespace SpaceTradingGame
                 {
                     do
                     {
-                        Console.WriteLine("You have selected to buy diamonds. How much gold would you like to buy? " +
+                        Console.WriteLine("You have selected to buy diamonds. How much diamonds would you like to buy? " +
                                           " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
@@ -235,7 +235,7 @@ namespace SpaceTradingGame
                 {
                     do
                     {
-                        Console.WriteLine("You have selected to buy uranium. How much gold would you like to buy? " +
+                        Console.WriteLine("You have selected to buy uranium. How much uranium would you like to buy? " +
                                           " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
@@ -255,7 +255,7 @@ namespace SpaceTradingGame
                 {
                     do
                     {
-                        Console.WriteLine("You have selected to buy oil. How much gold would you like to buy? " +
+                        Console.WriteLine("You have selected to buy oil. How much oil would you like to buy? " +
                                           " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
@@ -275,7 +275,7 @@ namespace SpaceTradingGame
                 {
                     do
                     {
-                        Console.WriteLine("You have selected to buy wood. How much gold would you like to buy? " +
+                        Console.WriteLine("You have selected to buy wood. How much wood would you like to buy? " +
                                           " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
@@ -295,7 +295,7 @@ namespace SpaceTradingGame
                 {
                     do
                     {
-                        Console.WriteLine("You have selected to buy copper. How much gold would you like to buy? " +
+                        Console.WriteLine("You have selected to buy copper. How much copper would you like to buy? " +
                                           " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
@@ -315,7 +315,7 @@ namespace SpaceTradingGame
                 {
                     do
                     {
-                        Console.WriteLine("You have selected to buy dark matter. How much gold would you like to buy? " +
+                        Console.WriteLine("You have selected to buy dark matter. How much dark matter would you like to buy? " +
                                           " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
@@ -395,19 +395,137 @@ namespace SpaceTradingGame
                 {
                     
                     case 1:
+                        do
+                        {
+                            Console.WriteLine(
+                                $"You have selected to sell Gold. You currently have {goodsQuantity[0]} peices of gold" +
+                                $"\n How many would you like to sell?");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity > goodsQuantity[0]);
+
+                        if (quantity > 0)
+                        {
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                player.RemoveCargo(gold.GetNameOfGood());
+                            }
+                            player.SetCredits(gold.GetPriceOfGood() * quantity);
+                        }
 
                         break;
                     case 2:
+                        do
+                        {
+                            Console.WriteLine(
+                                $"You have selected to sell Diamonds. You currently have {goodsQuantity[1]} peices of diamond" +
+                                $"\n How many would you like to sell?");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity > goodsQuantity[1]);
+
+                        if (quantity > 0)
+                        {
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                player.RemoveCargo(diamond.GetNameOfGood());
+                            }
+                            player.SetCredits(diamond.GetPriceOfGood() * quantity);
+                        }
+
                         break;
                     case 3:
+                        do
+                        {
+                            Console.WriteLine(
+                                $"You have selected to sell Uranium. You currently have {goodsQuantity[2]} peices of uranium" +
+                                $"\n How many would you like to sell?");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity > goodsQuantity[2]);
+
+                        if (quantity > 0)
+                        {
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                player.RemoveCargo(uranium.GetNameOfGood());
+                            }
+                            player.SetCredits(uranium.GetPriceOfGood() * quantity);
+                        }
+
                         break;
                     case 4:
+                        do
+                        {
+                            Console.WriteLine(
+                                $"You have selected to sell Oil. You currently have {goodsQuantity[3]} peices of oil" +
+                                $"\n How many would you like to sell?");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity > goodsQuantity[3]);
+
+                        if (quantity > 0)
+                        {
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                player.RemoveCargo(oil.GetNameOfGood());
+                            }
+                            player.SetCredits(oil.GetPriceOfGood() * quantity);
+                        }
+
                         break;
                     case 5:
+                        do
+                        {
+                            Console.WriteLine(
+                                $"You have selected to sell wood. You currently have {goodsQuantity[4]} peices of wood" +
+                                $"\n How many would you like to sell?");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity > goodsQuantity[4]);
+
+                        if (quantity > 0)
+                        {
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                player.RemoveCargo(wood.GetNameOfGood());
+                            }
+                            player.SetCredits(wood.GetPriceOfGood() * quantity);
+                        }
+
                         break;
                     case 6:
+                        do
+                        {
+                            Console.WriteLine(
+                                $"You have selected to sell Copper. You currently have {goodsQuantity[5]} peices of copper" +
+                                $"\n How many would you like to sell?");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity > goodsQuantity[5]);
+
+                        if (quantity > 0)
+                        {
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                player.RemoveCargo(copper.GetNameOfGood());
+                            }
+                            player.SetCredits(copper.GetPriceOfGood() * quantity);
+                        }
+
                         break;
                     case 7:
+                        do
+                        {
+                            Console.WriteLine(
+                                $"You have selected to sell Dark Matter. You currently have {goodsQuantity[6]} peices of dark matter" +
+                                $"\n How many would you like to sell?");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity > goodsQuantity[6]);
+
+                        if (quantity > 0)
+                        {
+                            for (int i = 0; i < quantity; i++)
+                            {
+                                player.RemoveCargo(darkMatter.GetNameOfGood());
+                            }
+                            player.SetCredits(darkMatter.GetPriceOfGood() * quantity);
+                        }
+
                         break;
                     case 8:
                         choice = DisplayInventory(player,goodsQuantity);
@@ -416,17 +534,8 @@ namespace SpaceTradingGame
                         choice = 0;
                         break;
                 }
-                if (choice == 8)
-                {
-                    DisplayInventory(player,goodsQuantity);
-                    
-                }
-                else if (choice == 1)
-                {
-                   
-
-                }
-            } while (choice < 0 || choice > 7);
+                
+            } while (choice < 0 || choice > 8);
 
             return choice;
         }

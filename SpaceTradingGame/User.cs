@@ -99,6 +99,11 @@ namespace SpaceTradingGame
                 cargo.Add(good);
         }
 
+        public void RemoveCargo(string good)
+        {
+            cargo.Remove(good);
+        }
+
 
     }
 }
