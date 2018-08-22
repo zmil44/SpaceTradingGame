@@ -221,9 +221,14 @@ namespace SpaceTradingGame
                                 }
                                 else
                                 {
-                                    Console.WriteLine("You do not have enough credits to purchase this ship");
+                                    Console.WriteLine("You do not have enough credits to purchase this ship" +
+                                                      ". Enter 0 to return to main screen");
+                                    string input = Console.ReadLine();
+
                                 }
 
+                                
+                                
                                 break;
                         }
 
@@ -244,7 +249,7 @@ namespace SpaceTradingGame
         {
             Console.WriteLine($"You have decided to retire. Over the course of your career, you have travelled for {player.GetUserTimeInYears()}" +
                               $" years and {player.GetUserDays()} days. \nYou started with 25,000 credits and you ended with {player.GetCredits()}" +
-                              $"credits with a net income of {player.GetTotalCreditsEarned()}");
+                              $" credits with a net income of {player.GetTotalCreditsEarned()}");
             Console.Read();
         }
 
@@ -302,7 +307,7 @@ namespace SpaceTradingGame
                 choice = GetInput();
                 if (choice == 8)
                 {
-                    choice = DisplayInventory(player, goodsQuantity);
+                    DisplayInventory(player, goodsQuantity);
 
                 }
                 else if (choice == 1)
@@ -649,7 +654,7 @@ namespace SpaceTradingGame
 
                         break;
                     case 8:
-                        choice = DisplayInventory(player,goodsQuantity);
+                        DisplayInventory(player,goodsQuantity);
                         break;
                     default:
                         choice = 0;
@@ -815,7 +820,7 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayInventory(User player,int[] goodsQuantity)
+        private void DisplayInventory(User player,int[] goodsQuantity)
         {
             ClearScreen();
             Console.WriteLine("Here is your current inventory. Press enter to continue");
@@ -845,10 +850,11 @@ namespace SpaceTradingGame
                         Console.WriteLine($"Quantity of Dark Matter: {goodsQuantity[i]}");
                         break;
                 }
+                
             }
+            Console.WriteLine("Enter 0 to close inventory");
+            string input = Console.ReadLine();
 
-            Console.Read();
-            return (0);
         }
 
   
