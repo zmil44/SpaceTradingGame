@@ -94,12 +94,9 @@ namespace SpaceTradingGame
             return cargo;
         }
 
-        public void AddCargo(string good, int cargoSpace)
+        public void AddCargo(string good)
         {
-            if (cargo.Count < cargoSpace)
-            {
                 cargo.Add(good);
-            }
         }
 
 
