@@ -64,6 +64,7 @@ namespace SpaceTradingGame
             WarpSpeed travel = new WarpSpeed();
             int choice;
             Ship currentShip= new Ship();
+            currentShip = simiyarLightFreighter;
             bool exit = false;
             do
             {
@@ -74,26 +75,7 @@ namespace SpaceTradingGame
                 {
                     exit = true;
                 }
-                switch (player.GetShipType())
-                {
-                    
-                    case "Trade Federation Cruiser":
-                        currentShip = tradeFederationCruiser;
-                        break;
-                    case "CR90 Corvette":
-                        currentShip = cr90Corvette;
-                        break;
-                    case "Millenuim Falcon":
-                        currentShip = milleniumFalcon;
-                        break;
-                    case "Imperial-Class Star Destroyer":
-                        currentShip = imperialStarDestroyer;
-                        break;
-                    default:
-                        currentShip = simiyarLightFreighter;
-                        break;
-                    
-                }
+ 
                 if (player.GetCurrentLocation() == "Earth")
                 {
                     gold.SetPriceOfGood(12000m);
@@ -156,7 +138,7 @@ namespace SpaceTradingGame
                         choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
                         break;
                     case 4:
-                        choice = DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer);
+                        choice = DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
                         switch (choice)
                         {
                             case 1:
@@ -794,7 +776,7 @@ namespace SpaceTradingGame
         }
 
         private int DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
-            imperialStarDestroyer)
+            imperialStarDestroyer, Ship currentShip)
         {
             int choice = -2;
             do
@@ -802,7 +784,7 @@ namespace SpaceTradingGame
                 ClearScreen();
                 Console.WriteLine(
                     "Welcome to the Joe's Ship Dealership. Here you are able to purchase a new ship while selling your current one." +
-                    $"\nYou currently have {player.GetCredits()} credits and the ship you currently own is {player.GetShipType()}\n Ships we currently have in stock are as follows: " +
+                    $"\nYou currently have {player.GetCredits()} credits and the ship you currently own is {currentShip.GetShipName()}\n Ships we currently have in stock are as follows: " +
                     $"\n1. Simiyar-Class Light Freighter \tPrice: {simiyarShip.GetShipCost()} credits\t Cargo Space: " +
                     $"{simiyarShip.GetCargoSpace()}\tMax warp speed: {simiyarShip.GetMaxWarpSpeed()}" +
                     $"\n2. Trade Federation Cruiser \t Price: {tradeFederationCruiser.GetShipCost()} credits\t Cargo Space: " +

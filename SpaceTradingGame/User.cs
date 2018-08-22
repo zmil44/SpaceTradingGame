@@ -39,11 +39,6 @@ namespace SpaceTradingGame
             return _name;
         }
 
-        public string GetShipType()
-        {
-            return _shipType;
-        }
-
 
         public decimal GetCredits()
         {
