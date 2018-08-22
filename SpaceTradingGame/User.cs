@@ -15,6 +15,8 @@ namespace SpaceTradingGame
         private double _time=0;
         private decimal _totalCreditsEarned=0;
         private string _currentLocation = "Earth";
+        private List<string> cargo = new List<string>();
+        private int maxCargoSpace = 50;
 
 
         public void CreateUser(string userName)
@@ -68,6 +70,16 @@ namespace SpaceTradingGame
             _totalCreditsEarned += creditsEarned;
         }
 
+        public int GetMaxCargo()
+        {
+            return maxCargoSpace;
+        }
+
+        public void SetMaxCargo(int maxCargo)
+        {
+            maxCargoSpace = maxCargo;
+        }
+
         public string GetCurrentLocation()
         {
             return _currentLocation;
@@ -76,6 +88,18 @@ namespace SpaceTradingGame
         public void SetCurrentLocation(string planet)
         {
             _currentLocation = planet;
+        }
+        public List<string> GetCurrentCargo()
+        {
+            return cargo;
+        }
+
+        public void AddCargo(string good, int cargoSpace)
+        {
+            if (cargo.Count < cargoSpace)
+            {
+                cargo.Add(good);
+            }
         }
 
 
