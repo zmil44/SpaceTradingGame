@@ -114,7 +114,7 @@ namespace SpaceTradingGame
                     case -1:
                         break;
                     case 1:
-                        choice = DisplayBuyMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter, );
+                        choice = DisplayBuyMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
                         break;
                     case 2:
                         choice = DisplaySellMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
@@ -166,8 +166,7 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter,
-        Ship currentShip)
+        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter)
         {
             int choice = -2;
             int quantity = 0;
@@ -199,7 +198,7 @@ namespace SpaceTradingGame
                         Console.WriteLine("You have selected to buy gold. How much gold would you like to buy? " +
                                           " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
                         quantity = GetInput();
-                    } while (quantity < 0 && quantity + player.GetCurrentCargo().Count < currentShip.GetCargoSpace());
+                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count < player.GetMaxCargo());
                 }
             } while (choice < 0 || choice > 7);
 
@@ -207,7 +206,7 @@ namespace SpaceTradingGame
         }
 
         private int DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
-            Goods darkMatter, Ship currentShip)
+            Goods darkMatter)
         {
             int choice = -1;
             int quantity = 0;
