@@ -42,7 +42,7 @@ namespace SpaceTradingGame
             Ship cr90Corvette = new Ship();
             cr90Corvette.CreateShip("CR90 Corvette", 750, 7, 125000);
             Ship milleniumFalcon = new Ship();
-            milleniumFalcon.CreateShip("Simiyar-Class Light Freighter", 50, 9, 400000);
+            milleniumFalcon.CreateShip("Millenuim Falcon", 50, 9, 400000);
             Ship imperialStarDestroyer = new Ship();
             imperialStarDestroyer.CreateShip("Imperial-Class Star Destroyer", 1000, 7, 500000);
 
@@ -64,9 +64,31 @@ namespace SpaceTradingGame
             //create warpSpeed
             WarpSpeed travel = new WarpSpeed();
             int choice = -2;
-
+            Ship currentShip= new Ship();
             do
             {
+                ClearScreen();
+                Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTime()}");
+                switch (player.GetShipType())
+                {
+                    
+                    case "Trade Federation Cruiser":
+                        currentShip = tradeFederationCruiser;
+                        break;
+                    case "CR90 Corvette":
+                        currentShip = cr90Corvette;
+                        break;
+                    case "Millenuim Falcon":
+                        currentShip = milleniumFalcon;
+                        break;
+                    case "Imperial-Class Star Destroyer":
+                        currentShip = imperialStarDestroyer;
+                        break;
+                    default:
+                        currentShip = simiyarLightFreighter;
+                        break;
+                    
+                }
                 if (player.GetCurrentLocation() == "Earth")
                 {
                     gold.SetPriceOfGood(12000m);
@@ -118,7 +140,7 @@ namespace SpaceTradingGame
                         choice = DisplaySellMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
                         break;
                     case 3:
-                        choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese);
+                        choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
                         break;
                     case 4:
                         choice = DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer);
@@ -540,9 +562,10 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese)
+        private int DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
         {
             int choice = -2;
+            int warpSpeed = 0;
             do
             {
                 ClearScreen();
@@ -553,6 +576,34 @@ namespace SpaceTradingGame
                         $"You can travel to \n1. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {alphaCentauri.GetDistanceToEarth()}" +
                         $"\n2. {gliese.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
                         $"\n0. return to previous menu");
+                    choice = GetInput();
+                    Console.Write("You have selected to travel to ");
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine(alphaCentauri.GetPlanetName());
+                            do
+                            {
+                                Console.Write(
+                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                warpSpeed = GetInput();
+                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+                            player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
+                            break;
+                        case 2:
+                            Console.WriteLine(gliese.GetPlanetName());
+                            do
+                            {
+                                Console.Write(
+                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                warpSpeed = GetInput();
+                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+                            player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
+                            break;
+                        
+                    }
                 }
                 else if (player.GetCurrentLocation() == alphaCentauri.GetPlanetName())
                 {
@@ -560,16 +611,73 @@ namespace SpaceTradingGame
                         $"You can travel to \n1. {earth.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {earth.GetDistanceToAlphaCentauri()}" +
                         $"\n2. {gliese.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToAlphaCentauri()}" +
                         $"\n0. Return to previous menu");
+                    choice = GetInput();
+                    Console.WriteLine("You have selected to travel to ");
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine(earth.GetPlanetName());
+                            do
+                            {
+                                Console.Write(
+                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                warpSpeed = GetInput();
+                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+                            player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
+                            break;
+                        case 2:
+                            Console.WriteLine(gliese.GetPlanetName());
+                            do
+                            {
+                                Console.Write(
+                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                warpSpeed = GetInput();
+                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+                            player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToGliese(), warpSpeed));
+                            break;
+                        
+                    }
                 }
                 else
                 {
                     Console.WriteLine(
-                        $"You can travel to \n1. {earth.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
-                        $"\n2. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {alphaCentauri.GetDistanceToGliese()}" +
+                        $"You can travel to \n1. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToAlphaCentauri()}" +
+                        $"\n2. {earth.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
                         $"\n0. return to previous menu");
+                    choice = GetInput();
+                    Console.WriteLine("You have selected to travel to ");
+                     switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine(alphaCentauri.GetPlanetName());
+                            do
+                            {
+                                Console.Write(
+                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                warpSpeed = GetInput();
+                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+                            player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToAlphaCentauri(), warpSpeed));
+                            break;
+                        case 2:
+                            Console.WriteLine(earth.GetPlanetName());
+                            do
+                            {
+                                Console.Write(
+                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                warpSpeed = GetInput();
+                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+                            player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
+                            break;
+                    }
                 }
 
-                choice = GetInput();
+
+
+                
             }while(choice<0||choice>2);
 
             return choice;
@@ -635,5 +743,7 @@ namespace SpaceTradingGame
             Console.Read();
             return (0);
         }
+
+  
     }
 }
