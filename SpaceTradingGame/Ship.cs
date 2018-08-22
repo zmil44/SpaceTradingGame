@@ -12,6 +12,7 @@ namespace SpaceTradingGame
         private int _shipCargoSpace;
         private int _shipMaxWarpSpeed;
         private int _shipCost;
+        private List<string> cargo = new List<string>();
         public void CreateShip(string name, int cargoSpace, int maxWarpSpeed, int cost)
         {
             _shipName = name;
@@ -39,7 +40,18 @@ namespace SpaceTradingGame
         {
             return _shipCost;
         }
+        public List<string> GetCurrentCargo()
+        {
+            return cargo;
+        }
 
+        public void AddCargo(string good, int cargoSpace)
+        {
+            if (cargo.Count < cargoSpace)
+            {
+                cargo.Add(good);
+            }
+        }
 
     }
 }

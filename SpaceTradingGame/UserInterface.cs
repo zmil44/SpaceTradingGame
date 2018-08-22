@@ -114,7 +114,7 @@ namespace SpaceTradingGame
                     case -1:
                         break;
                     case 1:
-                        choice = DisplayBuyMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
+                        choice = DisplayBuyMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter, );
                         break;
                     case 2:
                         choice = DisplaySellMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
@@ -166,9 +166,11 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter)
+        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter,
+        Ship currentShip)
         {
             int choice = -2;
+            int quantity = 0;
             do
             {
                 ClearScreen();
@@ -190,15 +192,25 @@ namespace SpaceTradingGame
                     DisplayInventory(player);
 
                 }
+                else if (choice == 1)
+                {
+                    do
+                    {
+                        Console.WriteLine("You have selected to buy gold. How much gold would you like to buy? " +
+                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                        quantity = GetInput();
+                    } while (quantity < 0 && quantity + player.GetCurrentCargo().Count < currentShip.GetCargoSpace());
+                }
             } while (choice < 0 || choice > 7);
 
             return choice;
         }
 
         private int DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
-            Goods darkMatter)
+            Goods darkMatter, Ship currentShip)
         {
             int choice = -1;
+            int quantity = 0;
             do
             {
                 ClearScreen();
@@ -219,6 +231,11 @@ namespace SpaceTradingGame
                     DisplayInventory(player);
                     
                 }
+                else if (choice == 1)
+                {
+                   
+
+                }
             } while (choice < 0 || choice > 7);
 
             return choice;
@@ -226,7 +243,7 @@ namespace SpaceTradingGame
 
         private int DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese)
         {
-            int choice = -1;
+            int choice = -2;
             do
             {
                 ClearScreen();
@@ -268,7 +285,7 @@ namespace SpaceTradingGame
                 ClearScreen();
                 Console.WriteLine(
                     "Welcome to the Joe's Ship Dealership. Here you are able to purchase a new ship while selling your current one." +
-                    $"\nYou currently have {player.GetCredits()} credits\n Ships we currently have in stock are as follows: " +
+                    $"\nYou currently have {player.GetCredits()} credits and the ship you currently own is {player.GetShipType()}\n Ships we currently have in stock are as follows: " +
                     $"\n1. Simiyar-Class Light Freighter \tPrice: {simiyarShip.GetShipCost()} credits\t Cargo Space: " +
                     $"{simiyarShip.GetCargoSpace()}\tMax warp speed: {simiyarShip.GetMaxWarpSpeed()}" +
                     $"\n2. Trade Federation Cruiser \t Price: {tradeFederationCruiser.GetShipCost()} credits\t Cargo Space: " +

@@ -10,12 +10,12 @@ namespace SpaceTradingGame
     class User
     {
         private string _name;
-        private string _shipType= "Simiyar-Class Light Freighter";
+        private string _shipType= "Simiyar Light Freighter";
         private decimal _credits=25000;
         private double _time=0;
         private decimal _totalCreditsEarned=0;
         private string _currentLocation = "Earth";
-        private List<string> cargo = new List<string>();
+
 
         public void CreateUser(string userName)
         {
@@ -78,17 +78,6 @@ namespace SpaceTradingGame
             _currentLocation = planet;
         }
 
-        public List<string> GetCurrentCargo()
-        {
-            return cargo;
-        }
 
-        public void AddCargo(string good, int cargoSpace)
-        {
-            if (cargo.Count < cargoSpace)
-            {
-                cargo.Add(good);
-            }
-        }
     }
 }
