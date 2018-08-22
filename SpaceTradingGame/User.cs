@@ -10,7 +10,6 @@ namespace SpaceTradingGame
     class User
     {
         private string _name;
-        private string _shipType= "Simiyar Light Freighter";
         private decimal _credits=25000;
         private int _timeInYears=0;
         private int _timeInDays=0;
@@ -45,10 +44,6 @@ namespace SpaceTradingGame
             return _shipType;
         }
 
-        public void SetShipType(string shipType)
-        {
-            _shipType = shipType;
-        }
 
         public decimal GetCredits()
         {
