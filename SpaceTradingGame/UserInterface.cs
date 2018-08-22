@@ -144,6 +144,34 @@ namespace SpaceTradingGame
                         break;
                     case 4:
                         choice = DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer);
+                        switch (choice)
+                        {
+                            case 1:
+                                player.SetCredits(currentShip.GetShipCost());
+                                currentShip = simiyarLightFreighter;
+                                player.SetCredits(-currentShip.GetShipCost());
+                                break;
+                            case 2:
+                                player.SetCredits(currentShip.GetShipCost());
+                                currentShip = tradeFederationCruiser;
+                                player.SetCredits(-currentShip.GetShipCost());
+                                break;
+                            case 3:
+                                player.SetCredits(currentShip.GetShipCost());
+                                currentShip = cr90Corvette;
+                                player.SetCredits(-currentShip.GetShipCost());
+                                break;
+                            case 4:
+                                player.SetCredits(currentShip.GetShipCost());
+                                currentShip = milleniumFalcon;
+                                player.SetCredits(-currentShip.GetShipCost());
+                                break;
+                            case 5:
+                                player.SetCredits(currentShip.GetShipCost());
+                                currentShip = imperialStarDestroyer;
+                                player.SetCredits(-currentShip.GetShipCost());
+                                break;
+                        }
                         break;
                     default:
                         choice = 0;
@@ -590,6 +618,7 @@ namespace SpaceTradingGame
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
+                            player.SetCurrentLocation(alphaCentauri.GetPlanetName());
                             break;
                         case 2:
                             Console.WriteLine(gliese.GetPlanetName());
@@ -601,6 +630,7 @@ namespace SpaceTradingGame
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
+                            player.SetCurrentLocation(gliese.GetPlanetName());
                             break;
                         
                     }
@@ -625,6 +655,7 @@ namespace SpaceTradingGame
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
+                            player.SetCurrentLocation(earth.GetPlanetName());
                             break;
                         case 2:
                             Console.WriteLine(gliese.GetPlanetName());
@@ -636,6 +667,7 @@ namespace SpaceTradingGame
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToGliese(), warpSpeed));
+                            player.SetCurrentLocation(gliese.GetPlanetName());
                             break;
                         
                     }
@@ -660,6 +692,7 @@ namespace SpaceTradingGame
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToAlphaCentauri(), warpSpeed));
+                            player.SetCurrentLocation(alphaCentauri.GetPlanetName());
                             break;
                         case 2:
                             Console.WriteLine(earth.GetPlanetName());
@@ -671,6 +704,7 @@ namespace SpaceTradingGame
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
+                            player.SetCurrentLocation(earth.GetPlanetName());
                             break;
                     }
                 }
@@ -700,7 +734,9 @@ namespace SpaceTradingGame
                     $"\n3. CR90 Corvette \t\t Price {cr90Corvette.GetShipCost()} credits\t Cargo Space: {cr90Corvette.GetCargoSpace()}" +
                     $"\tMax warp speed: {cr90Corvette.GetMaxWarpSpeed()}" +
                     $"\n4. Millenuim Falcon \t Price: {milleniumFalcon.GetShipCost()}\t Cargo Space: {milleniumFalcon.GetCargoSpace()}" +
-                    $"\tMax warp Speed: {milleniumFalcon.GetMaxWarpSpeed()}" +
+                    $"\tMax warp speed: {milleniumFalcon.GetMaxWarpSpeed()}" +
+                    $"\n5. Imperial-Class Star Destroyer\tPrice: {imperialStarDestroyer.GetShipCost()}\tCargo Space: {imperialStarDestroyer.GetCargoSpace()}" +
+                    $"\tMax warp speed {imperialStarDestroyer.GetMaxWarpSpeed()}" +
                     "\n0. Return to previous menu");
                 choice = GetInput();
             } while (choice < 0 || choice > 4);
