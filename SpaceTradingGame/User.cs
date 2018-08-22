@@ -12,12 +12,22 @@ namespace SpaceTradingGame
         private string _name;
         private string _shipType= "Simiyar Light Freighter";
         private decimal _credits=25000;
-        private double _time=0;
+        private int _timeInYears=0;
+        private int _timeInDays=0;
         private decimal _totalCreditsEarned=0;
         private string _currentLocation = "Earth";
-        private List<string> cargo = new List<string>();
-        private int maxCargoSpace = 50;
+        private List<string> _cargo = new List<string>();
+        private int _maxCargoSpace = 50;
 
+        public void CalculateYears()
+        {
+            if (_timeInDays > 365)
+            {
+                int years = _timeInDays/365;
+                _timeInYears += years;
+                _timeInDays -= 365*years;
+            }
+        }
 
         public void CreateUser(string userName)
         {
@@ -50,16 +60,20 @@ namespace SpaceTradingGame
             _credits += credits;
         }
 
-        public double GetUserTime()
+        public int GetUserDays()
         {
-            return _time;
+            return _timeInDays;
         }
 
-        public void SetUserTime(double userTime)
+        public void SetUserTime(int userTime)
         {
-            _time = userTime;
+            _timeInDays += userTime;
         }
 
+        public int GetUserTimeInYears()
+        {
+            return _timeInYears;
+        }
         public decimal GetTotalCreditsEarned()
         {
             return _totalCreditsEarned;
@@ -72,12 +86,12 @@ namespace SpaceTradingGame
 
         public int GetMaxCargo()
         {
-            return maxCargoSpace;
+            return _maxCargoSpace;
         }
 
         public void SetMaxCargo(int maxCargo)
         {
-            maxCargoSpace = maxCargo;
+            _maxCargoSpace = maxCargo;
         }
 
         public string GetCurrentLocation()
@@ -91,17 +105,17 @@ namespace SpaceTradingGame
         }
         public List<string> GetCurrentCargo()
         {
-            return cargo;
+            return _cargo;
         }
 
         public void AddCargo(string good)
         {
-                cargo.Add(good);
+                _cargo.Add(good);
         }
 
         public void RemoveCargo(string good)
         {
-            cargo.Remove(good);
+            _cargo.Remove(good);
         }
 
 

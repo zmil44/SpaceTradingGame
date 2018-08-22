@@ -10,12 +10,13 @@ namespace SpaceTradingGame
     {
         private double velocity;
         private int days;
+
         private double distance;
 
         public int GetTimeTravelled(double distance, int warpSpeedFactor)
         {
             CalculateVelocity(warpSpeedFactor);
-            days = Convert.ToInt32((distance*velocity)/365);
+            days = Convert.ToInt32((distance/velocity)*(365));
             return days;
         }
 

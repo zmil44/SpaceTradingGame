@@ -63,12 +63,18 @@ namespace SpaceTradingGame
 
             //create warpSpeed
             WarpSpeed travel = new WarpSpeed();
-            int choice = -2;
+            int choice;
             Ship currentShip= new Ship();
+            bool exit = false;
             do
             {
+                choice = -2;
                 ClearScreen();
-                
+                player.CalculateYears();
+                if (player.GetUserTimeInYears() >= 40)
+                {
+                    exit = true;
+                }
                 switch (player.GetShipType())
                 {
                     
@@ -122,18 +128,24 @@ namespace SpaceTradingGame
 
                 do
                 {
-                        ClearScreen();
-                    Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTime()}");
+                    if (player.GetUserTimeInYears() >= 40)
+                    {
+                        break;
+                    }
+                    
+                    ClearScreen();
+                    Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTimeInYears()} years and {player.GetUserDays()} days");
                     Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
                     Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
                                           "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n-1. Quit");
-                        choice = GetInput();
+                    choice = GetInput();
 
                 } while ( choice<-1 || choice > 4|| choice==0  );
 
                 switch (choice)
                 {
                     case -1:
+                        exit = true;
                         break;
                     case 1:
                         choice = DisplayBuyMenu(player, gold, diamond,uranium, oil, wood, copper, darkMatter);
@@ -223,9 +235,18 @@ namespace SpaceTradingGame
                 }
 
 
-            } while (choice != -1 || player.GetUserTime() > 40 ||
-                     (player.GetCredits() == 0 && player.GetCurrentCargo().Count == 0));
+            } while (exit==false);
 
+            displayEnd(player);
+
+        }
+
+        private void displayEnd(User player)
+        {
+            Console.WriteLine($"You have decided to retire. Over the course of your career, you have travelled for {player.GetUserTimeInYears()}" +
+                              $" years and {player.GetUserDays()} days. \nYou started with 25,000 credits and you ended with {player.GetCredits()}" +
+                              $"credits with a net income of {player.GetTotalCreditsEarned()}");
+            Console.Read();
         }
 
         private void ClearScreen()
