@@ -68,7 +68,7 @@ namespace SpaceTradingGame
             do
             {
                 ClearScreen();
-                Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTime()}");
+                
                 switch (player.GetShipType())
                 {
                     
@@ -123,7 +123,9 @@ namespace SpaceTradingGame
                 do
                 {
                         ClearScreen();
-                        Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
+                    Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTime()}");
+                    Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
+                    Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
                                           "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n-1. Quit");
                         choice = GetInput();
 
@@ -134,10 +136,10 @@ namespace SpaceTradingGame
                     case -1:
                         break;
                     case 1:
-                        choice = DisplayBuyMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
+                        choice = DisplayBuyMenu(player, gold, diamond,uranium, oil, wood, copper, darkMatter);
                         break;
                     case 2:
-                        choice = DisplaySellMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
+                        choice = DisplaySellMenu(player, gold, diamond, uranium, oil, wood, copper, darkMatter);
                         break;
                     case 3:
                         choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
@@ -147,31 +149,73 @@ namespace SpaceTradingGame
                         switch (choice)
                         {
                             case 1:
-                                player.SetCredits(currentShip.GetShipCost());
-                                currentShip = simiyarLightFreighter;
-                                player.SetCredits(-currentShip.GetShipCost());
+                                if (player.GetCredits() >= simiyarLightFreighter.GetShipCost())
+                                {
+                                    player.SetCredits(currentShip.GetShipCost());
+                                    currentShip = simiyarLightFreighter;
+                                    player.SetCredits(-currentShip.GetShipCost());
+                                    player.SetMaxCargo(currentShip.GetCargoSpace());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You do not have enough credits to purchase this ship");
+                                }
                                 break;
                             case 2:
-                                player.SetCredits(currentShip.GetShipCost());
-                                currentShip = tradeFederationCruiser;
-                                player.SetCredits(-currentShip.GetShipCost());
+                                if (player.GetCredits() >= tradeFederationCruiser.GetShipCost())
+                                {
+                                    player.SetCredits(currentShip.GetShipCost());
+                                    currentShip = tradeFederationCruiser;
+                                    player.SetCredits(-currentShip.GetShipCost());
+                                    player.SetMaxCargo(currentShip.GetCargoSpace());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You do not have enough credits to purchase this ship");
+                                }
                                 break;
                             case 3:
-                                player.SetCredits(currentShip.GetShipCost());
-                                currentShip = cr90Corvette;
-                                player.SetCredits(-currentShip.GetShipCost());
+                                if (player.GetCredits() >= cr90Corvette.GetShipCost())
+                                {
+                                    player.SetCredits(currentShip.GetShipCost());
+                                    currentShip = cr90Corvette;
+                                    player.SetCredits(-currentShip.GetShipCost());
+                                    player.SetMaxCargo(currentShip.GetCargoSpace());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You do not have enough credits to purchase this ship");
+                                }
                                 break;
                             case 4:
-                                player.SetCredits(currentShip.GetShipCost());
-                                currentShip = milleniumFalcon;
-                                player.SetCredits(-currentShip.GetShipCost());
+                                if (player.GetCredits() >= milleniumFalcon.GetShipCost())
+                                {
+                                    player.SetCredits(currentShip.GetShipCost());
+                                    currentShip = milleniumFalcon;
+                                    player.SetCredits(-currentShip.GetShipCost());
+                                    player.SetMaxCargo(currentShip.GetCargoSpace());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You do not have enough credits to purchase this ship");
+                                }
                                 break;
                             case 5:
-                                player.SetCredits(currentShip.GetShipCost());
-                                currentShip = imperialStarDestroyer;
-                                player.SetCredits(-currentShip.GetShipCost());
+                                if (player.GetCredits() >= imperialStarDestroyer.GetShipCost())
+                                {
+                                    player.SetCredits(currentShip.GetShipCost());
+                                    currentShip = imperialStarDestroyer;
+                                    player.SetCredits(-currentShip.GetShipCost());
+                                    player.SetMaxCargo(currentShip.GetCargoSpace());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You do not have enough credits to purchase this ship");
+                                }
+
                                 break;
                         }
+
                         break;
                     default:
                         choice = 0;
@@ -438,8 +482,8 @@ namespace SpaceTradingGame
                                   $"\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
                                   $"\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
                                   $"\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
-                                  $"\n8. Display current inventory" +
-                                  "\n 0 to return to original screen");
+                                  $"\n 8. Display current inventory" +
+                                  "\n 0. to return to original screen");
                 choice = GetInput();
                 switch (choice)
                 {
@@ -614,7 +658,7 @@ namespace SpaceTradingGame
                             {
                                 Console.Write(
                                     ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                     $"{currentShip.GetMaxWarpSpeed()}: "));
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
@@ -626,7 +670,7 @@ namespace SpaceTradingGame
                             {
                                 Console.Write(
                                     ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                     $"{currentShip.GetMaxWarpSpeed()}: "));
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
@@ -651,7 +695,7 @@ namespace SpaceTradingGame
                             {
                                 Console.Write(
                                     ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                     $"{currentShip.GetMaxWarpSpeed()}: "));
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
@@ -663,7 +707,7 @@ namespace SpaceTradingGame
                             {
                                 Console.Write(
                                     ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                     $"{currentShip.GetMaxWarpSpeed()}: "));
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToGliese(), warpSpeed));
@@ -688,7 +732,7 @@ namespace SpaceTradingGame
                             {
                                 Console.Write(
                                     ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                     $"{currentShip.GetMaxWarpSpeed()}: "));
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToAlphaCentauri(), warpSpeed));
@@ -700,7 +744,7 @@ namespace SpaceTradingGame
                             {
                                 Console.Write(
                                     ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}"));
+                                     $"{currentShip.GetMaxWarpSpeed()}: "));
                                 warpSpeed = GetInput();
                             } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
                             player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
@@ -739,7 +783,7 @@ namespace SpaceTradingGame
                     $"\tMax warp speed {imperialStarDestroyer.GetMaxWarpSpeed()}" +
                     "\n0. Return to previous menu");
                 choice = GetInput();
-            } while (choice < 0 || choice > 4);
+            } while (choice < 0 || choice > 5);
 
             return choice;
         }
