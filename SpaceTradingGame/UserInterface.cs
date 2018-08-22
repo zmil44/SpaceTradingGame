@@ -188,7 +188,7 @@ namespace SpaceTradingGame
                 choice = GetInput();
                 if (choice == 8)
                 {
-                    DisplayInventory(player);
+                    choice = DisplayInventory(player);
 
                 }
                 else if (choice == 1)
@@ -331,7 +331,7 @@ namespace SpaceTradingGame
                         player.SetCredits(-(darkMatter.GetPriceOfGood() * quantity));
                     }
                 }
-            } while (choice < 0 || choice > 7);
+            } while (choice < 0 || choice > 8);
             
 
             return choice;
@@ -357,6 +357,31 @@ namespace SpaceTradingGame
                                   $"\n8. Display current inventory" +
                                   "\n 0 to return to original screen");
                 choice = GetInput();
+                switch (choice)
+                {
+                    
+                    case 1:
+
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        choice = DisplayInventory(player);
+                        break;
+                    default:
+                        choice = 0;
+                        break;
+                }
                 if (choice == 8)
                 {
                     DisplayInventory(player);
@@ -432,7 +457,7 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private void DisplayInventory(User player)
+        private int DisplayInventory(User player)
         {
             ClearScreen();
             Console.WriteLine("Here is your current inventory. Press enter to continue");
@@ -442,6 +467,7 @@ namespace SpaceTradingGame
             }
 
             Console.Read();
+            return (0);
         }
     }
 }
