@@ -104,13 +104,15 @@ namespace SpaceTradingGame
                 {
                         ClearScreen();
                         Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
-                                          "1. Buy \n2. Sell\n3. Travel\n-1. Quit");
+                                          "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n-1. Quit");
                         choice = GetInput();
 
-                } while ( choice<-1 || choice > 3|| choice==0  );
+                } while ( choice<-1 || choice > 4|| choice==0  );
 
                 switch (choice)
                 {
+                    case -1:
+                        break;
                     case 1:
                         choice = DisplayBuyMenu(player, gold, uranium, diamond, oil, wood, copper, darkMatter);
                         break;
@@ -119,6 +121,9 @@ namespace SpaceTradingGame
                         break;
                     case 3:
                         choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese);
+                        break;
+                    case 4:
+                        choice = DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer);
                         break;
                     default:
                         choice = 0;
@@ -257,6 +262,14 @@ namespace SpaceTradingGame
             }while(choice<0||choice>2);
 
             return choice;
+        }
+
+        private int DisplayShipBuyMenu(User player, Ship simiyanShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
+            imperialStarDestroyer)
+        {
+            int choice = -2;
+
+            return choice
         }
 
         private void DisplayInventory(User player)
