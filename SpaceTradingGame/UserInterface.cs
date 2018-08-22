@@ -54,8 +54,6 @@ namespace SpaceTradingGame
             Planet gliese = new Planet();
             gliese.CreatePlanet("Gliese", "Plo Koon", 23.62, 24.02, 0);
 
-            //create trade 
-            Trade userTrade = new Trade();
 
             //Create user
             Console.Write("\nPlease enter your name: ");
@@ -170,8 +168,10 @@ namespace SpaceTradingGame
         {
             int choice = -2;
             int quantity = 0;
+            int [] goodsQuantity = new int[7] {0,0,0,0,0,0,0};
             do
             {
+                GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
                 Console.WriteLine("What goods would you like to buy? " +
                                   "\nEnter the corresponding number to decide: " +
@@ -188,7 +188,7 @@ namespace SpaceTradingGame
                 choice = GetInput();
                 if (choice == 8)
                 {
-                    choice = DisplayInventory(player);
+                    choice = DisplayInventory(player, goodsQuantity);
 
                 }
                 else if (choice == 1)
@@ -337,13 +337,47 @@ namespace SpaceTradingGame
             return choice;
         }
 
+        private void GetCurrentInventoryQuantities(int[] goodsQuantity, User player)
+        {
+            for (int i = 0; i < player.GetCurrentCargo().Count; i++)
+            {
+                switch (player.GetCurrentCargo()[i])
+                {
+                    case "Gold":
+                        goodsQuantity[0] += 1;
+                        break;
+                    case "Diamond":
+                        goodsQuantity[1] += 1;
+                        break;
+                    case "Uranium":
+                        goodsQuantity[2] += 1;
+                        break;
+                    case "Oil":
+                        goodsQuantity[3] += 1;
+                        break;
+                    case "Wood":
+                        goodsQuantity[4] += 1;
+                        break;
+                    case "Copper":
+                        goodsQuantity[5] += 1;
+                        break;
+                    case "Dark Matter":
+                        goodsQuantity[6] += 1;
+                        break;
+                }
+            }
+            
+        }
+
         private int DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
             Goods darkMatter)
         {
             int choice = -1;
             int quantity = 0;
+            int [] goodsQuantity = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
             do
             {
+                GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
                 Console.WriteLine("What goods would you like to sell? " +
                                   "\nEnter the corresponding number to decide: " +
@@ -376,7 +410,7 @@ namespace SpaceTradingGame
                     case 7:
                         break;
                     case 8:
-                        choice = DisplayInventory(player);
+                        choice = DisplayInventory(player,goodsQuantity);
                         break;
                     default:
                         choice = 0;
@@ -384,7 +418,7 @@ namespace SpaceTradingGame
                 }
                 if (choice == 8)
                 {
-                    DisplayInventory(player);
+                    DisplayInventory(player,goodsQuantity);
                     
                 }
                 else if (choice == 1)
@@ -457,13 +491,36 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayInventory(User player)
+        private int DisplayInventory(User player,int[] goodsQuantity)
         {
             ClearScreen();
             Console.WriteLine("Here is your current inventory. Press enter to continue");
-            foreach (var item in player.GetCurrentCargo())
+            for (int i = 0; i < 7; i++)
             {
-                Console.WriteLine(item);
+                switch (i)
+                {
+                    case 0:
+                        Console.WriteLine($"Quantity of Gold: {goodsQuantity[i]}");
+                        break;
+                    case 1:
+                        Console.WriteLine($"Quantity of Diamond: {goodsQuantity[i]}");
+                        break;
+                    case 2:
+                        Console.WriteLine($"Quantity of Uranium: {goodsQuantity[i]}");
+                        break;
+                    case 3:
+                        Console.WriteLine($"Quantity of Oil: {goodsQuantity[i]}");
+                        break;
+                    case 4:
+                        Console.WriteLine($"Quantity of Wood: {goodsQuantity[i]}");
+                        break;
+                    case 5:
+                        Console.WriteLine($"Quantity of Copper: {goodsQuantity[i]}");
+                        break;
+                    case 6:
+                        Console.WriteLine($"Quantity of Dark Matter: {goodsQuantity[i]}");
+                        break;
+                }
             }
 
             Console.Read();
