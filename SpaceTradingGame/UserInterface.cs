@@ -223,7 +223,7 @@ namespace SpaceTradingGame
                 }
 
 
-            } while (choice != -1 || player.GetUserTime() < 40 ||
+            } while (choice != -1 || player.GetUserTime() > 40 ||
                      (player.GetCredits() == 0 && player.GetCurrentCargo().Count == 0));
 
         }
@@ -504,6 +504,7 @@ namespace SpaceTradingGame
                                 player.RemoveCargo(gold.GetNameOfGood());
                             }
                             player.SetCredits(gold.GetPriceOfGood() * quantity);
+                            player.SetTotalCreditsEarned(gold.GetPriceOfGood()*quantity);
                         }
 
                         break;
@@ -523,6 +524,7 @@ namespace SpaceTradingGame
                                 player.RemoveCargo(diamond.GetNameOfGood());
                             }
                             player.SetCredits(diamond.GetPriceOfGood() * quantity);
+                            player.SetTotalCreditsEarned(diamond.GetPriceOfGood() * quantity);
                         }
 
                         break;
@@ -542,6 +544,7 @@ namespace SpaceTradingGame
                                 player.RemoveCargo(uranium.GetNameOfGood());
                             }
                             player.SetCredits(uranium.GetPriceOfGood() * quantity);
+                            player.SetTotalCreditsEarned(uranium.GetPriceOfGood() * quantity);
                         }
 
                         break;
@@ -561,6 +564,7 @@ namespace SpaceTradingGame
                                 player.RemoveCargo(oil.GetNameOfGood());
                             }
                             player.SetCredits(oil.GetPriceOfGood() * quantity);
+                            player.SetTotalCreditsEarned(oil.GetPriceOfGood() * quantity);
                         }
 
                         break;
@@ -580,6 +584,7 @@ namespace SpaceTradingGame
                                 player.RemoveCargo(wood.GetNameOfGood());
                             }
                             player.SetCredits(wood.GetPriceOfGood() * quantity);
+                            player.SetTotalCreditsEarned(wood.GetPriceOfGood() * quantity);
                         }
 
                         break;
@@ -599,6 +604,7 @@ namespace SpaceTradingGame
                                 player.RemoveCargo(copper.GetNameOfGood());
                             }
                             player.SetCredits(copper.GetPriceOfGood() * quantity);
+                            player.SetTotalCreditsEarned(copper.GetPriceOfGood() * quantity);
                         }
 
                         break;
@@ -618,6 +624,7 @@ namespace SpaceTradingGame
                                 player.RemoveCargo(darkMatter.GetNameOfGood());
                             }
                             player.SetCredits(darkMatter.GetPriceOfGood() * quantity);
+                            player.SetTotalCreditsEarned(darkMatter.GetPriceOfGood() * quantity);
                         }
 
                         break;
