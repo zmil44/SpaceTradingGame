@@ -277,7 +277,7 @@ namespace SpaceTradingGame
             {
                 GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
-                Console.WriteLine($"{currentPlanet.GetTraderName()} says \"What goods would you like to buy from me?\" " +
+                Console.WriteLine($"{currentPlanet.GetTraderName()} says \"Greetings {player.GetUserName()}. What goods would you like to buy from me?\" " +
                                   "\nEnter the corresponding number to decide: " +
                                   $"\n You currently have {player.GetCredits()} credits" +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
@@ -483,7 +483,7 @@ namespace SpaceTradingGame
             {
                 GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
-                Console.WriteLine($"{currentPlanet.GetTraderName()} says  \"What goods would you like to sell to me?\" " +
+                Console.WriteLine($"{currentPlanet.GetTraderName()} says  \"Greetings, {player.GetUserName()}. What goods would you like to sell to me?\" " +
                                   "\nEnter the corresponding number to decide: " +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
                                   $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
@@ -786,7 +786,7 @@ namespace SpaceTradingGame
             {
                 ClearScreen();
                 Console.WriteLine(
-                    "Welcome to the Joe's Ship Dealership. Here you are able to purchase a new ship while selling your current one." +
+                    $"Welcome, {player.GetUserName()} to Joe's Spaceship Dealership. Here you are able to purchase a new ship while selling your current one." +
                     $"\nYou currently have {player.GetCredits()} credits and the ship you currently own is {currentShip.GetShipName()}\n Ships we currently have in stock are as follows: " +
                     $"\n1. Simiyar-Class Light Freighter \tPrice: {simiyarShip.GetShipCost()} credits\t Cargo Space: " +
                     $"{simiyarShip.GetCargoSpace()}\tMax warp speed: {simiyarShip.GetMaxWarpSpeed()}" +
