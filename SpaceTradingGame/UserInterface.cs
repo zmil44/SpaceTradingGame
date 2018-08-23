@@ -279,9 +279,10 @@ namespace SpaceTradingGame
             {
                 GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
+                int cargoSpaceAvailble = player.GetMaxCargo() - player.GetCurrentCargo().Count;
                 Console.WriteLine($"{currentPlanet.GetTraderName()} says \"Greetings {player.GetUserName()}. What goods would you like to buy from me?\" " +
                                   "\nEnter the corresponding number to decide: " +
-                                  $"\n You currently have {player.GetCredits()} credits" +
+                                  $"\n You currently have {player.GetCredits()} credits and have {cargoSpaceAvailble} spaces of cargo available" +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
                                   $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
                                   $"\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
