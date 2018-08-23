@@ -232,9 +232,11 @@ namespace SpaceTradingGame
 
         private void displayEnd(User player)
         {
+            decimal netIncome =  player.GetCredits()-25000;
+
             Console.WriteLine($"You have decided to retire. Over the course of your career, you have travelled for {player.GetUserTimeInYears()}" +
                               $" years and {player.GetUserDays()} days. \nYou started with 25,000 credits and you ended with {player.GetCredits()}" +
-                              $" credits with a net income of {player.GetTotalCreditsEarned()}");
+                              $" credits with a net income of {netIncome} credits.");
             Console.Read();
         }
 
