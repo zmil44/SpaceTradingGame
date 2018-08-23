@@ -78,6 +78,7 @@ namespace SpaceTradingGame
  
                 if (player.GetCurrentLocation() == "Earth")
                 {
+                    player.SetCurrentPlanet(earth);
                     gold.SetPriceOfGood(12000m);
                     diamond.SetPriceOfGood(1400m);
                     uranium.SetPriceOfGood(70m);
@@ -88,6 +89,7 @@ namespace SpaceTradingGame
                 }
                 else if (player.GetCurrentLocation() == "Gliese")
                 {
+                    player.SetCurrentPlanet(gliese);
                     gold.SetPriceOfGood(3585m);
                     diamond.SetPriceOfGood(600m);
                     uranium.SetPriceOfGood(200m);
@@ -98,6 +100,7 @@ namespace SpaceTradingGame
                 }
                 else
                 {
+                    player.SetCurrentPlanet(alphaCentauri);
                     gold.SetPriceOfGood(12000m);
                     diamond.SetPriceOfGood(3000m);
                     uranium.SetPriceOfGood(70m);
@@ -129,10 +132,10 @@ namespace SpaceTradingGame
                         exit = true;
                         break;
                     case 1:
-                        choice = DisplayBuyMenu(player, gold, diamond,uranium, oil, wood, copper, darkMatter);
+                        choice = DisplayBuyMenu(player, gold, diamond,uranium, oil, wood, copper, darkMatter,player.GetCurrentPlanet());
                         break;
                     case 2:
-                        choice = DisplaySellMenu(player, gold, diamond, uranium, oil, wood, copper, darkMatter);
+                        choice = DisplaySellMenu(player, gold, diamond, uranium, oil, wood, copper, darkMatter, player.GetCurrentPlanet());
                         break;
                     case 3:
                         choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
@@ -265,7 +268,7 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter)
+        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter,Planet currentPlanet)
         {
             int choice = -2;
             int quantity = 0;
@@ -274,7 +277,7 @@ namespace SpaceTradingGame
             {
                 GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
-                Console.WriteLine("What goods would you like to buy? " +
+                Console.WriteLine($"{currentPlanet.GetTraderName()} says \"What goods would you like to buy from me?\" " +
                                   "\nEnter the corresponding number to decide: " +
                                   $"\n You currently have {player.GetCredits()} credits" +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
@@ -471,7 +474,7 @@ namespace SpaceTradingGame
         }
 
         private int DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
-            Goods darkMatter)
+            Goods darkMatter,Planet currentPlanet)
         {
             int choice = -1;
             int quantity = 0;
@@ -480,7 +483,7 @@ namespace SpaceTradingGame
             {
                 GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
-                Console.WriteLine("What goods would you like to sell? " +
+                Console.WriteLine($"{currentPlanet.GetTraderName()} says  \"What goods would you like to sell to me?\" " +
                                   "\nEnter the corresponding number to decide: " +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
                                   $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +

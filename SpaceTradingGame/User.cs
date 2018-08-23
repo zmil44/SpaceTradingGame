@@ -17,7 +17,17 @@ namespace SpaceTradingGame
         private string _currentLocation = "Earth";
         private List<string> _cargo = new List<string>();
         private int _maxCargoSpace = 50;
+        private Planet currentPlanet = new Planet();
 
+        public void SetCurrentPlanet(Planet current)
+        {
+            currentPlanet = current;
+        }
+
+        public Planet GetCurrentPlanet()
+        {
+            return currentPlanet;
+        }
         public void CalculateYears()
         {
             if (_timeInDays > 365)
