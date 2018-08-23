@@ -6,7 +6,7 @@ namespace SpaceTradingGame
 {
     class UserInterface
     {
-        public void RunUserInterface()
+        public  UserInterface()
         {
             //create and display story
             new Story();
