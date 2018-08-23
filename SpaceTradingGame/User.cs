@@ -17,16 +17,16 @@ namespace SpaceTradingGame
         private string _currentLocation = "Earth";
         private List<string> _cargo = new List<string>();
         private int _maxCargoSpace = 50;
-        private Planet currentPlanet = new Planet();
+        private Planet _currentPlanet;
 
         public void SetCurrentPlanet(Planet current)
         {
-            currentPlanet = current;
+            _currentPlanet = current;
         }
 
         public Planet GetCurrentPlanet()
         {
-            return currentPlanet;
+            return _currentPlanet;
         }
         public void CalculateYears()
         {
