@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SpaceTradingGame
 {
     class Ship
     {
-        private string _shipName;
-        private int _shipCargoSpace;
-        private int _shipMaxWarpSpeed;
-        private int _shipCost;
+        private readonly string _shipName;
+        private readonly int _shipCargoSpace;
+        private readonly int _shipMaxWarpSpeed;
+        private readonly int _shipCost;
 
         public Ship(string name, int cargoSpace, int maxWarpSpeed, int cost)
         {

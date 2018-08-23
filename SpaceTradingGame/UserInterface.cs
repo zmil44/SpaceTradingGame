@@ -1,10 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System;
+
+
 
 namespace SpaceTradingGame
 {
@@ -13,45 +9,45 @@ namespace SpaceTradingGame
         public void RunUserInterface()
         {
             //create and display story
-            Story userStory = new Story();
+            new Story();
 
 
             //create goods
-            Goods gold = new Goods("Gold", 12000m);
-            Goods diamond = new Goods("Diamond", 1400m);
-            Goods uranium = new Goods("Uranium", 70m);
-            Goods oil = new Goods("Oil", 66.30m);
-            Goods wood = new Goods("Wood", 10m);
-            Goods copper = new Goods("Copper", 2.50m);
-            Goods darkMatter = new Goods("Dark Matter", 450000m);
+            var gold = new Goods("Gold", 12000m);
+            var diamond = new Goods("Diamond", 1400m);
+            var uranium = new Goods("Uranium", 70m);
+            var oil = new Goods("Oil", 66.30m);
+            var wood = new Goods("Wood", 10m);
+            var copper = new Goods("Copper", 2.50m);
+            var darkMatter = new Goods("Dark Matter", 450000m);
 
             //Create ships
-            Ship simiyarLightFreighter = new Ship("Simiyar-Class Light Freighter", 50, 3, 25000);
-            Ship tradeFederationCruiser = new Ship("Trade Federation Cruiser", 300, 4, 75000);
-            Ship cr90Corvette = new Ship("CR90 Corvette", 750, 7, 125000);
-            Ship milleniumFalcon = new Ship("Millenuim Falcon", 50, 9, 400000);
-            Ship imperialStarDestroyer = new Ship("Imperial-Class Star Destroyer", 1000, 7, 500000);
+            var simiyarLightFreighter = new Ship("Simiyar-Class Light Freighter", 50, 3, 25000);
+            var tradeFederationCruiser = new Ship("Trade Federation Cruiser", 300, 4, 75000);
+            var cr90Corvette = new Ship("CR90 Corvette", 750, 7, 125000);
+            var milleniumFalcon = new Ship("Millenuim Falcon", 50, 9, 400000);
+            var imperialStarDestroyer = new Ship("Imperial-Class Star Destroyer", 1000, 7, 500000);
 
             //Create Planets
-            Planet earth = new Planet("Earth", "Mace Windu", 0, 4.367, 23.62);
-            Planet alphaCentauri = new Planet("Aplha Centauri", "Yoda", 4.367, 0, 24.02);
-            Planet gliese = new Planet("Gliese", "Plo Koon", 23.62, 24.02, 0);
+            var earth = new Planet("Earth", "Mace Windu", 0, 4.367, 23.62);
+            var alphaCentauri = new Planet("Aplha Centauri", "Yoda", 4.367, 0, 24.02);
+            var gliese = new Planet("Gliese", "Plo Koon", 23.62, 24.02, 0);
 
 
             //Create user
             Console.Write("\nPlease enter your name: ");
-            User player = new User(Console.ReadLine());
+            var player = new User(Console.ReadLine());
             
 
             //create warpSpeed
-            WarpSpeed travel = new WarpSpeed();
+            var travel = new WarpSpeed();
             
-            Ship currentShip= simiyarLightFreighter;
-            bool exit = false;
+            var currentShip= simiyarLightFreighter;
+            var exit = false;
             do
             {
                 var choice = -2;
-                ClearScreen();
+                Console.Clear();
                 player.CalculateYears();
                 if (player.GetUserTimeInYears() >= 40)
                 {
@@ -99,7 +95,7 @@ namespace SpaceTradingGame
                         break;
                     }
                     
-                    ClearScreen();
+                    Console.Clear();
                     Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTimeInYears()} years and {player.GetUserDays()} days");
                     Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
                     Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
@@ -114,13 +110,13 @@ namespace SpaceTradingGame
                         exit = true;
                         break;
                     case 1:
-                        choice = DisplayBuyMenu(player, gold, diamond,uranium, oil, wood, copper, darkMatter,player.GetCurrentPlanet());
+                        DisplayBuyMenu(player, gold, diamond,uranium, oil, wood, copper, darkMatter,player.GetCurrentPlanet());
                         break;
                     case 2:
-                        choice = DisplaySellMenu(player, gold, diamond, uranium, oil, wood, copper, darkMatter, player.GetCurrentPlanet());
+                        DisplaySellMenu(player, gold, diamond, uranium, oil, wood, copper, darkMatter, player.GetCurrentPlanet());
                         break;
                     case 3:
-                        choice = DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
+                        DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
                         break;
                     case 4:
                         choice = DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
@@ -190,31 +186,25 @@ namespace SpaceTradingGame
                                 {
                                     Console.WriteLine("You do not have enough credits to purchase this ship" +
                                                       ". Enter 0 to return to main screen");
-                                    string input = Console.ReadLine();
+                                    Console.ReadLine();
 
                                 }
-
-                                
-                                
                                 break;
                         }
+                        break;
 
-                        break;
-                    default:
-                        choice = 0;
-                        break;
                 }
 
 
             } while (exit==false);
 
-            displayEnd(player);
+            DisplayEnd(player);
 
         }
 
-        private void displayEnd(User player)
+        private static void DisplayEnd(User player)
         {
-            decimal netIncome =  player.GetCredits()-25000;
+            var netIncome =  player.GetCredits()-25000;
 
             Console.WriteLine($"You have decided to retire. Over the course of your career, you have travelled for {player.GetUserTimeInYears()}" +
                               $" years and {player.GetUserDays()} days. \nYou started with 25,000 credits and you ended with {player.GetCredits()}" +
@@ -222,15 +212,12 @@ namespace SpaceTradingGame
             Console.Read();
         }
 
-        private void ClearScreen()
-        {
-            Console.Clear();
-        }
+ 
 
-        private int GetInput()
+        private static int GetInput()
         {
-            int choice=-2;
-            bool badInput=false;
+            var choice=-2;
+            bool badInput;
             do
             {
                 try
@@ -239,7 +226,7 @@ namespace SpaceTradingGame
                     badInput = false;
 
                 }
-                catch (FormatException e)
+                catch (FormatException)
                 {
                     Console.WriteLine("Im sorry you did not enter a valid input. Please try again.");
                     badInput = true;
@@ -249,15 +236,15 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter,Planet currentPlanet)
+        private static void DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter,Planet currentPlanet)
         {
             int choice;
-            int [] goodsQuantity = new int[7] {0,0,0,0,0,0,0};
+            var goodsQuantity = new int[7] {0,0,0,0,0,0,0};
             do
             {
                 int quantity;
                 GetCurrentInventoryQuantities(goodsQuantity,player);
-                ClearScreen();
+                Console.Clear();
                 var cargoSpaceAvailble = player.GetMaxCargo() - player.GetCurrentCargo().Count;
                 Console.WriteLine($"{currentPlanet.GetTraderName()} says \"Greetings {player.GetUserName()}. What goods would you like to buy from me?\" " +
                                   "\nEnter the corresponding number to decide: " +
@@ -289,7 +276,7 @@ namespace SpaceTradingGame
 
                     if (quantity > 0)
                     {
-                        for (int i = 0; i < quantity; i++)
+                        for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(gold.GetNameOfGood());
                         }
@@ -309,7 +296,7 @@ namespace SpaceTradingGame
 
                     if (quantity > 0)
                     {
-                        for (int i = 0; i < quantity; i++)
+                        for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(diamond.GetNameOfGood());
                         }
@@ -329,7 +316,7 @@ namespace SpaceTradingGame
 
                     if (quantity > 0)
                     {
-                        for (int i = 0; i < quantity; i++)
+                        for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(uranium.GetNameOfGood());
                         }
@@ -349,7 +336,7 @@ namespace SpaceTradingGame
 
                     if (quantity > 0)
                     {
-                        for (int i = 0; i < quantity; i++)
+                        for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(oil.GetNameOfGood());
                         }
@@ -369,7 +356,7 @@ namespace SpaceTradingGame
 
                     if (quantity > 0)
                     {
-                        for (int i = 0; i < quantity; i++)
+                        for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(wood.GetNameOfGood());
                         }
@@ -389,7 +376,7 @@ namespace SpaceTradingGame
 
                     if (quantity > 0)
                     {
-                        for (int i = 0; i < quantity; i++)
+                        for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(copper.GetNameOfGood());
                         }
@@ -409,7 +396,7 @@ namespace SpaceTradingGame
 
                     if (quantity > 0)
                     {
-                        for (int i = 0; i < quantity; i++)
+                        for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(darkMatter.GetNameOfGood());
                         }
@@ -418,14 +405,11 @@ namespace SpaceTradingGame
                     }
                 }
             } while (choice < 0 || choice > 8);
-            
-
-            return choice;
         }
 
-        private void GetCurrentInventoryQuantities(int[] goodsQuantity, User player)
+        private static void GetCurrentInventoryQuantities(int[] goodsQuantity, User player)
         {
-            for (int i = 0; i < player.GetCurrentCargo().Count; i++)
+            for (var i = 0; i < player.GetCurrentCargo().Count; i++)
             {
                 switch (player.GetCurrentCargo()[i])
                 {
@@ -455,17 +439,17 @@ namespace SpaceTradingGame
             
         }
 
-        private int DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
+        private static void DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
             Goods darkMatter,Planet currentPlanet)
         {
-            int choice = -1;
+            int choice;
 
-            int [] goodsQuantity = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+            var goodsQuantity = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
             do
             {
-                int quantity = 0;
+                var quantity = 0;
                 GetCurrentInventoryQuantities(goodsQuantity,player);
-                ClearScreen();
+                Console.Clear();
                 Console.WriteLine($"{currentPlanet.GetTraderName()} says  \"Greetings, {player.GetUserName()}. What goods would you like to sell to me?\" " +
                                   "\nEnter the corresponding number to decide: " +
                                   $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
@@ -492,7 +476,7 @@ namespace SpaceTradingGame
 
                         if (quantity > 0)
                         {
-                            for (int i = 0; i < quantity; i++)
+                            for (var i = 0; i < quantity; i++)
                             {
                                 player.RemoveCargo(gold.GetNameOfGood());
                             }
@@ -512,7 +496,7 @@ namespace SpaceTradingGame
 
                         if (quantity > 0)
                         {
-                            for (int i = 0; i < quantity; i++)
+                            for (var i = 0; i < quantity; i++)
                             {
                                 player.RemoveCargo(diamond.GetNameOfGood());
                             }
@@ -532,7 +516,7 @@ namespace SpaceTradingGame
 
                         if (quantity > 0)
                         {
-                            for (int i = 0; i < quantity; i++)
+                            for (var i = 0; i < quantity; i++)
                             {
                                 player.RemoveCargo(uranium.GetNameOfGood());
                             }
@@ -552,7 +536,7 @@ namespace SpaceTradingGame
 
                         if (quantity > 0)
                         {
-                            for (int i = 0; i < quantity; i++)
+                            for (var i = 0; i < quantity; i++)
                             {
                                 player.RemoveCargo(oil.GetNameOfGood());
                             }
@@ -572,7 +556,7 @@ namespace SpaceTradingGame
 
                         if (quantity > 0)
                         {
-                            for (int i = 0; i < quantity; i++)
+                            for (var i = 0; i < quantity; i++)
                             {
                                 player.RemoveCargo(wood.GetNameOfGood());
                             }
@@ -592,7 +576,7 @@ namespace SpaceTradingGame
 
                         if (quantity > 0)
                         {
-                            for (int i = 0; i < quantity; i++)
+                            for (var i = 0; i < quantity; i++)
                             {
                                 player.RemoveCargo(copper.GetNameOfGood());
                             }
@@ -612,7 +596,7 @@ namespace SpaceTradingGame
 
                         if (quantity > 0)
                         {
-                            for (int i = 0; i < quantity; i++)
+                            for (var i = 0; i < quantity; i++)
                             {
                                 player.RemoveCargo(darkMatter.GetNameOfGood());
                             }
@@ -631,16 +615,16 @@ namespace SpaceTradingGame
                 
             } while (choice < 0 || choice > 8);
 
-            return choice;
         }
 
-        private int DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
+        private static void DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
         {
-            int choice = -2;
-            int warpSpeed = 0;
+            var choice=0;
+            
             do
             {
-                ClearScreen();
+                var warpSpeed = 0;
+                Console.Clear();
                 Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
                 if (player.GetCurrentLocation() == earth.GetPlanetName())
                 {
@@ -758,16 +742,15 @@ namespace SpaceTradingGame
                 
             }while(choice<0||choice>2);
 
-            return choice;
         }
 
-        private int DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
+        private static int DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
             imperialStarDestroyer, Ship currentShip)
         {
-            int choice = -2;
+            int choice;
             do
             {
-                ClearScreen();
+                Console.Clear();
                 Console.WriteLine(
                     $"Welcome, {player.GetUserName()} to Joe's Spaceship Dealership. Here you are able to purchase a new ship while selling your current one." +
                     $"\nYou currently have {player.GetCredits()} credits and the ship you currently own is {currentShip.GetShipName()}\n Ships we currently have in stock are as follows: " +
@@ -788,9 +771,9 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private void DisplayInventory(User player,int[] goodsQuantity)
+        private static void DisplayInventory(User player,int[] goodsQuantity)
         {
-            ClearScreen();
+            Console.Clear();
             Console.WriteLine("Here is your current inventory. Press enter to continue");
             for (int i = 0; i < 7; i++)
             {
@@ -821,7 +804,7 @@ namespace SpaceTradingGame
                 
             }
             Console.WriteLine("Enter 0 to close inventory");
-            string input = Console.ReadLine();
+            Console.ReadLine();
 
         }
 

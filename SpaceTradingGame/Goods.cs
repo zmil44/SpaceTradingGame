@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SpaceTradingGame
 {
     class Goods
     {
-        private string _nameOfGood;
+        private readonly string _nameOfGood;
         private decimal _priceOfGood;
 
         public Goods(string name, decimal price)

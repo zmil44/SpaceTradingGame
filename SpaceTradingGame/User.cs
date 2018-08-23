@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.SqlServer.Server;
+﻿using System.Collections.Generic;
 
 namespace SpaceTradingGame
 {
-    class User
+    internal class User
     {
-        private string _name;
+        private readonly string _name;
         private decimal _credits=25000;
         private int _timeInYears=0;
         private int _timeInDays=0;
         private decimal _totalCreditsEarned=0;
         private string _currentLocation = "Earth";
-        private List<string> _cargo = new List<string>();
+        private readonly List<string> _cargo = new List<string>();
         private int _maxCargoSpace = 50;
         private Planet _currentPlanet;
 

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SpaceTradingGame
 {
     class Planet
     {
-        private double _distanceToEarth;
-        private double _distanceToAlphaCentauri;
-        private double _distanceToGliese;
-        private string _planetName;
-        private string _traderName;
+        private readonly double _distanceToEarth;
+        private readonly double _distanceToAlphaCentauri;
+        private readonly double _distanceToGliese;
+        private readonly string _planetName;
+        private readonly string _traderName;
 
 
         public Planet(string name, string trader, double distanceEarth, double distanceAlphaCentauri,
