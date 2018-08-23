@@ -15,7 +15,7 @@ namespace SpaceTradingGame
         private string _traderName;
 
 
-        public void CreatePlanet(string name, string trader, double distanceEarth, double distanceAlphaCentauri,
+        public Planet(string name, string trader, double distanceEarth, double distanceAlphaCentauri,
             double distanceGliese)
         {
             _planetName = name;

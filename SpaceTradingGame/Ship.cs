@@ -13,7 +13,7 @@ namespace SpaceTradingGame
         private int _shipMaxWarpSpeed;
         private int _shipCost;
 
-        public void CreateShip(string name, int cargoSpace, int maxWarpSpeed, int cost)
+        public Ship(string name, int cargoSpace, int maxWarpSpeed, int cost)
         {
             _shipName = name;
             _shipCargoSpace = cargoSpace;

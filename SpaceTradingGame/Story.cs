@@ -10,17 +10,15 @@ namespace SpaceTradingGame
     class Story
     {
         private string[] _story;
-         public void SetStory()
+
+        public Story()
         {
             _story = File.ReadAllLines("SpaceTradingGameStory.txt");
-        }
-
-         public void DisplayStory()
-        {
             foreach (var word in _story)
             {
                 Console.WriteLine(word);
             }
         }
+
     }
 }

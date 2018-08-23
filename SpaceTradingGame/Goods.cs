@@ -10,13 +10,11 @@ namespace SpaceTradingGame
     {
         private string _nameOfGood;
         private decimal _priceOfGood;
-        
 
-        public void CreateGood(string name, decimal price)
+        public Goods(string name, decimal price)
         {
             _nameOfGood = name;
             _priceOfGood = price;
-            
         }
 
         public string GetNameOfGood()

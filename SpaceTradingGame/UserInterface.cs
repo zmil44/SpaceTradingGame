@@ -14,57 +14,39 @@ namespace SpaceTradingGame
         {
             //create and display story
             Story userStory = new Story();
-            userStory.SetStory();
-            userStory.DisplayStory();
+
 
             //create goods
-            Goods gold = new Goods();
-            gold.CreateGood("Gold", 12000m);
-            Goods diamond = new Goods();
-            diamond.CreateGood("Diamond", 1400m);
-            Goods uranium = new Goods();
-            uranium.CreateGood("Uranium", 70m);
-            Goods oil = new Goods();
-            oil.CreateGood("Oil", 66.30m);
-            Goods wood = new Goods();
-            wood.CreateGood("Wood", 10m);
-            Goods copper = new Goods();
-            copper.CreateGood("Copper", 2.50m);
-            Goods darkMatter = new Goods();
-            darkMatter.CreateGood("Dark Matter", 450000m);
+            Goods gold = new Goods("Gold", 12000m);
+            Goods diamond = new Goods("Diamond", 1400m);
+            Goods uranium = new Goods("Uranium", 70m);
+            Goods oil = new Goods("Oil", 66.30m);
+            Goods wood = new Goods("Wood", 10m);
+            Goods copper = new Goods("Copper", 2.50m);
+            Goods darkMatter = new Goods("Dark Matter", 450000m);
 
             //Create ships
-            Ship simiyarLightFreighter = new Ship();
-            simiyarLightFreighter.CreateShip("Simiyar-Class Light Freighter", 50, 3, 25000);
-            Ship tradeFederationCruiser = new Ship();
-            tradeFederationCruiser.CreateShip("Trade Federation Cruiser", 300, 4, 75000);
-            Ship cr90Corvette = new Ship();
-            cr90Corvette.CreateShip("CR90 Corvette", 750, 7, 125000);
-            Ship milleniumFalcon = new Ship();
-            milleniumFalcon.CreateShip("Millenuim Falcon", 50, 9, 400000);
-            Ship imperialStarDestroyer = new Ship();
-            imperialStarDestroyer.CreateShip("Imperial-Class Star Destroyer", 1000, 7, 500000);
+            Ship simiyarLightFreighter = new Ship("Simiyar-Class Light Freighter", 50, 3, 25000);
+            Ship tradeFederationCruiser = new Ship("Trade Federation Cruiser", 300, 4, 75000);
+            Ship cr90Corvette = new Ship("CR90 Corvette", 750, 7, 125000);
+            Ship milleniumFalcon = new Ship("Millenuim Falcon", 50, 9, 400000);
+            Ship imperialStarDestroyer = new Ship("Imperial-Class Star Destroyer", 1000, 7, 500000);
 
             //Create Planets
-            Planet earth = new Planet();
-            earth.CreatePlanet("Earth", "Mace Windu", 0, 4.367, 23.62);
-            Planet alphaCentauri = new Planet();
-            alphaCentauri.CreatePlanet("Aplha Centauri", "Yoda", 4.367, 0, 24.02);
-            Planet gliese = new Planet();
-            gliese.CreatePlanet("Gliese", "Plo Koon", 23.62, 24.02, 0);
+            Planet earth = new Planet("Earth", "Mace Windu", 0, 4.367, 23.62);
+            Planet alphaCentauri = new Planet("Aplha Centauri", "Yoda", 4.367, 0, 24.02);
+            Planet gliese = new Planet("Gliese", "Plo Koon", 23.62, 24.02, 0);
 
 
             //Create user
             Console.Write("\nPlease enter your name: ");
-            string name = Console.ReadLine();
-            User player = new User();
-            player.CreateUser(name);
+            User player = new User(Console.ReadLine());
+            
 
             //create warpSpeed
             WarpSpeed travel = new WarpSpeed();
             int choice;
-            Ship currentShip= new Ship();
-            currentShip = simiyarLightFreighter;
+            Ship currentShip= simiyarLightFreighter;
             bool exit = false;
             do
             {
@@ -272,14 +254,14 @@ namespace SpaceTradingGame
 
         private int DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter,Planet currentPlanet)
         {
-            int choice = -2;
-            int quantity = 0;
+            int choice;
             int [] goodsQuantity = new int[7] {0,0,0,0,0,0,0};
             do
             {
+                int quantity;
                 GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
-                int cargoSpaceAvailble = player.GetMaxCargo() - player.GetCurrentCargo().Count;
+                var cargoSpaceAvailble = player.GetMaxCargo() - player.GetCurrentCargo().Count;
                 Console.WriteLine($"{currentPlanet.GetTraderName()} says \"Greetings {player.GetUserName()}. What goods would you like to buy from me?\" " +
                                   "\nEnter the corresponding number to decide: " +
                                   $"\n You currently have {player.GetCredits()} credits and have {cargoSpaceAvailble} spaces of cargo available" +
@@ -480,10 +462,11 @@ namespace SpaceTradingGame
             Goods darkMatter,Planet currentPlanet)
         {
             int choice = -1;
-            int quantity = 0;
+
             int [] goodsQuantity = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
             do
             {
+                int quantity = 0;
                 GetCurrentInventoryQuantities(goodsQuantity,player);
                 ClearScreen();
                 Console.WriteLine($"{currentPlanet.GetTraderName()} says  \"Greetings, {player.GetUserName()}. What goods would you like to sell to me?\" " +

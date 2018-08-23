@@ -38,7 +38,7 @@ namespace SpaceTradingGame
             }
         }
 
-        public void CreateUser(string userName)
+        public User(string userName)
         {
             _name = userName;
 
