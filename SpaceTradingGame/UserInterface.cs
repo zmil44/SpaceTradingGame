@@ -1,7 +1,5 @@
 ﻿using System;
 
-
-
 namespace SpaceTradingGame
 {
     class UserInterface
@@ -114,80 +112,9 @@ namespace SpaceTradingGame
                         DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
                         break;
                     case 4:
-                        choice = DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
-                        switch (choice)
-                        {
-                            case 1:
-                                if (player.GetCredits() >= simiyarLightFreighter.GetShipCost())
-                                {
-                                    player.SetCredits(currentShip.GetShipCost());
-                                    currentShip = simiyarLightFreighter;
-                                    player.SetCredits(-currentShip.GetShipCost());
-                                    player.SetMaxCargo(currentShip.GetCargoSpace());
-                                }
-                                else
-                                {
-                                    Console.WriteLine("You do not have enough credits to purchase this ship");
-                                }
-                                break;
-                            case 2:
-                                if (player.GetCredits() >= tradeFederationCruiser.GetShipCost())
-                                {
-                                    player.SetCredits(currentShip.GetShipCost());
-                                    currentShip = tradeFederationCruiser;
-                                    player.SetCredits(-currentShip.GetShipCost());
-                                    player.SetMaxCargo(currentShip.GetCargoSpace());
-                                }
-                                else
-                                {
-                                    Console.WriteLine("You do not have enough credits to purchase this ship");
-                                }
-                                break;
-                            case 3:
-                                if (player.GetCredits() >= cr90Corvette.GetShipCost())
-                                {
-                                    player.SetCredits(currentShip.GetShipCost());
-                                    currentShip = cr90Corvette;
-                                    player.SetCredits(-currentShip.GetShipCost());
-                                    player.SetMaxCargo(currentShip.GetCargoSpace());
-                                }
-                                else
-                                {
-                                    Console.WriteLine("You do not have enough credits to purchase this ship");
-                                }
-                                break;
-                            case 4:
-                                if (player.GetCredits() >= milleniumFalcon.GetShipCost())
-                                {
-                                    player.SetCredits(currentShip.GetShipCost());
-                                    currentShip = milleniumFalcon;
-                                    player.SetCredits(-currentShip.GetShipCost());
-                                    player.SetMaxCargo(currentShip.GetCargoSpace());
-                                }
-                                else
-                                {
-                                    Console.WriteLine("You do not have enough credits to purchase this ship");
-                                }
-                                break;
-                            case 5:
-                                if (player.GetCredits() >= imperialStarDestroyer.GetShipCost())
-                                {
-                                    player.SetCredits(currentShip.GetShipCost());
-                                    currentShip = imperialStarDestroyer;
-                                    player.SetCredits(-currentShip.GetShipCost());
-                                    player.SetMaxCargo(currentShip.GetCargoSpace());
-                                }
-                                else
-                                {
-                                    Console.WriteLine("You do not have enough credits to purchase this ship" +
-                                                      ". Enter 0 to return to main screen");
-                                    Console.ReadLine();
-
-                                }
-                                break;
-                        }
+                        DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
                         break;
-                }
+                        }
             } while (exit==false);
             DisplayEnd(player);
         }
@@ -689,7 +616,7 @@ namespace SpaceTradingGame
             }while(choice<0||choice>2);
         }
 
-        private static int DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
+        private static void DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
             imperialStarDestroyer, Ship currentShip)
         {
             int choice;
@@ -712,7 +639,78 @@ namespace SpaceTradingGame
                     "\n0. Return to previous menu");
                 choice = GetInput();
             } while (choice < 0 || choice > 5);
-            return choice;
+            switch (choice)
+            {
+                case 1:
+                    if (player.GetCredits() >= simiyarShip.GetShipCost())
+                    {
+                        player.SetCredits(currentShip.GetShipCost());
+                        currentShip = simiyarShip;
+                        player.SetCredits(-currentShip.GetShipCost());
+                        player.SetMaxCargo(currentShip.GetCargoSpace());
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have enough credits to purchase this ship");
+                    }
+                    break;
+                case 2:
+                    if (player.GetCredits() >= tradeFederationCruiser.GetShipCost())
+                    {
+                        player.SetCredits(currentShip.GetShipCost());
+                        currentShip = tradeFederationCruiser;
+                        player.SetCredits(-currentShip.GetShipCost());
+                        player.SetMaxCargo(currentShip.GetCargoSpace());
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have enough credits to purchase this ship");
+                    }
+                    break;
+                case 3:
+                    if (player.GetCredits() >= cr90Corvette.GetShipCost())
+                    {
+                        player.SetCredits(currentShip.GetShipCost());
+                        currentShip = cr90Corvette;
+                        player.SetCredits(-currentShip.GetShipCost());
+                        player.SetMaxCargo(currentShip.GetCargoSpace());
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have enough credits to purchase this ship");
+                    }
+                    break;
+                case 4:
+                    if (player.GetCredits() >= milleniumFalcon.GetShipCost())
+                    {
+                        player.SetCredits(currentShip.GetShipCost());
+                        currentShip = milleniumFalcon;
+                        player.SetCredits(-currentShip.GetShipCost());
+                        player.SetMaxCargo(currentShip.GetCargoSpace());
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have enough credits to purchase this ship");
+                    }
+                    break;
+                case 5:
+                    if (player.GetCredits() >= imperialStarDestroyer.GetShipCost())
+                    {
+                        player.SetCredits(currentShip.GetShipCost());
+                        currentShip = imperialStarDestroyer;
+                        player.SetCredits(-currentShip.GetShipCost());
+                        player.SetMaxCargo(currentShip.GetCargoSpace());
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have enough credits to purchase this ship" +
+                                          ". Enter 0 to return to main screen");
+                        Console.ReadLine();
+
+                    }
+                    break;
+            }
+            
         }
 
         private static void DisplayInventory(User player,int[] goodsQuantity)
