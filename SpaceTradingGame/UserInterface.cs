@@ -172,136 +172,131 @@ namespace SpaceTradingGame
                                   $"\n 8. Display current inventory" +
                                   "\n 0 to return to original screen");
                 choice = GetInput();
-                if (choice == 8)
+                switch (choice)
                 {
-                    DisplayInventory(player, goodsQuantity);
-                }
-                else if (choice == 1)
-                {
-                    do
-                    {
-                        Console.WriteLine("You have selected to buy gold. How much gold would you like to buy? " +
-                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                        quantity = GetInput();
-                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                          ||gold.GetPriceOfGood()*quantity>player.GetCredits());
-                    if (quantity > 0)
-                    {
-                        for (var i = 0; i < quantity; i++)
+                    case 1:
+                        do
                         {
-                            player.AddCargo(gold.GetNameOfGood());
-                        }
+                            Console.WriteLine("You have selected to buy gold. How much gold would you like to buy? " +
+                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
+                                              || gold.GetPriceOfGood() * quantity > player.GetCredits());
+                        if (quantity > 0)
+                        {
+                            for (var i = 0; i < quantity; i++)
+                            {
+                                player.AddCargo(gold.GetNameOfGood());
+                            }
 
-                        player.SetCredits(-(gold.GetPriceOfGood() * quantity));
-                    }
-                }
-                else if (choice == 2)
-                {
-                    do
-                    {
-                        Console.WriteLine("You have selected to buy diamonds. How much diamonds would you like to buy? " +
-                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                        quantity = GetInput();
-                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                          || diamond.GetPriceOfGood() * quantity > player.GetCredits());
-                    if (quantity > 0)
-                    {
-                        for (var i = 0; i < quantity; i++)
-                        {
-                            player.AddCargo(diamond.GetNameOfGood());
+                            player.SetCredits(-(gold.GetPriceOfGood() * quantity));
                         }
-                        player.SetCredits(-(diamond.GetPriceOfGood() * quantity));
-                    }
-                }
-                else if (choice == 3)
-                {
-                    do
-                    {
-                        Console.WriteLine("You have selected to buy uranium. How much uranium would you like to buy? " +
-                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                        quantity = GetInput();
-                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                          || uranium.GetPriceOfGood() * quantity > player.GetCredits());
-                    if (quantity > 0)
-                    {
-                        for (var i = 0; i < quantity; i++)
+                        break;
+                    case 2:
+                        do
                         {
-                            player.AddCargo(uranium.GetNameOfGood());
-                        }
-                        player.SetCredits(-(uranium.GetPriceOfGood() * quantity));
-                    }
-                }
-                else if (choice == 4)
-                {
-                    do
-                    {
-                        Console.WriteLine("You have selected to buy oil. How much oil would you like to buy? " +
-                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                        quantity = GetInput();
-                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                          || oil.GetPriceOfGood() * quantity > player.GetCredits());
-                    if (quantity > 0)
-                    {
-                        for (var i = 0; i < quantity; i++)
+                            Console.WriteLine("You have selected to buy diamonds. How much diamonds would you like to buy? " +
+                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
+                                              || diamond.GetPriceOfGood() * quantity > player.GetCredits());
+                        if (quantity > 0)
                         {
-                            player.AddCargo(oil.GetNameOfGood());
+                            for (var i = 0; i < quantity; i++)
+                            {
+                                player.AddCargo(diamond.GetNameOfGood());
+                            }
+                            player.SetCredits(-(diamond.GetPriceOfGood() * quantity));
                         }
-                        player.SetCredits(-(oil.GetPriceOfGood() * quantity));
-                    }
-                }
-                else if (choice == 5)
-                {
-                    do
-                    {
-                        Console.WriteLine("You have selected to buy wood. How much wood would you like to buy? " +
-                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                        quantity = GetInput();
-                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                          || wood.GetPriceOfGood() * quantity > player.GetCredits());
-                    if (quantity > 0)
-                    {
-                        for (var i = 0; i < quantity; i++)
+                        break;
+                    case 3:
+                        do
                         {
-                            player.AddCargo(wood.GetNameOfGood());
-                        }
-                        player.SetCredits(-(wood.GetPriceOfGood() * quantity));
-                    }
-                }
-                else if (choice == 6)
-                {
-                    do
-                    {
-                        Console.WriteLine("You have selected to buy copper. How much copper would you like to buy? " +
-                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                        quantity = GetInput();
-                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                          || copper.GetPriceOfGood() * quantity > player.GetCredits());
-                    if (quantity > 0)
-                    {
-                        for (var i = 0; i < quantity; i++)
+                            Console.WriteLine("You have selected to buy uranium. How much uranium would you like to buy? " +
+                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
+                                              || uranium.GetPriceOfGood() * quantity > player.GetCredits());
+                        if (quantity > 0)
                         {
-                            player.AddCargo(copper.GetNameOfGood());
+                            for (var i = 0; i < quantity; i++)
+                            {
+                                player.AddCargo(uranium.GetNameOfGood());
+                            }
+                            player.SetCredits(-(uranium.GetPriceOfGood() * quantity));
                         }
-                        player.SetCredits(-(copper.GetPriceOfGood() * quantity));
-                    }
-                }
-                else if (choice == 7)
-                {
-                    do
-                    {
-                        Console.WriteLine("You have selected to buy dark matter. How much dark matter would you like to buy? " +
-                                          " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                        quantity = GetInput();
-                    } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                          || darkMatter.GetPriceOfGood() * quantity > player.GetCredits());
-                    if (quantity > 0)
-                    {
-                        for (var i = 0; i < quantity; i++)
+                        break;
+                    case 4:
+                        do
                         {
-                            player.AddCargo(darkMatter.GetNameOfGood());
+                            Console.WriteLine("You have selected to buy oil. How much oil would you like to buy? " +
+                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
+                                              || oil.GetPriceOfGood() * quantity > player.GetCredits());
+                        if (quantity > 0)
+                        {
+                            for (var i = 0; i < quantity; i++)
+                            {
+                                player.AddCargo(oil.GetNameOfGood());
+                            }
+                            player.SetCredits(-(oil.GetPriceOfGood() * quantity));
                         }
-                        player.SetCredits(-(darkMatter.GetPriceOfGood() * quantity));
-                    }
+                        break;
+                    case 5:
+                        do
+                        {
+                            Console.WriteLine("You have selected to buy wood. How much wood would you like to buy? " +
+                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
+                                              || wood.GetPriceOfGood() * quantity > player.GetCredits());
+                        if (quantity > 0)
+                        {
+                            for (var i = 0; i < quantity; i++)
+                            {
+                                player.AddCargo(wood.GetNameOfGood());
+                            }
+                            player.SetCredits(-(wood.GetPriceOfGood() * quantity));
+                        }
+                        break;
+                    case 6:
+                        do
+                        {
+                            Console.WriteLine("You have selected to buy copper. How much copper would you like to buy? " +
+                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
+                                              || copper.GetPriceOfGood() * quantity > player.GetCredits());
+                        if (quantity > 0)
+                        {
+                            for (var i = 0; i < quantity; i++)
+                            {
+                                player.AddCargo(copper.GetNameOfGood());
+                            }
+                            player.SetCredits(-(copper.GetPriceOfGood() * quantity));
+                        }
+                        break;
+                    case 7:
+                        do
+                        {
+                            Console.WriteLine("You have selected to buy dark matter. How much dark matter would you like to buy? " +
+                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
+                            quantity = GetInput();
+                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
+                                              || darkMatter.GetPriceOfGood() * quantity > player.GetCredits());
+                        if (quantity > 0)
+                        {
+                            for (var i = 0; i < quantity; i++)
+                            {
+                                player.AddCargo(darkMatter.GetNameOfGood());
+                            }
+                            player.SetCredits(-(darkMatter.GetPriceOfGood() * quantity));
+                        }
+                        break;
+                    case 8:
+                        DisplayInventory(player, goodsQuantity);
+                        break;
                 }
             } while (choice < 0 || choice > 8);
         }
