@@ -45,12 +45,12 @@ namespace SpaceTradingGame
 
             //create warpSpeed
             WarpSpeed travel = new WarpSpeed();
-            int choice;
+            
             Ship currentShip= simiyarLightFreighter;
             bool exit = false;
             do
             {
-                choice = -2;
+                var choice = -2;
                 ClearScreen();
                 player.CalculateYears();
                 if (player.GetUserTimeInYears() >= 40)
@@ -224,10 +224,7 @@ namespace SpaceTradingGame
 
         private void ClearScreen()
         {
-            for (int i = 0; i < Console.LargestWindowHeight; i++)
-            {
-                Console.WriteLine();
-            }
+            Console.Clear();
         }
 
         private int GetInput()
