@@ -11,7 +11,6 @@ namespace SpaceTradingGame
             //create and display story
             new Story();
 
-
             //create goods
             var gold = new Goods("Gold", 12000m);
             var diamond = new Goods("Diamond", 1400m);
@@ -32,12 +31,10 @@ namespace SpaceTradingGame
             var earth = new Planet("Earth", "Mace Windu", 0, 4.367, 23.62);
             var alphaCentauri = new Planet("Aplha Centauri", "Yoda", 4.367, 0, 24.02);
             var gliese = new Planet("Gliese", "Plo Koon", 23.62, 24.02, 0);
-
-
+            
             //Create user
             Console.Write("\nPlease enter your name: ");
             var player = new User(Console.ReadLine());
-            
 
             //create warpSpeed
             var travel = new WarpSpeed();
@@ -94,14 +91,12 @@ namespace SpaceTradingGame
                     {
                         break;
                     }
-                    
                     Console.Clear();
                     Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTimeInYears()} years and {player.GetUserDays()} days");
                     Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
                     Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
                                           "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n-1. Quit");
                     choice = GetInput();
-
                 } while ( choice<-1 || choice > 4|| choice==0  );
 
                 switch (choice)
@@ -192,14 +187,9 @@ namespace SpaceTradingGame
                                 break;
                         }
                         break;
-
                 }
-
-
             } while (exit==false);
-
             DisplayEnd(player);
-
         }
 
         private static void DisplayEnd(User player)
@@ -212,8 +202,6 @@ namespace SpaceTradingGame
             Console.Read();
         }
 
- 
-
         private static int GetInput()
         {
             var choice=-2;
@@ -224,7 +212,6 @@ namespace SpaceTradingGame
                 {
                     choice = int.Parse(Console.ReadLine());
                     badInput = false;
-
                 }
                 catch (FormatException)
                 {
@@ -232,7 +219,6 @@ namespace SpaceTradingGame
                     badInput = true;
                 }
             } while (badInput);
-
             return choice;
         }
 
@@ -262,7 +248,6 @@ namespace SpaceTradingGame
                 if (choice == 8)
                 {
                     DisplayInventory(player, goodsQuantity);
-
                 }
                 else if (choice == 1)
                 {
@@ -273,7 +258,6 @@ namespace SpaceTradingGame
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
                                           ||gold.GetPriceOfGood()*quantity>player.GetCredits());
-
                     if (quantity > 0)
                     {
                         for (var i = 0; i < quantity; i++)
@@ -293,14 +277,12 @@ namespace SpaceTradingGame
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
                                           || diamond.GetPriceOfGood() * quantity > player.GetCredits());
-
                     if (quantity > 0)
                     {
                         for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(diamond.GetNameOfGood());
                         }
-
                         player.SetCredits(-(diamond.GetPriceOfGood() * quantity));
                     }
                 }
@@ -313,14 +295,12 @@ namespace SpaceTradingGame
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
                                           || uranium.GetPriceOfGood() * quantity > player.GetCredits());
-
                     if (quantity > 0)
                     {
                         for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(uranium.GetNameOfGood());
                         }
-
                         player.SetCredits(-(uranium.GetPriceOfGood() * quantity));
                     }
                 }
@@ -333,14 +313,12 @@ namespace SpaceTradingGame
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
                                           || oil.GetPriceOfGood() * quantity > player.GetCredits());
-
                     if (quantity > 0)
                     {
                         for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(oil.GetNameOfGood());
                         }
-
                         player.SetCredits(-(oil.GetPriceOfGood() * quantity));
                     }
                 }
@@ -353,14 +331,12 @@ namespace SpaceTradingGame
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
                                           || wood.GetPriceOfGood() * quantity > player.GetCredits());
-
                     if (quantity > 0)
                     {
                         for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(wood.GetNameOfGood());
                         }
-
                         player.SetCredits(-(wood.GetPriceOfGood() * quantity));
                     }
                 }
@@ -373,14 +349,12 @@ namespace SpaceTradingGame
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
                                           || copper.GetPriceOfGood() * quantity > player.GetCredits());
-
                     if (quantity > 0)
                     {
                         for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(copper.GetNameOfGood());
                         }
-
                         player.SetCredits(-(copper.GetPriceOfGood() * quantity));
                     }
                 }
@@ -393,14 +367,12 @@ namespace SpaceTradingGame
                         quantity = GetInput();
                     } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
                                           || darkMatter.GetPriceOfGood() * quantity > player.GetCredits());
-
                     if (quantity > 0)
                     {
                         for (var i = 0; i < quantity; i++)
                         {
                             player.AddCargo(darkMatter.GetNameOfGood());
                         }
-
                         player.SetCredits(-(darkMatter.GetPriceOfGood() * quantity));
                     }
                 }
@@ -436,14 +408,12 @@ namespace SpaceTradingGame
                         break;
                 }
             }
-            
         }
 
         private static void DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
             Goods darkMatter,Planet currentPlanet)
         {
             int choice;
-
             var goodsQuantity = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
             do
             {
@@ -464,7 +434,6 @@ namespace SpaceTradingGame
                 choice = GetInput();
                 switch (choice)
                 {
-                    
                     case 1:
                         do
                         {
@@ -473,7 +442,6 @@ namespace SpaceTradingGame
                                 $"\n How many would you like to sell?");
                             quantity = GetInput();
                         } while (quantity < 0 || quantity > goodsQuantity[0]);
-
                         if (quantity > 0)
                         {
                             for (var i = 0; i < quantity; i++)
@@ -483,7 +451,6 @@ namespace SpaceTradingGame
                             player.SetCredits(gold.GetPriceOfGood() * quantity);
                             player.SetTotalCreditsEarned(gold.GetPriceOfGood()*quantity);
                         }
-
                         break;
                     case 2:
                         do
@@ -493,7 +460,6 @@ namespace SpaceTradingGame
                                 $"\n How many would you like to sell?");
                             quantity = GetInput();
                         } while (quantity < 0 || quantity > goodsQuantity[1]);
-
                         if (quantity > 0)
                         {
                             for (var i = 0; i < quantity; i++)
@@ -503,7 +469,6 @@ namespace SpaceTradingGame
                             player.SetCredits(diamond.GetPriceOfGood() * quantity);
                             player.SetTotalCreditsEarned(diamond.GetPriceOfGood() * quantity);
                         }
-
                         break;
                     case 3:
                         do
@@ -513,7 +478,6 @@ namespace SpaceTradingGame
                                 $"\n How many would you like to sell?");
                             quantity = GetInput();
                         } while (quantity < 0 || quantity > goodsQuantity[2]);
-
                         if (quantity > 0)
                         {
                             for (var i = 0; i < quantity; i++)
@@ -523,7 +487,6 @@ namespace SpaceTradingGame
                             player.SetCredits(uranium.GetPriceOfGood() * quantity);
                             player.SetTotalCreditsEarned(uranium.GetPriceOfGood() * quantity);
                         }
-
                         break;
                     case 4:
                         do
@@ -533,7 +496,6 @@ namespace SpaceTradingGame
                                 $"\n How many would you like to sell?");
                             quantity = GetInput();
                         } while (quantity < 0 || quantity > goodsQuantity[3]);
-
                         if (quantity > 0)
                         {
                             for (var i = 0; i < quantity; i++)
@@ -543,7 +505,6 @@ namespace SpaceTradingGame
                             player.SetCredits(oil.GetPriceOfGood() * quantity);
                             player.SetTotalCreditsEarned(oil.GetPriceOfGood() * quantity);
                         }
-
                         break;
                     case 5:
                         do
@@ -553,7 +514,6 @@ namespace SpaceTradingGame
                                 $"\n How many would you like to sell?");
                             quantity = GetInput();
                         } while (quantity < 0 || quantity > goodsQuantity[4]);
-
                         if (quantity > 0)
                         {
                             for (var i = 0; i < quantity; i++)
@@ -563,7 +523,6 @@ namespace SpaceTradingGame
                             player.SetCredits(wood.GetPriceOfGood() * quantity);
                             player.SetTotalCreditsEarned(wood.GetPriceOfGood() * quantity);
                         }
-
                         break;
                     case 6:
                         do
@@ -573,7 +532,6 @@ namespace SpaceTradingGame
                                 $"\n How many would you like to sell?");
                             quantity = GetInput();
                         } while (quantity < 0 || quantity > goodsQuantity[5]);
-
                         if (quantity > 0)
                         {
                             for (var i = 0; i < quantity; i++)
@@ -583,7 +541,6 @@ namespace SpaceTradingGame
                             player.SetCredits(copper.GetPriceOfGood() * quantity);
                             player.SetTotalCreditsEarned(copper.GetPriceOfGood() * quantity);
                         }
-
                         break;
                     case 7:
                         do
@@ -593,7 +550,6 @@ namespace SpaceTradingGame
                                 $"\n How many would you like to sell?");
                             quantity = GetInput();
                         } while (quantity < 0 || quantity > goodsQuantity[6]);
-
                         if (quantity > 0)
                         {
                             for (var i = 0; i < quantity; i++)
@@ -603,7 +559,6 @@ namespace SpaceTradingGame
                             player.SetCredits(darkMatter.GetPriceOfGood() * quantity);
                             player.SetTotalCreditsEarned(darkMatter.GetPriceOfGood() * quantity);
                         }
-
                         break;
                     case 8:
                         DisplayInventory(player,goodsQuantity);
@@ -612,15 +567,12 @@ namespace SpaceTradingGame
                         choice = 0;
                         break;
                 }
-                
             } while (choice < 0 || choice > 8);
-
         }
 
         private static void DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
         {
             var choice=0;
-            
             do
             {
                 var warpSpeed = 0;
@@ -660,7 +612,6 @@ namespace SpaceTradingGame
                             player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
                             player.SetCurrentLocation(gliese.GetPlanetName());
                             break;
-                        
                     }
                 }
                 else if (player.GetCurrentLocation() == alphaCentauri.GetPlanetName())
@@ -697,7 +648,6 @@ namespace SpaceTradingGame
                             player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToGliese(), warpSpeed));
                             player.SetCurrentLocation(gliese.GetPlanetName());
                             break;
-                        
                     }
                 }
                 else
@@ -736,12 +686,7 @@ namespace SpaceTradingGame
                             break;
                     }
                 }
-
-
-
-                
             }while(choice<0||choice>2);
-
         }
 
         private static int DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
@@ -767,7 +712,6 @@ namespace SpaceTradingGame
                     "\n0. Return to previous menu");
                 choice = GetInput();
             } while (choice < 0 || choice > 5);
-
             return choice;
         }
 
@@ -775,7 +719,7 @@ namespace SpaceTradingGame
         {
             Console.Clear();
             Console.WriteLine("Here is your current inventory. Press enter to continue");
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
             {
                 switch (i)
                 {
@@ -801,13 +745,9 @@ namespace SpaceTradingGame
                         Console.WriteLine($"Quantity of Dark Matter: {goodsQuantity[i]}");
                         break;
                 }
-                
             }
             Console.WriteLine("Enter 0 to close inventory");
             Console.ReadLine();
-
         }
-
-  
     }
 }
