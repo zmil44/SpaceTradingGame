@@ -121,7 +121,7 @@ namespace SpaceTradingGame
 
                         break;
                     case 4:
-                        DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
+                        currentShip= DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
                         break;
                         }
             } while (exit==false);
@@ -658,7 +658,7 @@ namespace SpaceTradingGame
             return travelled;
         }
 
-        private static void DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
+        private static Ship DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
             imperialStarDestroyer, Ship currentShip)
         {
             int choice;
@@ -752,7 +752,9 @@ namespace SpaceTradingGame
                     }
                     break;
             }
-            
+
+            return currentShip;
+
         }
 
         private static void DisplayInventory(User player,int[] goodsQuantity)
