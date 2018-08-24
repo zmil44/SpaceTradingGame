@@ -10,13 +10,13 @@ namespace SpaceTradingGame
             new Story();
 
             //create goods
-            var gold = new Goods("Gold", 12000m);
-            var diamond = new Goods("Diamond", 1400m);
-            var uranium = new Goods("Uranium", 70m);
-            var oil = new Goods("Oil", 66.30m);
-            var wood = new Goods("Wood", 10m);
-            var copper = new Goods("Copper", 2.50m);
-            var darkMatter = new Goods("Dark Matter", 450000m);
+            var gold = new Goods("Gold", 12000);
+            var diamond = new Goods("Diamond", 1400);
+            var uranium = new Goods("Uranium", 70);
+            var oil = new Goods("Oil", 66);
+            var wood = new Goods("Wood", 10);
+            var copper = new Goods("Copper", 2);
+            var darkMatter = new Goods("Dark Matter", 450000);
 
             //Create ships
             var simiyarLightFreighter = new Ship("Simiyar-Class Light Freighter", 50, 3, 25000);
@@ -39,8 +39,12 @@ namespace SpaceTradingGame
             
             var currentShip= simiyarLightFreighter;
             var exit = false;
+            var hasTravelled = false;
+            Random rand = new Random();
+            player.SetCurrentPlanet(earth);
             do
             {
+                
                 var choice = -2;
                 Console.Clear();
                 player.CalculateYears();
@@ -48,41 +52,45 @@ namespace SpaceTradingGame
                 {
                     exit = true;
                 }
- 
-                if (player.GetCurrentLocation() == "Earth")
+
+                if (hasTravelled == true)
                 {
-                    player.SetCurrentPlanet(earth);
-                    gold.SetPriceOfGood(12000m);
-                    diamond.SetPriceOfGood(1400m);
-                    uranium.SetPriceOfGood(70m);
-                    oil.SetPriceOfGood(66.30m);
-                    wood.SetPriceOfGood(10m);
-                    copper.SetPriceOfGood(2.50m);
-                    darkMatter.SetPriceOfGood(450000m);
-                }
-                else if (player.GetCurrentLocation() == "Gliese")
-                {
-                    player.SetCurrentPlanet(gliese);
-                    gold.SetPriceOfGood(3585m);
-                    diamond.SetPriceOfGood(600m);
-                    uranium.SetPriceOfGood(200m);
-                    oil.SetPriceOfGood(10.18m);
-                    wood.SetPriceOfGood(10.98m);
-                    copper.SetPriceOfGood(17.25m);
-                    darkMatter.SetPriceOfGood(300000m);
-                }
-                else
-                {
-                    player.SetCurrentPlanet(alphaCentauri);
-                    gold.SetPriceOfGood(12000m);
-                    diamond.SetPriceOfGood(3000m);
-                    uranium.SetPriceOfGood(70m);
-                    oil.SetPriceOfGood(50.25m);
-                    wood.SetPriceOfGood(65.30m);
-                    copper.SetPriceOfGood(1.50m);
-                    darkMatter.SetPriceOfGood(100000m);
+                    if (player.GetCurrentLocation() == "Earth")
+                    {
+                        player.SetCurrentPlanet(earth);
+                        gold.SetPriceOfGood(rand.Next(1, 4500));
+                        diamond.SetPriceOfGood(rand.Next(1, 1500));
+                        uranium.SetPriceOfGood(rand.Next(1, 200));
+                        oil.SetPriceOfGood(rand.Next(1, 500));
+                        wood.SetPriceOfGood(rand.Next(1, 250));
+                        copper.SetPriceOfGood(rand.Next(1, 15));
+                        darkMatter.SetPriceOfGood(rand.Next(100000, 400000));
+                    }
+                    else if (player.GetCurrentLocation() == "Gliese")
+                    {
+                        player.SetCurrentPlanet(gliese);
+                        gold.SetPriceOfGood(rand.Next(1, 3585));
+                        diamond.SetPriceOfGood(rand.Next(1, 600));
+                        uranium.SetPriceOfGood(rand.Next(50,200));
+                        oil.SetPriceOfGood(rand.Next(1, 25));
+                        wood.SetPriceOfGood(rand.Next(1, 10));
+                        copper.SetPriceOfGood(rand.Next(1, 150));
+                        darkMatter.SetPriceOfGood(rand.Next(100000, 400000));
+                    }
+                    else
+                    {
+                        player.SetCurrentPlanet(alphaCentauri);
+                        gold.SetPriceOfGood(rand.Next(1, 3585));
+                        diamond.SetPriceOfGood(rand.Next(50, 3000));
+                        uranium.SetPriceOfGood(rand.Next(1, 200));
+                        oil.SetPriceOfGood(rand.Next(1, 500));
+                        wood.SetPriceOfGood(rand.Next(1, 250));
+                        copper.SetPriceOfGood(rand.Next(1, 15));
+                        darkMatter.SetPriceOfGood(rand.Next(100000, 400000));
+                    }
                 }
 
+                hasTravelled = false;
                 do
                 {
                     if (player.GetUserTimeInYears() >= 40)
@@ -109,7 +117,8 @@ namespace SpaceTradingGame
                         DisplaySellMenu(player, gold, diamond, uranium, oil, wood, copper, darkMatter, player.GetCurrentPlanet());
                         break;
                     case 3:
-                        DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
+                        hasTravelled = DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
+
                         break;
                     case 4:
                         DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
@@ -492,9 +501,10 @@ namespace SpaceTradingGame
             } while (choice < 0 || choice > 8);
         }
 
-        private static void DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
+        private static bool DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
         {
             var choice=0;
+            var travelled = false;
             do
             {
                 var warpSpeed = 0;
@@ -524,6 +534,7 @@ namespace SpaceTradingGame
                             {
                                 player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
                                 player.SetCurrentLocation(alphaCentauri.GetPlanetName());
+                                travelled = true;
                             }
                             break;
                         case 2:
@@ -540,6 +551,7 @@ namespace SpaceTradingGame
                             {
                                 player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
                                 player.SetCurrentLocation(gliese.GetPlanetName());
+                                travelled = true;
                             }
                             break;
                     }
@@ -568,6 +580,7 @@ namespace SpaceTradingGame
                             {
                                 player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
                                 player.SetCurrentLocation(earth.GetPlanetName());
+                                travelled = true;
                             }
                             break;
                         case 2:
@@ -585,6 +598,7 @@ namespace SpaceTradingGame
                                 player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToGliese(),
                                     warpSpeed));
                                 player.SetCurrentLocation(gliese.GetPlanetName());
+                                travelled = true;
                             }
 
                             break;
@@ -615,6 +629,7 @@ namespace SpaceTradingGame
                                 player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToAlphaCentauri(),
                                     warpSpeed));
                                 player.SetCurrentLocation(alphaCentauri.GetPlanetName());
+                                travelled = true;
                             }
 
                             break;
@@ -632,12 +647,15 @@ namespace SpaceTradingGame
                             {
                                 player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
                                 player.SetCurrentLocation(earth.GetPlanetName());
+                                travelled = true;
                             }
 
                             break;
                     }
                 }
             }while(choice<0||choice>2);
+
+            return travelled;
         }
 
         private static void DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship

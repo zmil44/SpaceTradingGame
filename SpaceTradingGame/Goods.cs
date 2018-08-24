@@ -4,9 +4,9 @@ namespace SpaceTradingGame
     class Goods
     {
         private readonly string _nameOfGood;
-        private decimal _priceOfGood;
+        private int _priceOfGood;
 
-        public Goods(string name, decimal price)
+        public Goods(string name, int price)
         {
             _nameOfGood = name;
             _priceOfGood = price;
@@ -17,12 +17,12 @@ namespace SpaceTradingGame
             return _nameOfGood;
         }
 
-        public decimal GetPriceOfGood()
+        public int GetPriceOfGood()
         {
             return _priceOfGood;
         }
 
-        public void SetPriceOfGood(decimal price)
+        public void SetPriceOfGood(int price)
         {
             _priceOfGood = price;
         }
