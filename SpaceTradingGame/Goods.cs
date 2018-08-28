@@ -38,19 +38,19 @@ namespace SpaceTradingGame
                 }
 
                 player.AddCredits(-(totalPrice));
-                Console.WriteLine("Purchase Successful");
-                Console.Read();
+                Console.WriteLine("Purchase Successful. Press enter to continue.");
+                Console.ReadLine();
             }
             else if(player.GetCredits()<totalPrice)
             {
-                Console.WriteLine("You did not have enough credits to complete your purchase. Press enter 0 to continue.");
-                Console.Read();
+                Console.WriteLine("You did not have enough credits to complete your purchase. Press enter to continue.");
+                Console.ReadLine();
             }
             else
             {
                 Console.WriteLine(
-                    "You do not have enough cargo space to complete your purchase. Press enter 0 to continue");
-                Console.Read();
+                    "You do not have enough cargo space to complete your purchase. Press enter to continue");
+                Console.ReadLine();
             }
         }
 
@@ -66,12 +66,12 @@ namespace SpaceTradingGame
 
                 player.AddCredits(totalPrice);
                 Console.WriteLine("Sale Successful. Press enter to continue");
-                Console.Read();
+                Console.ReadLine();
             }
             else
             {
-                Console.WriteLine($"You did not have enough {nameOfGood} to sell that many. Press enter 0 to continue.");
-                Console.Read();
+                Console.WriteLine($"You did not have enough {nameOfGood} to sell that many. Press enter to continue.");
+                Console.ReadLine();
             }
         }
 

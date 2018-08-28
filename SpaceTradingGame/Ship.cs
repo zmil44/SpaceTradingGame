@@ -8,6 +8,7 @@ namespace SpaceTradingGame
         public readonly int shipMaxWarpSpeed;
         public readonly int shipCost;
         public readonly int maxFuelLevel;
+        public double currentFuelLevel;
 
         public Ship(string name, int cargoSpace, int maxWarpSpeed, int cost,int maxFuel)
         {
@@ -16,6 +17,7 @@ namespace SpaceTradingGame
             shipMaxWarpSpeed = maxWarpSpeed;
             shipCost = cost;
             maxFuelLevel = maxFuel;
+            currentFuelLevel = maxFuel;
         }
 
         public string GetShipName()
@@ -43,9 +45,14 @@ namespace SpaceTradingGame
             return maxFuelLevel;
         }
 
-        public void BuyShip()
+        public void SetCurrentFuel(double fuel)
         {
+            currentFuelLevel += fuel;
+        }
 
+        public double GetCurrentFuelLevel()
+        {
+            return currentFuelLevel;
         }
 
     }

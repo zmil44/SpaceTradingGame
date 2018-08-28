@@ -5,9 +5,9 @@ namespace SpaceTradingGame
     internal class User
     {
          readonly string name;
-         int credits=25000;
-         int timeInYears=0;
-         int timeInDays=0;
+         decimal credits=25000;
+         public int timeInYears=0;
+         public int timeInDays=0;
          string currentLocation = "Earth";
          readonly List<string> cargo = new List<string>();
          int maxCargoSpace = 50;
@@ -44,12 +44,12 @@ namespace SpaceTradingGame
         }
 
 
-        public int GetCredits()
+        public decimal GetCredits()
         {
             return credits;
         }
 
-        public void AddCredits(int credit)
+        public void AddCredits(decimal credit)
         {
             credits += credit;
         }
