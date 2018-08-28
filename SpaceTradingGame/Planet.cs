@@ -3,46 +3,44 @@ namespace SpaceTradingGame
 {
     class Planet
     {
-        private readonly double _distanceToEarth;
-        private readonly double _distanceToAlphaCentauri;
-        private readonly double _distanceToGliese;
-        private readonly string _planetName;
-        private readonly string _traderName;
+        readonly double distanceToEarth;
+        readonly double distanceToAlphaCentauri;
+        readonly double distanceToGliese;
+        readonly string planetName;
+        readonly string traderName;
+        readonly double xCord;
+        readonly double yCord;
+        
 
 
-        public Planet(string name, string trader, double distanceEarth, double distanceAlphaCentauri,
-            double distanceGliese)
+        public Planet(string name, string trader, double xCordinate,double ycordinate)
         {
-            _planetName = name;
-            _traderName = trader;
-            _distanceToEarth = distanceEarth;
-            _distanceToAlphaCentauri = distanceAlphaCentauri;
-            _distanceToGliese = distanceGliese;
+            planetName = name;
+            traderName = trader;
+            xCord = xCordinate;
+            yCord = ycordinate;
         }
 
         public string GetPlanetName()
         {
-            return _planetName;
+            return planetName;
         }
 
         public string GetTraderName()
         {
-            return _traderName;
+            return traderName;
         }
 
-        public double GetDistanceToEarth()
+        public double GetXCord()
         {
-            return _distanceToEarth;
+            return xCord;
         }
 
-        public double GetDistanceToAlphaCentauri()
+        public double GetyCord()
         {
-            return _distanceToAlphaCentauri;
+            return yCord;
         }
 
-        public double GetDistanceToGliese()
-        {
-            return _distanceToGliese;
-        }
+
     }
 }

@@ -10,25 +10,21 @@ namespace SpaceTradingGame
             new Story();
 
             //create goods
-            var gold = new Goods("Gold", 12000);
-            var diamond = new Goods("Diamond", 1400);
-            var uranium = new Goods("Uranium", 70);
-            var oil = new Goods("Oil", 66);
-            var wood = new Goods("Wood", 10);
-            var copper = new Goods("Copper", 2);
-            var darkMatter = new Goods("Dark Matter", 450000);
+            var goods = CreateGoods();
+
 
             //Create ships
-            var simiyarLightFreighter = new Ship("Simiyar-Class Light Freighter", 50, 3, 25000);
-            var tradeFederationCruiser = new Ship("Trade Federation Cruiser", 300, 4, 75000);
-            var cr90Corvette = new Ship("CR90 Corvette", 750, 7, 125000);
-            var milleniumFalcon = new Ship("Millenuim Falcon", 50, 9, 400000);
-            var imperialStarDestroyer = new Ship("Imperial-Class Star Destroyer", 1000, 7, 500000);
+            var ships = CreateShips();
+
 
             //Create Planets
-            var earth = new Planet("Earth", "Mace Windu", 0, 4.367, 23.62);
-            var alphaCentauri = new Planet("Aplha Centauri", "Yoda", 4.367, 0, 24.02);
-            var gliese = new Planet("Gliese", "Plo Koon", 23.62, 24.02, 0);
+            var planets = CreatePlanets();
+
+            BuyMenu buyMenu = new BuyMenu();
+            SellMenu sellMenu = new SellMenu();
+            BuyShipMenu buyShipMenu = new BuyShipMenu();
+            TravelMenu travelMenu = new TravelMenu();
+
             
             //Create user
             Console.Write("\nPlease enter your name: ");
@@ -37,57 +33,33 @@ namespace SpaceTradingGame
             //create warpSpeed
             var travel = new WarpSpeed();
             
-            var currentShip= simiyarLightFreighter;
+            var currentShip= ships[1];
             var exit = false;
             var hasTravelled = false;
             Random rand = new Random();
-            player.SetCurrentPlanet(earth);
+            //player.SetCurrentPlanet(earth);
             do
             {
-                
+                var goodsQuantity = GetCurrentInventoryQuantities(player);
                 var choice = -2;
                 Console.Clear();
                 player.CalculateYears();
-                if (player.GetUserTimeInYears() >= 40)
-                {
-                    exit = true;
-                }
+                //if (player.GetUserTimeInYears() >= 40 ||fuel==0 ||(player.GetCredits()==0&&player.GetCurrentCargo().Count ==0))
+                //{
+                //    exit = true;
+                //}
 
                 if (hasTravelled == true)
                 {
-                    if (player.GetCurrentLocation() == "Earth")
-                    {
-                        player.SetCurrentPlanet(earth);
-                        gold.SetPriceOfGood(rand.Next(1, 4500));
-                        diamond.SetPriceOfGood(rand.Next(1, 1500));
-                        uranium.SetPriceOfGood(rand.Next(1, 200));
-                        oil.SetPriceOfGood(rand.Next(1, 500));
-                        wood.SetPriceOfGood(rand.Next(1, 250));
-                        copper.SetPriceOfGood(rand.Next(1, 15));
-                        darkMatter.SetPriceOfGood(rand.Next(100000, 400000));
-                    }
-                    else if (player.GetCurrentLocation() == "Gliese")
-                    {
-                        player.SetCurrentPlanet(gliese);
-                        gold.SetPriceOfGood(rand.Next(1, 3585));
-                        diamond.SetPriceOfGood(rand.Next(1, 600));
-                        uranium.SetPriceOfGood(rand.Next(50,200));
-                        oil.SetPriceOfGood(rand.Next(1, 25));
-                        wood.SetPriceOfGood(rand.Next(1, 10));
-                        copper.SetPriceOfGood(rand.Next(1, 150));
-                        darkMatter.SetPriceOfGood(rand.Next(100000, 400000));
-                    }
-                    else
-                    {
-                        player.SetCurrentPlanet(alphaCentauri);
-                        gold.SetPriceOfGood(rand.Next(1, 3585));
-                        diamond.SetPriceOfGood(rand.Next(50, 3000));
-                        uranium.SetPriceOfGood(rand.Next(1, 200));
-                        oil.SetPriceOfGood(rand.Next(1, 500));
-                        wood.SetPriceOfGood(rand.Next(1, 250));
-                        copper.SetPriceOfGood(rand.Next(1, 15));
-                        darkMatter.SetPriceOfGood(rand.Next(100000, 400000));
-                    }
+                    
+                        //player.SetCurrentPlanet(earth);
+                        goods[1].SetPriceOfGood(rand.Next(1, 4500));
+                        goods[2].SetPriceOfGood(rand.Next(1, 1500));
+                        goods[3].SetPriceOfGood(rand.Next(1, 200));
+                        goods[4].SetPriceOfGood(rand.Next(1, 500));
+                        goods[5].SetPriceOfGood(rand.Next(1, 250));
+                        goods[6].SetPriceOfGood(rand.Next(1, 15));
+                        goods[7].SetPriceOfGood(rand.Next(100000, 400000));
                 }
 
                 hasTravelled = false;
@@ -97,13 +69,15 @@ namespace SpaceTradingGame
                     {
                         break;
                     }
+
                     Console.Clear();
-                    Console.WriteLine($"You have {player.GetCredits()} and have travelled for {player.GetUserTimeInYears()} years and {player.GetUserDays()} days");
+                    Console.WriteLine(
+                        $"You have {player.GetCredits()} and have travelled for {player.GetUserTimeInYears()} years and {player.GetUserDays()} days");
                     Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
                     Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
-                                          "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n-1. Quit");
+                                      "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n-1. Quit");
                     choice = GetInput();
-                } while ( choice<-1 || choice > 4|| choice==0  );
+                } while (choice < -1 || choice > 4 || choice == 0);
 
                 switch (choice)
                 {
@@ -111,23 +85,107 @@ namespace SpaceTradingGame
                         exit = true;
                         break;
                     case 1:
-                        DisplayBuyMenu(player, gold, diamond,uranium, oil, wood, copper, darkMatter,player.GetCurrentPlanet());
+                        buyMenu.DisplayBuyMenu(player, goods, player.GetCurrentPlanet());
+                        choice = GetInput();
+                        if (choice == 8)
+                        {
+                            DisplayInventory(player, goodsQuantity);
+                        } 
+                        else if (choice>=1||choice<=7)
+                        {
+                            for (int i = choice;;)
+                            {
+                                Console.WriteLine(
+                                    $"How many {goods[i].GetNameOfGood()} would you like to buy? " +
+                                    $"(note each item will take up 1 cargo space");
+                                int quantity = GetInput();
+                                goods[i].BuyGood(player, quantity);
+                                break;
+                            }
+                        }
+
                         break;
                     case 2:
-                        DisplaySellMenu(player, gold, diamond, uranium, oil, wood, copper, darkMatter, player.GetCurrentPlanet());
+                        sellMenu.DisplaySellMenu(player, goods, player.GetCurrentPlanet());
+                        choice = GetInput();
+                        for (int i = choice;;)
+                        {
+                            Console.WriteLine(
+                                $"You currently have {goodsQuantity[choice - 1]} peices of {goods[i].GetNameOfGood()}.How many would you like to sell? ");
+                            int quantity = GetInput();
+                            goods[i].SellGood(player, quantity, choice, goodsQuantity);
+                            break;
+                        }
+
+                        
                         break;
                     case 3:
-                        hasTravelled = DisplayTravelMenu(player, earth, alphaCentauri, gliese, travel, currentShip);
+                        travelMenu.DisplayTravelMenu(player, planets);
+                        choice = GetInput();
 
                         break;
                     case 4:
-                        currentShip= DisplayShipBuyMenu(player,simiyarLightFreighter,tradeFederationCruiser,cr90Corvette,milleniumFalcon,imperialStarDestroyer,currentShip);
-                        break;
+                        buyShipMenu.DisplayBuyShipMenu(player, ships, currentShip);
+                        choice = GetInput();
+                        for (int i = choice;;)
+                        {
+                            if (player.GetCredits() + currentShip.GetShipCost() >= ships[i].GetShipCost())
+                            {
+                                player.AddCredits(currentShip.GetShipCost());
+                                player.AddCredits(-ships[i].GetShipCost());
+                                currentShip = ships[i];
+                            }
+                            else
+                            {
+                                Console.WriteLine("You do not have enough credits to buy that ship.");
+                            }
+                            break;
                         }
-            } while (exit==false);
+                        break;
+
+                }
+            } while (exit == false);
+
             DisplayEnd(player);
         }
 
+        static Goods[] CreateGoods()
+        {
+            Goods[] goods = new Goods[8];
+            goods[1] = new Goods("Gold", 12000);
+            goods[2] = new Goods("Diamond", 1400);
+            goods[3]= new Goods("Uranium", 70);
+            goods[4]= new Goods("Oil", 66);
+            goods[5]= new Goods("Wood", 10);
+            goods[6] = new Goods("Copper", 2);
+            goods[7]= new Goods("Dark Matter", 450000);
+            return goods;
+        }
+
+        static Ship[] CreateShips()
+        {
+            Ship[] ships = new Ship[6];
+            ships[1]= new Ship("Simiyar-Class Light Freighter", 50, 3, 25000, 10);
+            ships[2] = new Ship("Trade Federation Cruiser", 300, 4, 75000, 20);
+            ships[3] = new Ship("CR90 Corvette", 750, 7, 125000, 30);
+            ships[4] = new Ship("Millenuim Falcon", 50, 9, 400000, 40);
+            ships[5] = new Ship("Imperial-Class Star Destroyer", 1000, 7, 500000, 50);
+            return ships;
+        }
+
+        static Planet[] CreatePlanets()
+        {
+            Random rand = new Random();
+            Planet[] planet = new Planet[rand.Next(100, 250)];
+            for (int i = 0; i < planet.Length; i++)
+            {
+                int planetNumber = rand.Next(1, 500);
+                planet[i] = new Planet($"Planet{planetNumber}", $"Trader{planetNumber}",
+                    Convert.ToDouble(rand.Next(-50, 50)),
+                    Convert.ToDouble(rand.Next(-50, 50)));
+            }
+            return planet;
+        }
         private static void DisplayEnd(User player)
         {
             var netIncome =  player.GetCredits()-25000;
@@ -158,160 +216,11 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private static void DisplayBuyMenu(User player,Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper, Goods darkMatter,Planet currentPlanet)
-        {
-            int choice;
-            var goodsQuantity = new int[7] {0,0,0,0,0,0,0};
-            do
-            {
-                int quantity;
-                GetCurrentInventoryQuantities(goodsQuantity,player);
-                Console.Clear();
-                var cargoSpaceAvailble = player.GetMaxCargo() - player.GetCurrentCargo().Count;
-                Console.WriteLine($"{currentPlanet.GetTraderName()} says \"Greetings {player.GetUserName()}. What goods would you like to buy from me?\" " +
-                                  "\nEnter the corresponding number to decide: " +
-                                  $"\n You currently have {player.GetCredits()} credits and have {cargoSpaceAvailble} spaces of cargo available" +
-                                  $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
-                                  $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
-                                  $"\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
-                                  $"\n 4. {oil.GetNameOfGood()}\t\tprice: {oil.GetPriceOfGood()}" +
-                                  $"\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
-                                  $"\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
-                                  $"\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
-                                  $"\n 8. Display current inventory" +
-                                  "\n 0 to return to original screen");
-                choice = GetInput();
-                switch (choice)
-                {
-                    case 1:
-                        do
-                        {
-                            Console.WriteLine("You have selected to buy gold. How much gold would you like to buy? " +
-                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                              || gold.GetPriceOfGood() * quantity > player.GetCredits());
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.AddCargo(gold.GetNameOfGood());
-                            }
 
-                            player.SetCredits(-(gold.GetPriceOfGood() * quantity));
-                        }
-                        break;
-                    case 2:
-                        do
-                        {
-                            Console.WriteLine("You have selected to buy diamonds. How much diamonds would you like to buy? " +
-                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                              || diamond.GetPriceOfGood() * quantity > player.GetCredits());
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.AddCargo(diamond.GetNameOfGood());
-                            }
-                            player.SetCredits(-(diamond.GetPriceOfGood() * quantity));
-                        }
-                        break;
-                    case 3:
-                        do
-                        {
-                            Console.WriteLine("You have selected to buy uranium. How much uranium would you like to buy? " +
-                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                              || uranium.GetPriceOfGood() * quantity > player.GetCredits());
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.AddCargo(uranium.GetNameOfGood());
-                            }
-                            player.SetCredits(-(uranium.GetPriceOfGood() * quantity));
-                        }
-                        break;
-                    case 4:
-                        do
-                        {
-                            Console.WriteLine("You have selected to buy oil. How much oil would you like to buy? " +
-                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                              || oil.GetPriceOfGood() * quantity > player.GetCredits());
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.AddCargo(oil.GetNameOfGood());
-                            }
-                            player.SetCredits(-(oil.GetPriceOfGood() * quantity));
-                        }
-                        break;
-                    case 5:
-                        do
-                        {
-                            Console.WriteLine("You have selected to buy wood. How much wood would you like to buy? " +
-                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                              || wood.GetPriceOfGood() * quantity > player.GetCredits());
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.AddCargo(wood.GetNameOfGood());
-                            }
-                            player.SetCredits(-(wood.GetPriceOfGood() * quantity));
-                        }
-                        break;
-                    case 6:
-                        do
-                        {
-                            Console.WriteLine("You have selected to buy copper. How much copper would you like to buy? " +
-                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                              || copper.GetPriceOfGood() * quantity > player.GetCredits());
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.AddCargo(copper.GetNameOfGood());
-                            }
-                            player.SetCredits(-(copper.GetPriceOfGood() * quantity));
-                        }
-                        break;
-                    case 7:
-                        do
-                        {
-                            Console.WriteLine("You have selected to buy dark matter. How much dark matter would you like to buy? " +
-                                              " Enter 0 to not buy anything. (Note: each unit will take up 1 cargo space)");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity + player.GetCurrentCargo().Count > player.GetMaxCargo()
-                                              || darkMatter.GetPriceOfGood() * quantity > player.GetCredits());
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.AddCargo(darkMatter.GetNameOfGood());
-                            }
-                            player.SetCredits(-(darkMatter.GetPriceOfGood() * quantity));
-                        }
-                        break;
-                    case 8:
-                        DisplayInventory(player, goodsQuantity);
-                        break;
-                }
-            } while (choice < 0 || choice > 8);
-        }
 
-        private static void GetCurrentInventoryQuantities(int[] goodsQuantity, User player)
+        private static int[] GetCurrentInventoryQuantities(User player)
         {
+            int[] goodsQuantity = new int[7];
             for (var i = 0; i < player.GetCurrentCargo().Count; i++)
             {
                 switch (player.GetCurrentCargo()[i])
@@ -339,424 +248,168 @@ namespace SpaceTradingGame
                         break;
                 }
             }
+
+            return goodsQuantity;
         }
 
-        private static void DisplaySellMenu(User player, Goods gold, Goods diamond, Goods uranium, Goods oil, Goods wood, Goods copper,
-            Goods darkMatter,Planet currentPlanet)
-        {
-            int choice;
-            var goodsQuantity = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
-            do
-            {
-                var quantity = 0;
-                GetCurrentInventoryQuantities(goodsQuantity,player);
-                Console.Clear();
-                Console.WriteLine($"{currentPlanet.GetTraderName()} says  \"Greetings, {player.GetUserName()}. What goods would you like to sell to me?\" " +
-                                  "\nEnter the corresponding number to decide: " +
-                                  $"\n 1. {gold.GetNameOfGood()}\tprice: {gold.GetPriceOfGood()}" +
-                                  $"\n 2. {diamond.GetNameOfGood()}\tprice: {diamond.GetPriceOfGood()}" +
-                                  $"\n 3. {uranium.GetNameOfGood()}\tprice: {uranium.GetPriceOfGood()}" +
-                                  $"\n 4. {oil.GetNameOfGood()}\t\tprice: {oil.GetPriceOfGood()}" +
-                                  $"\n 5. {wood.GetNameOfGood()}\tprice: {wood.GetPriceOfGood()}" +
-                                  $"\n 6. {copper.GetNameOfGood()}\tprice: {copper.GetPriceOfGood()}" +
-                                  $"\n 7. {darkMatter.GetNameOfGood()}\tprice: {darkMatter.GetPriceOfGood()}" +
-                                  $"\n 8. Display current inventory" +
-                                  "\n 0. to return to original screen");
-                choice = GetInput();
-                switch (choice)
-                {
-                    case 1:
-                        do
-                        {
-                            Console.WriteLine(
-                                $"You have selected to sell Gold. You currently have {goodsQuantity[0]} peices of gold" +
-                                $"\n How many would you like to sell?");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity > goodsQuantity[0]);
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.RemoveCargo(gold.GetNameOfGood());
-                            }
-                            player.SetCredits(gold.GetPriceOfGood() * quantity);
-                            player.SetTotalCreditsEarned(gold.GetPriceOfGood()*quantity);
-                        }
-                        break;
-                    case 2:
-                        do
-                        {
-                            Console.WriteLine(
-                                $"You have selected to sell Diamonds. You currently have {goodsQuantity[1]} peices of diamond" +
-                                $"\n How many would you like to sell?");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity > goodsQuantity[1]);
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.RemoveCargo(diamond.GetNameOfGood());
-                            }
-                            player.SetCredits(diamond.GetPriceOfGood() * quantity);
-                            player.SetTotalCreditsEarned(diamond.GetPriceOfGood() * quantity);
-                        }
-                        break;
-                    case 3:
-                        do
-                        {
-                            Console.WriteLine(
-                                $"You have selected to sell Uranium. You currently have {goodsQuantity[2]} peices of uranium" +
-                                $"\n How many would you like to sell?");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity > goodsQuantity[2]);
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.RemoveCargo(uranium.GetNameOfGood());
-                            }
-                            player.SetCredits(uranium.GetPriceOfGood() * quantity);
-                            player.SetTotalCreditsEarned(uranium.GetPriceOfGood() * quantity);
-                        }
-                        break;
-                    case 4:
-                        do
-                        {
-                            Console.WriteLine(
-                                $"You have selected to sell Oil. You currently have {goodsQuantity[3]} peices of oil" +
-                                $"\n How many would you like to sell?");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity > goodsQuantity[3]);
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.RemoveCargo(oil.GetNameOfGood());
-                            }
-                            player.SetCredits(oil.GetPriceOfGood() * quantity);
-                            player.SetTotalCreditsEarned(oil.GetPriceOfGood() * quantity);
-                        }
-                        break;
-                    case 5:
-                        do
-                        {
-                            Console.WriteLine(
-                                $"You have selected to sell wood. You currently have {goodsQuantity[4]} peices of wood" +
-                                $"\n How many would you like to sell?");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity > goodsQuantity[4]);
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.RemoveCargo(wood.GetNameOfGood());
-                            }
-                            player.SetCredits(wood.GetPriceOfGood() * quantity);
-                            player.SetTotalCreditsEarned(wood.GetPriceOfGood() * quantity);
-                        }
-                        break;
-                    case 6:
-                        do
-                        {
-                            Console.WriteLine(
-                                $"You have selected to sell Copper. You currently have {goodsQuantity[5]} peices of copper" +
-                                $"\n How many would you like to sell?");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity > goodsQuantity[5]);
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.RemoveCargo(copper.GetNameOfGood());
-                            }
-                            player.SetCredits(copper.GetPriceOfGood() * quantity);
-                            player.SetTotalCreditsEarned(copper.GetPriceOfGood() * quantity);
-                        }
-                        break;
-                    case 7:
-                        do
-                        {
-                            Console.WriteLine(
-                                $"You have selected to sell Dark Matter. You currently have {goodsQuantity[6]} peices of dark matter" +
-                                $"\n How many would you like to sell?");
-                            quantity = GetInput();
-                        } while (quantity < 0 || quantity > goodsQuantity[6]);
-                        if (quantity > 0)
-                        {
-                            for (var i = 0; i < quantity; i++)
-                            {
-                                player.RemoveCargo(darkMatter.GetNameOfGood());
-                            }
-                            player.SetCredits(darkMatter.GetPriceOfGood() * quantity);
-                            player.SetTotalCreditsEarned(darkMatter.GetPriceOfGood() * quantity);
-                        }
-                        break;
-                    case 8:
-                        DisplayInventory(player,goodsQuantity);
-                        break;
-                    default:
-                        choice = 0;
-                        break;
-                }
-            } while (choice < 0 || choice > 8);
-        }
+        //private static bool DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
+        //{
+        //    var choice=0;
+        //    var travelled = false;
+        //    do
+        //    {
+        //        var warpSpeed = 0;
+        //        Console.Clear();
+        //        Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
+        //        if (player.GetCurrentLocation() == earth.GetPlanetName())
+        //        {
+        //            Console.WriteLine(
+        //                $"You can travel to \n1. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {alphaCentauri.GetDistanceToEarth()}" +
+        //                $"\n2. {gliese.GetPlanetName()}\t\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
+        //                $"\n0. return to previous menu");
+        //            choice = GetInput();
+        //            Console.Write("You have selected to travel to ");
+        //            switch (choice)
+        //            {
+        //                case 1:
+        //                    Console.WriteLine(alphaCentauri.GetPlanetName());
+        //                    do
+        //                    {
+        //                        Console.Write(
+        //                            ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+        //                             $"{currentShip.GetMaxWarpSpeed()}: "));
+        //                        warpSpeed = GetInput();
+        //                    } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
 
-        private static bool DisplayTravelMenu(User player, Planet earth, Planet alphaCentauri, Planet gliese, WarpSpeed travel,Ship currentShip)
-        {
-            var choice=0;
-            var travelled = false;
-            do
-            {
-                var warpSpeed = 0;
-                Console.Clear();
-                Console.WriteLine($"You are currently on {player.GetCurrentLocation()}");
-                if (player.GetCurrentLocation() == earth.GetPlanetName())
-                {
-                    Console.WriteLine(
-                        $"You can travel to \n1. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {alphaCentauri.GetDistanceToEarth()}" +
-                        $"\n2. {gliese.GetPlanetName()}\t\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
-                        $"\n0. return to previous menu");
-                    choice = GetInput();
-                    Console.Write("You have selected to travel to ");
-                    switch (choice)
-                    {
-                        case 1:
-                            Console.WriteLine(alphaCentauri.GetPlanetName());
-                            do
-                            {
-                                Console.Write(
-                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}: "));
-                                warpSpeed = GetInput();
-                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+        //                    if (warpSpeed != 0)
+        //                    {
+        //                        player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
+        //                        player.SetCurrentLocation(alphaCentauri.GetPlanetName());
+        //                        travelled = true;
+        //                    }
+        //                    break;
+        //                case 2:
+        //                    Console.WriteLine(gliese.GetPlanetName());
+        //                    do
+        //                    {
+        //                        Console.Write(
+        //                            ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+        //                             $"{currentShip.GetMaxWarpSpeed()}: "));
+        //                        warpSpeed = GetInput();
+        //                    } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
 
-                            if (warpSpeed != 0)
-                            {
-                                player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
-                                player.SetCurrentLocation(alphaCentauri.GetPlanetName());
-                                travelled = true;
-                            }
-                            break;
-                        case 2:
-                            Console.WriteLine(gliese.GetPlanetName());
-                            do
-                            {
-                                Console.Write(
-                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}: "));
-                                warpSpeed = GetInput();
-                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+        //                    if (warpSpeed != 0)
+        //                    {
+        //                        player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
+        //                        player.SetCurrentLocation(gliese.GetPlanetName());
+        //                        travelled = true;
+        //                    }
+        //                    break;
+        //            }
+        //        }
+        //        else if (player.GetCurrentLocation() == alphaCentauri.GetPlanetName())
+        //        {
+        //            Console.WriteLine(
+        //                $"You can travel to \n1. {earth.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {earth.GetDistanceToAlphaCentauri()}" +
+        //                $"\n2. {gliese.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToAlphaCentauri()}" +
+        //                $"\n0. Return to previous menu");
+        //            choice = GetInput();
+        //            Console.WriteLine("You have selected to travel to ");
+        //            switch (choice)
+        //            {
+        //                case 1:
+        //                    Console.WriteLine(earth.GetPlanetName());
+        //                    do
+        //                    {
+        //                        Console.Write(
+        //                            ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+        //                             $"{currentShip.GetMaxWarpSpeed()}: "));
+        //                        warpSpeed = GetInput();
+        //                    } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
 
-                            if (warpSpeed != 0)
-                            {
-                                player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
-                                player.SetCurrentLocation(gliese.GetPlanetName());
-                                travelled = true;
-                            }
-                            break;
-                    }
-                }
-                else if (player.GetCurrentLocation() == alphaCentauri.GetPlanetName())
-                {
-                    Console.WriteLine(
-                        $"You can travel to \n1. {earth.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {earth.GetDistanceToAlphaCentauri()}" +
-                        $"\n2. {gliese.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToAlphaCentauri()}" +
-                        $"\n0. Return to previous menu");
-                    choice = GetInput();
-                    Console.WriteLine("You have selected to travel to ");
-                    switch (choice)
-                    {
-                        case 1:
-                            Console.WriteLine(earth.GetPlanetName());
-                            do
-                            {
-                                Console.Write(
-                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}: "));
-                                warpSpeed = GetInput();
-                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+        //                    if (warpSpeed != 0)
+        //                    {
+        //                        player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
+        //                        player.SetCurrentLocation(earth.GetPlanetName());
+        //                        travelled = true;
+        //                    }
+        //                    break;
+        //                case 2:
+        //                    Console.WriteLine(gliese.GetPlanetName());
+        //                    do
+        //                    {
+        //                        Console.Write(
+        //                            ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+        //                             $"{currentShip.GetMaxWarpSpeed()}: "));
+        //                        warpSpeed = GetInput();
+        //                    } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
 
-                            if (warpSpeed != 0)
-                            {
-                                player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToEarth(), warpSpeed));
-                                player.SetCurrentLocation(earth.GetPlanetName());
-                                travelled = true;
-                            }
-                            break;
-                        case 2:
-                            Console.WriteLine(gliese.GetPlanetName());
-                            do
-                            {
-                                Console.Write(
-                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}: "));
-                                warpSpeed = GetInput();
-                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+        //                    if (warpSpeed != 0)
+        //                    {
+        //                        player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToGliese(),
+        //                            warpSpeed));
+        //                        player.SetCurrentLocation(gliese.GetPlanetName());
+        //                        travelled = true;
+        //                    }
 
-                            if (warpSpeed != 0)
-                            {
-                                player.SetUserTime(travel.GetTimeTravelled(alphaCentauri.GetDistanceToGliese(),
-                                    warpSpeed));
-                                player.SetCurrentLocation(gliese.GetPlanetName());
-                                travelled = true;
-                            }
+        //                    break;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine(
+        //                $"You can travel to \n1. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToAlphaCentauri()}" +
+        //                $"\n2. {earth.GetPlanetName()}\t\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
+        //                $"\n0. return to previous menu");
+        //            choice = GetInput();
+        //            Console.WriteLine("You have selected to travel to ");
+        //             switch (choice)
+        //            {
+        //                case 1:
+        //                    Console.WriteLine(alphaCentauri.GetPlanetName());
+        //                    do
+        //                    {
+        //                        Console.Write(
+        //                            ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+        //                             $"{currentShip.GetMaxWarpSpeed()}: "));
+        //                        warpSpeed = GetInput();
+        //                    } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
 
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine(
-                        $"You can travel to \n1. {alphaCentauri.GetPlanetName()}\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToAlphaCentauri()}" +
-                        $"\n2. {earth.GetPlanetName()}\t\t Distance from {player.GetCurrentLocation()}: {gliese.GetDistanceToEarth()}" +
-                        $"\n0. return to previous menu");
-                    choice = GetInput();
-                    Console.WriteLine("You have selected to travel to ");
-                     switch (choice)
-                    {
-                        case 1:
-                            Console.WriteLine(alphaCentauri.GetPlanetName());
-                            do
-                            {
-                                Console.Write(
-                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}: "));
-                                warpSpeed = GetInput();
-                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+        //                    if (warpSpeed != 0)
+        //                    {
+        //                        player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToAlphaCentauri(),
+        //                            warpSpeed));
+        //                        player.SetCurrentLocation(alphaCentauri.GetPlanetName());
+        //                        travelled = true;
+        //                    }
 
-                            if (warpSpeed != 0)
-                            {
-                                player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToAlphaCentauri(),
-                                    warpSpeed));
-                                player.SetCurrentLocation(alphaCentauri.GetPlanetName());
-                                travelled = true;
-                            }
+        //                    break;
+        //                case 2:
+        //                    Console.WriteLine(earth.GetPlanetName());
+        //                    do
+        //                    {
+        //                        Console.Write(
+        //                            ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
+        //                             $"{currentShip.GetMaxWarpSpeed()}: "));
+        //                        warpSpeed = GetInput();
+        //                    } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
 
-                            break;
-                        case 2:
-                            Console.WriteLine(earth.GetPlanetName());
-                            do
-                            {
-                                Console.Write(
-                                    ("Please enter your warp speed. Your ship can travel at a max warp speed of " +
-                                     $"{currentShip.GetMaxWarpSpeed()}: "));
-                                warpSpeed = GetInput();
-                            } while (warpSpeed < 0 || warpSpeed > currentShip.GetMaxWarpSpeed());
+        //                    if (warpSpeed != 0)
+        //                    {
+        //                        player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
+        //                        player.SetCurrentLocation(earth.GetPlanetName());
+        //                        travelled = true;
+        //                    }
 
-                            if (warpSpeed != 0)
-                            {
-                                player.SetUserTime(travel.GetTimeTravelled(gliese.GetDistanceToEarth(), warpSpeed));
-                                player.SetCurrentLocation(earth.GetPlanetName());
-                                travelled = true;
-                            }
+        //                    break;
+        //            }
+        //        }
+        //    }while(choice<0||choice>2);
 
-                            break;
-                    }
-                }
-            }while(choice<0||choice>2);
+        //    return travelled;
+        //}
 
-            return travelled;
-        }
-
-        private static Ship DisplayShipBuyMenu(User player, Ship simiyarShip, Ship tradeFederationCruiser,Ship cr90Corvette, Ship milleniumFalcon, Ship
-            imperialStarDestroyer, Ship currentShip)
-        {
-            int choice;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine(
-                    $"Welcome, {player.GetUserName()} to Joe's Spaceship Dealership. Here you are able to purchase a new ship while selling your current one." +
-                    $"\nYou currently have {player.GetCredits()} credits and the ship you currently own is {currentShip.GetShipName()}\n Ships we currently have in stock are as follows: " +
-                    $"\n1. Simiyar-Class Light Freighter \tPrice: {simiyarShip.GetShipCost()} credits\t Cargo Space: " +
-                    $"{simiyarShip.GetCargoSpace()}\tMax warp speed: {simiyarShip.GetMaxWarpSpeed()}" +
-                    $"\n2. Trade Federation Cruiser \t\tPrice: {tradeFederationCruiser.GetShipCost()} credits\t Cargo Space: " +
-                    $"{tradeFederationCruiser.GetCargoSpace()}\tMax warp speed: {tradeFederationCruiser.GetMaxWarpSpeed()}" +
-                    $"\n3. CR90 Corvette \t\t\tPrice {cr90Corvette.GetShipCost()} credits\t Cargo Space: {cr90Corvette.GetCargoSpace()}" +
-                    $"\tMax warp speed: {cr90Corvette.GetMaxWarpSpeed()}" +
-                    $"\n4. Millenuim Falcon \t\t\tPrice: {milleniumFalcon.GetShipCost()}\t Cargo Space: {milleniumFalcon.GetCargoSpace()}" +
-                    $"\tMax warp speed: {milleniumFalcon.GetMaxWarpSpeed()}" +
-                    $"\n5. Imperial-Class Star Destroyer\tPrice: {imperialStarDestroyer.GetShipCost()}\tCargo Space: {imperialStarDestroyer.GetCargoSpace()}" +
-                    $"\tMax warp speed {imperialStarDestroyer.GetMaxWarpSpeed()}" +
-                    "\n0. Return to previous menu");
-                choice = GetInput();
-            } while (choice < 0 || choice > 5);
-            switch (choice)
-            {
-                case 1:
-                    if (player.GetCredits() >= simiyarShip.GetShipCost())
-                    {
-                        player.SetCredits(currentShip.GetShipCost());
-                        currentShip = simiyarShip;
-                        player.SetCredits(-currentShip.GetShipCost());
-                        player.SetMaxCargo(currentShip.GetCargoSpace());
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have enough credits to purchase this ship");
-                    }
-                    break;
-                case 2:
-                    if (player.GetCredits() >= tradeFederationCruiser.GetShipCost())
-                    {
-                        player.SetCredits(currentShip.GetShipCost());
-                        currentShip = tradeFederationCruiser;
-                        player.SetCredits(-currentShip.GetShipCost());
-                        player.SetMaxCargo(currentShip.GetCargoSpace());
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have enough credits to purchase this ship");
-                    }
-                    break;
-                case 3:
-                    if (player.GetCredits() >= cr90Corvette.GetShipCost())
-                    {
-                        player.SetCredits(currentShip.GetShipCost());
-                        currentShip = cr90Corvette;
-                        player.SetCredits(-currentShip.GetShipCost());
-                        player.SetMaxCargo(currentShip.GetCargoSpace());
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have enough credits to purchase this ship");
-                    }
-                    break;
-                case 4:
-                    if (player.GetCredits() >= milleniumFalcon.GetShipCost())
-                    {
-                        player.SetCredits(currentShip.GetShipCost());
-                        currentShip = milleniumFalcon;
-                        player.SetCredits(-currentShip.GetShipCost());
-                        player.SetMaxCargo(currentShip.GetCargoSpace());
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have enough credits to purchase this ship");
-                    }
-                    break;
-                case 5:
-                    if (player.GetCredits() >= imperialStarDestroyer.GetShipCost())
-                    {
-                        player.SetCredits(currentShip.GetShipCost());
-                        currentShip = imperialStarDestroyer;
-                        player.SetCredits(-currentShip.GetShipCost());
-                        player.SetMaxCargo(currentShip.GetCargoSpace());
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have enough credits to purchase this ship" +
-                                          ". Enter 0 to return to main screen");
-                        Console.ReadLine();
-
-                    }
-                    break;
-            }
-
-            return currentShip;
-
-        }
-
+      
         private static void DisplayInventory(User player,int[] goodsQuantity)
         {
             Console.Clear();

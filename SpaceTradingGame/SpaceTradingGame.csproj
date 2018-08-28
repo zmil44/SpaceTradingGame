@@ -42,12 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuyMenu.cs" />
+    <Compile Include="BuyShipMenu.cs" />
     <Compile Include="Goods.cs" />
     <Compile Include="Planet.cs" />
+    <Compile Include="SellMenu.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="SpaceTradingGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Story.cs" />
+    <Compile Include="TravelMenu.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInterface.cs" />
     <Compile Include="WarpSpeed.cs" />

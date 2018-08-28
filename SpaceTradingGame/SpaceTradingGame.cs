@@ -11,7 +11,6 @@ namespace SpaceTradingGame
             Console.WindowWidth = Console.LargestWindowWidth;
             Console.ForegroundColor = ConsoleColor.Green;
             var playerInterface = new UserInterface();
-            
         }
     }
 }

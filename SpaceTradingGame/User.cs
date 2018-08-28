@@ -4,113 +4,103 @@ namespace SpaceTradingGame
 {
     internal class User
     {
-        private readonly string _name;
-        private decimal _credits=25000;
-        private int _timeInYears=0;
-        private int _timeInDays=0;
-        private decimal _totalCreditsEarned=0;
-        private string _currentLocation = "Earth";
-        private readonly List<string> _cargo = new List<string>();
-        private int _maxCargoSpace = 50;
-        private Planet _currentPlanet;
+         readonly string name;
+         decimal credits=25000;
+         int timeInYears=0;
+         int timeInDays=0;
+         string currentLocation = "Earth";
+         readonly List<string> cargo = new List<string>();
+         int maxCargoSpace = 50;
+         Planet currentPlanet;
 
         public void SetCurrentPlanet(Planet current)
         {
-            _currentPlanet = current;
+            currentPlanet = current;
         }
 
         public Planet GetCurrentPlanet()
         {
-            return _currentPlanet;
+            return currentPlanet;
         }
         public void CalculateYears()
         {
-            if (_timeInDays > 365)
+            if (timeInDays > 365)
             {
-                int years = _timeInDays/365;
-                _timeInYears += years;
-                _timeInDays -= 365*years;
+                int years = timeInDays/365;
+                timeInYears += years;
+                timeInDays -= 365*years;
             }
         }
 
         public User(string userName)
         {
-            _name = userName;
+            name = userName;
 
         }
 
         public string GetUserName()
         {
-            return _name;
+            return name;
         }
 
 
         public decimal GetCredits()
         {
-            return _credits;
+            return credits;
         }
 
-        public void SetCredits(decimal credits)
+        public void AddCredits(decimal credits)
         {
-            _credits += credits;
+            credits += credits;
         }
 
         public int GetUserDays()
         {
-            return _timeInDays;
+            return timeInDays;
         }
 
         public void SetUserTime(int userTime)
         {
-            _timeInDays += userTime;
+            timeInDays += userTime;
         }
 
         public int GetUserTimeInYears()
         {
-            return _timeInYears;
-        }
-        public decimal GetTotalCreditsEarned()
-        {
-            return _totalCreditsEarned;
-        }
-
-        public void SetTotalCreditsEarned(decimal creditsEarned)
-        {
-            _totalCreditsEarned += creditsEarned;
+            return timeInYears;
         }
 
         public int GetMaxCargo()
         {
-            return _maxCargoSpace;
+            return maxCargoSpace;
         }
 
         public void SetMaxCargo(int maxCargo)
         {
-            _maxCargoSpace = maxCargo;
+            maxCargoSpace = maxCargo;
         }
 
         public string GetCurrentLocation()
         {
-            return _currentLocation;
+            return currentLocation;
         }
 
         public void SetCurrentLocation(string planet)
         {
-            _currentLocation = planet;
+            currentLocation = planet;
         }
         public List<string> GetCurrentCargo()
         {
-            return _cargo;
+            return cargo;
         }
 
         public void AddCargo(string good)
         {
-                _cargo.Add(good);
+                cargo.Add(good);
         }
 
         public void RemoveCargo(string good)
         {
-            _cargo.Remove(good);
+            cargo.Remove(good);
         }
 
 
