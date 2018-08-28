@@ -24,7 +24,7 @@ namespace SpaceTradingGame
             SellMenu sellMenu = new SellMenu();
             BuyShipMenu buyShipMenu = new BuyShipMenu();
             TravelMenu travelMenu = new TravelMenu();
-
+            travelMenu.CalculateDistanceBetweenPlanets(planets);
             
             //Create user
             Console.Write("\nPlease enter your name: ");
@@ -37,7 +37,7 @@ namespace SpaceTradingGame
             var exit = false;
             var hasTravelled = false;
             Random rand = new Random();
-            //player.SetCurrentPlanet(earth);
+            player.SetCurrentPlanet(planets[0]);
             do
             {
                 var goodsQuantity = GetCurrentInventoryQuantities(player);
@@ -85,6 +85,7 @@ namespace SpaceTradingGame
                         exit = true;
                         break;
                     case 1:
+                        Console.Clear();
                         buyMenu.DisplayBuyMenu(player, goods, player.GetCurrentPlanet());
                         choice = GetInput();
                         if (choice == 8)
@@ -106,6 +107,7 @@ namespace SpaceTradingGame
 
                         break;
                     case 2:
+                        Console.Clear();
                         sellMenu.DisplaySellMenu(player, goods, player.GetCurrentPlanet());
                         choice = GetInput();
                         for (int i = choice;;)
@@ -120,11 +122,13 @@ namespace SpaceTradingGame
                         
                         break;
                     case 3:
+                        Console.Clear();
                         travelMenu.DisplayTravelMenu(player, planets);
                         choice = GetInput();
 
                         break;
                     case 4:
+                        Console.Clear();
                         buyShipMenu.DisplayBuyShipMenu(player, ships, currentShip);
                         choice = GetInput();
                         for (int i = choice;;)
@@ -177,7 +181,8 @@ namespace SpaceTradingGame
         {
             Random rand = new Random();
             Planet[] planet = new Planet[rand.Next(100, 250)];
-            for (int i = 0; i < planet.Length; i++)
+            planet[0] = new Planet("Earth", "Mace Windu", 0, 0);
+            for (int i = 1; i < planet.Length; i++)
             {
                 int planetNumber = rand.Next(1, 500);
                 planet[i] = new Planet($"Planet{planetNumber}", $"Trader{planetNumber}",

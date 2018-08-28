@@ -1,16 +1,16 @@
 ﻿
+using System.Collections.Generic;
+
 namespace SpaceTradingGame
 {
     class Planet
     {
-        readonly double distanceToEarth;
-        readonly double distanceToAlphaCentauri;
-        readonly double distanceToGliese;
+
         readonly string planetName;
         readonly string traderName;
         readonly double xCord;
         readonly double yCord;
-        
+        public List<double> distanceBetweenPlanets = new List<double>();
 
 
         public Planet(string name, string trader, double xCordinate,double ycordinate)
@@ -36,11 +36,20 @@ namespace SpaceTradingGame
             return xCord;
         }
 
-        public double GetyCord()
+        public double GetYCord()
         {
             return yCord;
         }
 
+        public void SetDistanceToPlanet(double distance)
+        {
+            distanceBetweenPlanets.Add(distance);
+        }
+
+        public List<double> GetDistanceToPlanet()
+        {
+            return distanceBetweenPlanets;
+        }
 
     }
 }

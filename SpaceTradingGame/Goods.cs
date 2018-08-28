@@ -30,20 +30,26 @@ namespace SpaceTradingGame
         public void BuyGood(User player, int quantity)
         {
             int totalPrice = priceOfGood * quantity;
-            if (player.GetCredits() >= totalPrice)
+            if (player.GetCredits() >= totalPrice && quantity <= player.GetMaxCargo()-player.GetCurrentCargo().Count)
             {
                 for (int i = 0; i < quantity; i++)
                 {
                     player.AddCargo(nameOfGood);
                 }
 
-                player.AddCredits(-totalPrice);
+                player.AddCredits(-(totalPrice));
                 Console.WriteLine("Purchase Successful");
+                Console.Read();
+            }
+            else if(player.GetCredits()<totalPrice)
+            {
+                Console.WriteLine("You did not have enough credits to complete your purchase. Press enter 0 to continue.");
                 Console.Read();
             }
             else
             {
-                Console.WriteLine("You did not have enough credits to complete your purchase. Press enter to continue.");
+                Console.WriteLine(
+                    "You do not have enough cargo space to complete your purchase. Press enter 0 to continue");
                 Console.Read();
             }
         }
@@ -64,7 +70,7 @@ namespace SpaceTradingGame
             }
             else
             {
-                Console.WriteLine($"You did not have enough {nameOfGood} to sell that many. Press enter to continue.");
+                Console.WriteLine($"You did not have enough {nameOfGood} to sell that many. Press enter 0 to continue.");
                 Console.Read();
             }
         }

@@ -15,7 +15,7 @@ namespace SpaceTradingGame
             Console.WriteLine(
                 $"{currentPlanet.GetTraderName()} says  \"Greetings, {player.GetUserName()}. What goods would you like to sell to me?\" " +
                 "\nEnter the corresponding number to decide: ");
-            for (int i = 1; i < goods.Length; i++)
+            for (int i = 1; i <= goods.Length; i++)
             {
                 Console.WriteLine($"{i}. {goods[i].GetNameOfGood()} \tPrice: {goods[i].GetPriceOfGood()}");
             }
