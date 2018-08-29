@@ -7,7 +7,7 @@ namespace SpaceTradingGame
         public  UserInterface()
         {
             //create and display story
-            new Story();
+            var story = new Story();
 
             //create goods
             var goods = CreateGoods();
@@ -39,7 +39,7 @@ namespace SpaceTradingGame
             string exitMessage="";
             do
             {
-                var goodsQuantity = GetCurrentInventoryQuantities(player);
+                var goodsQuantity = player.GetCurrentInventoryQuantities();
                 var choice = -2;
                 Console.Clear();
                 player.CalculateYears();
@@ -250,7 +250,7 @@ namespace SpaceTradingGame
                 }
             } while (exit == false);
 
-            DisplayEnd(player,exitMessage);
+            story.DisplayEnd(player,exitMessage);
         }
 
         static Goods[] CreateGoods()
@@ -292,15 +292,6 @@ namespace SpaceTradingGame
             return planet;
         }
 
-        private static void DisplayEnd(User player,string exitMessage)
-        {
-            var netIncome =  player.GetCredits()-25000;
-            Console.WriteLine(exitMessage);
-            Console.WriteLine($"Over the course of your career, you have travelled for {player.GetUserTimeInYears()}" +
-                              $" years and {player.GetUserDays()} days. \nYou started with 25,000 credits and you ended with {player.GetCredits()}" +
-                              $" credits with a net income of {netIncome} credits.");
-            Console.Read();
-        }
 
         private static int GetInput()
         {
@@ -322,39 +313,7 @@ namespace SpaceTradingGame
             return choice;
         }
         
-        private static int[] GetCurrentInventoryQuantities(User player)
-        {
-            int[] goodsQuantity = new int[7];
-            for (var i = 0; i < player.GetCurrentCargo().Count; i++)
-            {
-                switch (player.GetCurrentCargo()[i])
-                {
-                    case "Gold":
-                        goodsQuantity[0] += 1;
-                        break;
-                    case "Diamond":
-                        goodsQuantity[1] += 1;
-                        break;
-                    case "Uranium":
-                        goodsQuantity[2] += 1;
-                        break;
-                    case "Oil":
-                        goodsQuantity[3] += 1;
-                        break;
-                    case "Wood":
-                        goodsQuantity[4] += 1;
-                        break;
-                    case "Copper":
-                        goodsQuantity[5] += 1;
-                        break;
-                    case "Dark Matter":
-                        goodsQuantity[6] += 1;
-                        break;
-                }
-            }
 
-            return goodsQuantity;
-        }
 
         private static void DisplayInventory(User player,int[] goodsQuantity)
         {

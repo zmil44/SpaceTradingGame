@@ -16,5 +16,15 @@ namespace SpaceTradingGame
                               "\nYour goal is to earn as many credits as possible after travelling for 40 years.Good luck, and may the force be with you!");
         }
 
+        public void DisplayEnd(User player, string exitMessage)
+        {
+            var netIncome = player.GetCredits() - 25000;
+            Console.WriteLine(exitMessage);
+            Console.WriteLine($"Over the course of your career, you have travelled for {player.GetUserTimeInYears()}" +
+                              $" years and {player.GetUserDays()} days. \nYou started with 25,000 credits and you ended with {player.GetCredits()}" +
+                              $" credits with a net income of {netIncome} credits.");
+            Console.Read();
+        }
+
     }
 }

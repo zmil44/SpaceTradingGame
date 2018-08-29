@@ -103,6 +103,40 @@ namespace SpaceTradingGame
             cargo.Remove(good);
         }
 
+        public int[] GetCurrentInventoryQuantities()
+        {
+            int[] goodsQuantity = new int[7];
+            for (var i = 0; i < cargo.Count; i++)
+            {
+                switch (cargo[i])
+                {
+                    case "Gold":
+                        goodsQuantity[0] += 1;
+                        break;
+                    case "Diamond":
+                        goodsQuantity[1] += 1;
+                        break;
+                    case "Uranium":
+                        goodsQuantity[2] += 1;
+                        break;
+                    case "Oil":
+                        goodsQuantity[3] += 1;
+                        break;
+                    case "Wood":
+                        goodsQuantity[4] += 1;
+                        break;
+                    case "Copper":
+                        goodsQuantity[5] += 1;
+                        break;
+                    case "Dark Matter":
+                        goodsQuantity[6] += 1;
+                        break;
+                }
+            }
+
+            return goodsQuantity;
+        }
+
 
     }
 }
