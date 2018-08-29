@@ -24,5 +24,28 @@ namespace SpaceTradingGame
 
             Console.WriteLine("0. Return to previous screen");
         }
+
+        public static void BuyShipSuccessful(User player, Ship currentShip, Ship[] ships, int choice)
+        {
+            player.AddCredits(currentShip.GetShipCost());
+            player.AddCredits(-ships[choice].GetShipCost());
+            currentShip = ships[choice];
+            player.SetMaxCargo(currentShip.GetCargoSpace());
+        }
+
+        internal static string TryBuyShip(User player, Ship currentShip, Ship[] ships,int choice)
+        {
+            
+            if (choice == 0)
+            {
+                return "You have decided not to buy a ship. Press enter to continue";
+            }
+            if (player.GetCredits() + currentShip.GetShipCost() >= ships[choice].GetShipCost())
+            {
+                BuyShipSuccessful(player, currentShip, ships, choice);
+                return "You successfully purchased a new ship.";
+            }
+                return "You do not have enough credits to buy that ship. Press enter to continue";
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 namespace SpaceTradingGame
 {
     class Ship
@@ -53,6 +53,24 @@ namespace SpaceTradingGame
         public double GetCurrentFuelLevel()
         {
             return currentFuelLevel;
+        }
+
+        public void RefuelShip(User player, Ship currentShip)
+        {
+            decimal refuelCost = Convert.ToDecimal((100 * (currentShip.maxFuelLevel - currentShip.currentFuelLevel)));
+            if (player.GetCredits() - refuelCost < 0)
+            {
+                Console.WriteLine("You do not have enough credits to refuel your ship");
+            }
+            else
+            {
+                Console.WriteLine($"You have refueled your ship for {refuelCost} credits");
+                player.AddCredits(-refuelCost);
+                currentShip.currentFuelLevel = currentShip.maxFuelLevel;
+            }
+
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
         }
 
     }

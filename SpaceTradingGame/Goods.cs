@@ -27,7 +27,7 @@ namespace SpaceTradingGame
             priceOfGood = price;
         }
 
-        public void BuyGood(User player, int quantity)
+        public string BuyGood(User player, int quantity)
         {
             int totalPrice = priceOfGood * quantity;
             if (player.GetCredits() >= totalPrice && quantity <= player.GetMaxCargo()-player.GetCurrentCargo().Count)
@@ -38,23 +38,19 @@ namespace SpaceTradingGame
                 }
 
                 player.AddCredits(-(totalPrice));
-                Console.WriteLine("Purchase Successful. Press enter to continue.");
-                Console.ReadLine();
+                return "Purchase Successful. Press enter to continue.";
             }
-            else if(player.GetCredits()<totalPrice)
+
+            if (player.GetCredits() < totalPrice)
             {
-                Console.WriteLine("You did not have enough credits to complete your purchase. Press enter to continue.");
-                Console.ReadLine();
+                return "You did not have enough credits to complete your purchase. Press enter to continue.";
             }
-            else
-            {
-                Console.WriteLine(
-                    "You do not have enough cargo space to complete your purchase. Press enter to continue");
-                Console.ReadLine();
-            }
+
+            return "You do not have enough cargo space to complete your purchase. Press enter to continue";
+            
         }
 
-        public void SellGood(User player, int quantity, int choice,int[] currentInventory)
+        public string SellGood(User player, int quantity, int choice,int[] currentInventory)
         {
             int totalPrice = priceOfGood * quantity;
             if (currentInventory[choice] <= quantity)
@@ -65,14 +61,10 @@ namespace SpaceTradingGame
                 }
 
                 player.AddCredits(totalPrice);
-                Console.WriteLine("Sale Successful. Press enter to continue");
-                Console.ReadLine();
+                return ("Sale Successful. Press enter to continue");
             }
-            else
-            {
-                Console.WriteLine($"You did not have enough {nameOfGood} to sell that many. Press enter to continue.");
-                Console.ReadLine();
-            }
+                return $"You did not have enough {nameOfGood} to sell that many. Press enter to continue.";
+            
         }
 
     }

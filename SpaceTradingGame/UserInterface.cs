@@ -6,6 +6,7 @@ namespace SpaceTradingGame
     {
         public  UserInterface()
         {
+            Random rand = new Random();
             //create and display story
             var story = new Story();
 
@@ -16,7 +17,7 @@ namespace SpaceTradingGame
             var ships = CreateShips();
 
             //Create Planets
-            var planets = CreatePlanets();
+            var planets = CreatePlanets(rand);
 
             BuyMenu buyMenu = new BuyMenu();
             SellMenu sellMenu = new SellMenu();
@@ -34,7 +35,7 @@ namespace SpaceTradingGame
             var currentShip= ships[1];
             var exit = false;
             var hasTravelled = false;
-            Random rand = new Random();
+
             player.SetCurrentPlanet(planets[0]);
             string exitMessage="";
             do
@@ -61,7 +62,7 @@ namespace SpaceTradingGame
                     exit = true;
                 }
 
-                if (hasTravelled == true)
+                if (travelMenu.hasTravelled)
                 {
                         goods[1].SetPriceOfGood(rand.Next(1, 4500));
                         goods[2].SetPriceOfGood(rand.Next(1, 1500));
@@ -70,7 +71,7 @@ namespace SpaceTradingGame
                         goods[5].SetPriceOfGood(rand.Next(1, 250));
                         goods[6].SetPriceOfGood(rand.Next(1, 15));
                         goods[7].SetPriceOfGood(rand.Next(100000, 400000));
-                        hasTravelled = false;
+                        travelMenu.hasTravelled = false;
                 }
                 
                 do
@@ -123,7 +124,7 @@ namespace SpaceTradingGame
                         break;
                     case 2:
                         Console.Clear();
-                        sellMenu.DisplaySellMenu(player, goods, player.GetCurrentPlanet());
+                        sellMenu.DisplaySellMenu(player, goods);
                         choice = GetInput();
                         for (int i = choice;;)
                         {
@@ -142,110 +143,29 @@ namespace SpaceTradingGame
                                 int quantity = GetInput();
                                 goods[i].SellGood(player, quantity, choice, goodsQuantity);
                             }
-
-
                             break;
                         }
 
-                        
+                        Console.WriteLine(SellMenu.CheckSell(player, goods,goodsQuantity));
+                        Console.ReadLine();
                         break;
                     case 3:
                         Console.Clear();
                         var options = travelMenu.DisplayTravelMenu(player, planets,currentShip);
-                        var badInput = false;
-                        
-                        do
-                        {
-                            Console.WriteLine("Please enter the number of the planet you would like to travel to. Press enter to return to main menu.");
-                            choice = GetInput();
-                            for (int i = 0; i < options.Count; i++)
-                            {
-                                if (choice == 0)
-                                {
-                                    Console.WriteLine("You have decided not to travel.");
-                                    badInput = false;
-                                    break;
-                                }
-                                if (choice == options[i])
-                                {
-                                    int warpSpeed = 0;
-                                    do
-                                    {
-                                        Console.WriteLine($"Please enter your warp speed (Your ship has a max warp speed of {currentShip.GetMaxWarpSpeed()}");
-                                        warpSpeed = GetInput();
-                                    } while (warpSpeed > currentShip.GetMaxWarpSpeed());
-
-                                    if (warpSpeed == 0)
-                                    {
-                                        Console.WriteLine("You have decided not to travel.");
-                                    }
-                                    else
-                                    {
-
-                                        player.SetUserTime(travel.GetTimeTravelled(
-                                                player.GetCurrentPlanet().distanceBetweenPlanets[choice],
-                                                warpSpeed));
-                                            
-                                        double fuelUsed = (player.GetCurrentPlanet().distanceBetweenPlanets[choice]);
-                                        currentShip.currentFuelLevel += -fuelUsed;
-                                        player.SetCurrentPlanet(planets[choice]);
-                                        hasTravelled = true;
-                                        badInput = false;
-                                        break;
-                                    }
-                                }
-                                
-                                   badInput = true; 
-                            }
-                            
-                        } while (badInput);
-
+                        choice = travelMenu.GetPlanetChoice(options);
+                        Console.WriteLine(travelMenu.TryTravel(choice,currentShip,player,planets, travel));
+                        Console.ReadLine();
                         break;
                     case 4:
                         Console.Clear();
                         buyShipMenu.DisplayBuyShipMenu(player, ships, currentShip);
                         choice = GetInput();
-                        for (int i = choice;;)
-                        {
-                            if (choice == 0)
-                            {
-                                Console.WriteLine("You have decided not to buy a ship. Press enter to continue");
-                                Console.ReadLine();
-                            }
-                            else if (player.GetCredits() + currentShip.GetShipCost() >= ships[i].GetShipCost())
-                            {
-                                player.AddCredits(currentShip.GetShipCost());
-                                player.AddCredits(-ships[i].GetShipCost());
-                                currentShip = ships[i];
-                                player.SetMaxCargo(currentShip.GetCargoSpace());
-                                Console.WriteLine(
-                                    "You have successfully purchased a new ship. Press enter to continue");
-                                Console.ReadLine();
-                            }
-                            else
-                            {
-                                Console.WriteLine("You do not have enough credits to buy that ship. Press enter to continue");
-                                Console.ReadLine();
-                            }
-                            break;
-                        }
+                        Console.WriteLine(BuyShipMenu.TryBuyShip(player,currentShip,ships,choice));
+                        Console.ReadLine();
                         break;
                     case 5:
                         Console.Clear();
-                        decimal refuelCost = Convert.ToDecimal((100 * (currentShip.maxFuelLevel - currentShip.currentFuelLevel)));
-                        if (player.GetCredits() - refuelCost < 0)
-                        {
-                            Console.WriteLine("You do not have enough credits to refuel your ship");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"You have refueled your ship for {refuelCost} credits");
-                            player.AddCredits(-refuelCost);
-                            currentShip.currentFuelLevel = currentShip.maxFuelLevel;
-                        }
-
-                        Console.WriteLine("Press Enter to continue");
-                        Console.ReadLine();
+                        currentShip.RefuelShip(player, currentShip);
                         break;
                 }
             } while (exit == false);
@@ -277,23 +197,22 @@ namespace SpaceTradingGame
             return ships;
         }
 
-        static Planet[] CreatePlanets()
+        static Planet[] CreatePlanets(Random rand)
         {
-            Random rand = new Random();
             Planet[] planet = new Planet[rand.Next(100, 250)];
             planet[0] = new Planet("Earth", "Mace Windu", 0, 0);
             for (int i = 1; i < planet.Length; i++)
             {
                 int planetNumber = rand.Next(1, 500);
                 planet[i] = new Planet($"Planet{planetNumber}", $"Trader{planetNumber}",
-                    Convert.ToDouble(rand.Next(-50, 50)),
-                    Convert.ToDouble(rand.Next(-50, 50)));
+                    (rand.Next(-50, 50)+rand.NextDouble()),
+                    (rand.Next(-50, 50)+rand.NextDouble()));
             }
             return planet;
         }
 
 
-        private static int GetInput()
+        public static int GetInput()
         {
             var choice=-2;
             bool badInput;
@@ -313,7 +232,7 @@ namespace SpaceTradingGame
             return choice;
         }
 
-        private static void DisplayInventory(User player,int[] goodsQuantity)
+        public static void DisplayInventory(User player,int[] goodsQuantity)
         {
             Console.Clear();
             Console.WriteLine("Here is your current inventory. Press enter to continue");

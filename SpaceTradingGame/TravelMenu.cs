@@ -8,6 +8,7 @@ namespace SpaceTradingGame
 {
     class TravelMenu
     {
+        public bool hasTravelled = false;
         public List<int> DisplayTravelMenu(User player, Planet[] planets,Ship currentShip)
         {
             Console.WriteLine($"You are currently on {player.GetCurrentPlanet().GetPlanetName()}");
@@ -25,6 +26,44 @@ namespace SpaceTradingGame
             return currentOptions;
         }
 
+        public int GetPlanetChoice(List<int> options)
+        {
+            int choice;
+            bool goodInput=false;
+            do
+            {
+                Console.WriteLine(
+                    "Please enter the number of the planet you would like to travel to. Enter 0 to return to main menu.");
+                choice = UserInterface.GetInput();
+                for (int i = 0; i < options.Count; i++)
+                {
+                    if (choice == 0)
+                    {
+                        return choice;
+                    }
+                    if (choice == options[i])
+                    {
+                        goodInput = true;
+                        break;
+                    }
+                }
+            } while (!goodInput);
+            return choice;
+        }
+
+        private static int GetWarpSpeed(Ship currentShip)
+        {
+
+            int warpSpeed;
+            do
+            {
+                Console.WriteLine(
+                    $"Please enter your warp speed (Your ship has a max warp speed of {currentShip.GetMaxWarpSpeed()}");
+                warpSpeed = UserInterface.GetInput();
+            } while (warpSpeed > currentShip.GetMaxWarpSpeed());
+            return warpSpeed;
+        }
+
         public void CalculateDistanceBetweenPlanets(Planet[] planets)
         {
             for (int i = 0; i < planets.Length; i++)
@@ -37,6 +76,40 @@ namespace SpaceTradingGame
                     planets[j].SetDistanceToPlanet(distance);
                 }
             }
+        }
+
+        public string TryTravel(int choice, Ship currentShip,User player, Planet[] planets, WarpSpeed travel)
+        {
+            if (choice == 0)
+            {
+                return "You have decided not to travel.";
+            }
+
+                int warpSpeed = GetWarpSpeed(currentShip);
+
+            if (warpSpeed == 0)
+            {
+                return "You have decided not to travel.";
+            }
+
+            TravelSuccessful(player, currentShip, choice,
+                        warpSpeed, planets, travel);
+            return $"You have successfully travelled to {planets[choice]}";
+                
+            
+        }
+
+        private void TravelSuccessful(User player, Ship currentShip, int choice, int warpSpeed, Planet[] planets, WarpSpeed travel)
+        {
+            
+            player.SetUserTime(travel.GetTimeTravelled(
+            player.GetCurrentPlanet().distanceBetweenPlanets[choice],
+            warpSpeed));
+            var fuelUsed = (player.GetCurrentPlanet().distanceBetweenPlanets[choice]);
+            currentShip.currentFuelLevel += -fuelUsed;
+            player.SetCurrentPlanet(planets[choice]);
+            hasTravelled = true;
+            
         }
     }
 }

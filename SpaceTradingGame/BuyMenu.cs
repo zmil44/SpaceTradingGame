@@ -23,5 +23,6 @@ namespace SpaceTradingGame
 
             Console.WriteLine("8. Get Current Inventory\n0. Return to previous Menu");
         }
+
     }
 }
