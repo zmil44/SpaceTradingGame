@@ -182,10 +182,10 @@ namespace SpaceTradingGame
                                     else
                                     {
 
-                                        player.timeInDays +=
-                                            travel.GetTimeTravelled(
+                                        player.SetUserTime(travel.GetTimeTravelled(
                                                 player.GetCurrentPlanet().distanceBetweenPlanets[choice],
-                                                warpSpeed);
+                                                warpSpeed));
+                                            
                                         double fuelUsed = (player.GetCurrentPlanet().distanceBetweenPlanets[choice]);
                                         currentShip.currentFuelLevel += -fuelUsed;
                                         player.SetCurrentPlanet(planets[choice]);
