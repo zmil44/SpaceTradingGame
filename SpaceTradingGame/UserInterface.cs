@@ -312,8 +312,6 @@ namespace SpaceTradingGame
             } while (badInput);
             return choice;
         }
-        
-
 
         private static void DisplayInventory(User player,int[] goodsQuantity)
         {
