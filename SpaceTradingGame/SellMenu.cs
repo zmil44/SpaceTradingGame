@@ -28,7 +28,7 @@ namespace SpaceTradingGame
             
             if (choice == 0)
             {
-                return null;
+                return "You have decided not to sell anything.";
             }
             if (choice == 8)
             {
