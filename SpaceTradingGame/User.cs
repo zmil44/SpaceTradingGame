@@ -22,6 +22,7 @@ namespace SpaceTradingGame
         {
             return currentPlanet;
         }
+
         public void CalculateYears()
         {
             if (timeInDays > 365)
@@ -42,7 +43,6 @@ namespace SpaceTradingGame
         {
             return name;
         }
-
 
         public decimal GetCredits()
         {
@@ -136,7 +136,5 @@ namespace SpaceTradingGame
 
             return goodsQuantity;
         }
-
-
     }
 }

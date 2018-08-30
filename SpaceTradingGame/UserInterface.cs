@@ -33,9 +33,7 @@ namespace SpaceTradingGame
             var travel = new WarpSpeed();
             
             var currentShip= ships[1];
-            var exit = false;
-            var hasTravelled = false;
-
+            bool exit;
             player.SetCurrentPlanet(planets[0]);
             string exitMessage="";
             do
@@ -44,50 +42,22 @@ namespace SpaceTradingGame
                 var choice = -2;
                 Console.Clear();
                 player.CalculateYears();
-                if (player.GetUserTimeInYears() >= 40 ||currentShip.currentFuelLevel==0.00 ||(player.GetCredits()==0&&player.GetCurrentCargo().Count ==0))
+                exit = CheckExitCondition(player);
+                if (exit)
                 {
-                    Console.Clear();
-                    if (player.GetUserTimeInYears() >= 40)
-                    {
-                        exitMessage=("You have travelled for over 40 years");
-                    }
-                    else if (currentShip.currentFuelLevel== 0.00)
-                    {
-                        exitMessage=("You ran out of fuel");
-                    }
-                    else
-                    {
-                        exitMessage=("You ran out of credits and goods to sell");
-                    }
-                    exit = true;
+                    exitMessage = GetExitMessage(player);
+                    break;
                 }
-
                 if (travelMenu.hasTravelled)
                 {
-                        goods[1].SetPriceOfGood(rand.Next(1, 4500));
-                        goods[2].SetPriceOfGood(rand.Next(1, 1500));
-                        goods[3].SetPriceOfGood(rand.Next(1, 200));
-                        goods[4].SetPriceOfGood(rand.Next(1, 500));
-                        goods[5].SetPriceOfGood(rand.Next(1, 250));
-                        goods[6].SetPriceOfGood(rand.Next(1, 15));
-                        goods[7].SetPriceOfGood(rand.Next(100000, 400000));
-                        travelMenu.hasTravelled = false;
+                    SetRandomGoodsPrice(goods, rand, travelMenu);
                 }
                 
                 do
                 {
-                    if (player.GetUserTimeInYears() >= 40)
-                    {
-                        break;
-                    }
 
                     Console.Clear();
-                    Console.WriteLine(
-                        $"You have {player.GetCredits()} and have travelled for {player.GetUserTimeInYears()} years and {player.GetUserDays()} days");
-                    Console.WriteLine($"You are currently on {player.GetCurrentPlanet().GetPlanetName()} and have {currentShip.currentFuelLevel} units of fuel");
-                    Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
-                                      "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n5. Refuel Ship\n-1. Quit");
-                    choice = GetInput();
+                    choice = DisplayMainMenu(player, currentShip);
                 } while (choice < -1 || choice > 5 || choice == 0);
 
                 switch (choice)
@@ -98,55 +68,15 @@ namespace SpaceTradingGame
                         break;
                     case 1:
                         Console.Clear();
-                        buyMenu.DisplayBuyMenu(player, goods, player.GetCurrentPlanet());
-                        choice = GetInput();
-                        if (choice == 8)
-                        {
-                            DisplayInventory(player, goodsQuantity);
-                        } 
-                        else if (choice>=1||choice<=7)
-                        {
-                            for (int i = choice;;)
-                            {
-                                if (choice == 0)
-                                {
-                                    break;
-                                }
-                                Console.WriteLine(
-                                    $"How many {goods[i].GetNameOfGood()} would you like to buy? " +
-                                    $"(note each item will take up 1 cargo space");
-                                int quantity = GetInput();
-                                goods[i].BuyGood(player, quantity);
-                                break;
-                            }
-                        }
-   
+                        buyMenu.DisplayBuyMenu(player, goods);
+                        Console.WriteLine(buyMenu.CheckBuy(player, goods));
+                        Console.ReadLine();
                         break;
                     case 2:
                         Console.Clear();
                         sellMenu.DisplaySellMenu(player, goods);
                         choice = GetInput();
-                        for (int i = choice;;)
-                        {
-                            if (choice == 0)
-                            {
-                                
-                            }
-                            else if (choice == 8)
-                            {
-                                DisplayInventory(player,goodsQuantity);
-                            }
-                            else
-                            {
-                                Console.WriteLine(
-                                    $"You currently have {goodsQuantity[choice - 1]} peices of {goods[i].GetNameOfGood()}. How many would you like to sell? ");
-                                int quantity = GetInput();
-                                goods[i].SellGood(player, quantity, choice, goodsQuantity);
-                            }
-                            break;
-                        }
-
-                        Console.WriteLine(SellMenu.CheckSell(player, goods,goodsQuantity));
+                        Console.WriteLine(SellMenu.CheckSell(player, goods,goodsQuantity,choice));
                         Console.ReadLine();
                         break;
                     case 3:
@@ -169,8 +99,28 @@ namespace SpaceTradingGame
                         break;
                 }
             } while (exit == false);
-
             story.DisplayEnd(player,exitMessage);
+        }
+
+        static int DisplayMainMenu(User player, Ship currentShip)
+        {
+            Console.WriteLine(
+                $"You have {player.GetCredits()} and have travelled for {player.GetUserTimeInYears()} years and {player.GetUserDays()} days");
+            Console.WriteLine($"You are currently on {player.GetCurrentPlanet().GetPlanetName()} and have {currentShip.currentFuelLevel} units of fuel");
+            Console.WriteLine("What would you like to do? \n Enter the corresponding number to decide. \n" +
+                              "1. Buy \n2. Sell\n3. Travel\n4. Buy new ship\n5. Refuel Ship\n-1. Quit");
+            return GetInput();
+        }
+        private void SetRandomGoodsPrice(Goods[] goods, Random rand,TravelMenu travelMenu)
+        {
+            goods[1].SetPriceOfGood(rand.Next(1, 4500));
+            goods[2].SetPriceOfGood(rand.Next(1, 3000));
+            goods[3].SetPriceOfGood(rand.Next(1, 200));
+            goods[4].SetPriceOfGood(rand.Next(1, 500));
+            goods[5].SetPriceOfGood(rand.Next(1, 250));
+            goods[6].SetPriceOfGood(rand.Next(1, 100));
+            goods[7].SetPriceOfGood(rand.Next(100000, 400000));
+            travelMenu.hasTravelled = false;
         }
 
         static Goods[] CreateGoods()
@@ -211,7 +161,30 @@ namespace SpaceTradingGame
             return planet;
         }
 
+        static bool CheckExitCondition(User player)
+        {
+            if (player.GetUserTimeInYears() >= 40 || (player.GetCredits() == 0 && player.GetCurrentCargo().Count == 0))
+            {
+                Console.Clear();
 
+                return true;
+            }
+            return false;
+        }
+
+        static string GetExitMessage(User player)
+        {
+            string exitMessage;
+            if (player.GetUserTimeInYears() >= 40)
+            {
+                exitMessage = ("You have travelled for over 40 years");
+            }
+            else
+            {
+                exitMessage = ("You ran out of credits and goods to sell");
+            }
+            return exitMessage;
+        }
         public static int GetInput()
         {
             var choice=-2;

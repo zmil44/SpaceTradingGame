@@ -8,11 +8,11 @@ namespace SpaceTradingGame
 {
     class BuyMenu
     {
-        public void DisplayBuyMenu(User player, Goods[] goods,Planet currentPlanet)
+        public void DisplayBuyMenu(User player, Goods[] goods)
         {
             
             Console.WriteLine(
-                $"{currentPlanet.GetTraderName()} says \"Greetings {player.GetUserName()}. What goods would you like to buy from me?\" " +
+                $"{player.GetCurrentPlanet().GetTraderName()} says \"Greetings {player.GetUserName()}. What goods would you like to buy from me?\" " +
                 "\nEnter the corresponding number to decide: " +
                 $"\n You currently have {player.GetCredits()} credits and have {player.GetMaxCargo()-player.GetCurrentCargo().Count} " +
                 $"spaces of cargo available");
@@ -24,5 +24,31 @@ namespace SpaceTradingGame
             Console.WriteLine("8. Get Current Inventory\n0. Return to previous Menu");
         }
 
+        internal string CheckBuy(User player, Goods[] goods)
+        {
+            int choice = UserInterface.GetInput();
+            if (choice == 8)
+            {
+                UserInterface.DisplayInventory(player, player.GetCurrentInventoryQuantities());
+                return null;
+            }
+            if (choice >= 1 || choice <= 7)
+            {
+               
+                    if (choice == 0)
+                    {
+                        return "You have chosen not to buy anything.";
+                    }
+                    Console.WriteLine(
+                        $"How many {goods[choice].GetNameOfGood()} would you like to buy? " +
+                        $"(note each item will take up 1 cargo space");
+                    int quantity = UserInterface.GetInput();
+                    string message = goods[choice].BuyGood(player, quantity);
+                    return message;
+                
+            }
+
+            return "Invalid choice";
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace SpaceTradingGame
             do
             {
                 Console.WriteLine(
-                    "Please enter the number of the planet you would like to travel to. Enter 0 to return to main menu.");
+                    "Please enter the number of the planet you would like to travel to. Enter -1 to return to main menu.");
                 choice = UserInterface.GetInput();
                 for (int i = 0; i < options.Count; i++)
                 {
@@ -80,7 +80,7 @@ namespace SpaceTradingGame
 
         public string TryTravel(int choice, Ship currentShip,User player, Planet[] planets, WarpSpeed travel)
         {
-            if (choice == 0)
+            if (choice == -1)
             {
                 return "You have decided not to travel.";
             }
@@ -94,7 +94,7 @@ namespace SpaceTradingGame
 
             TravelSuccessful(player, currentShip, choice,
                         warpSpeed, planets, travel);
-            return $"You have successfully travelled to {planets[choice]}";
+            return $"You have successfully travelled to {planets[choice].GetPlanetName()}";
                 
             
         }

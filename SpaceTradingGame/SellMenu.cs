@@ -23,26 +23,24 @@ namespace SpaceTradingGame
             Console.WriteLine("8. Get Current Inventory\n0. Return to previous Menu");
         }
 
-        internal static string CheckSell(User player, Goods[] goods, int[] goodsQuantity)
+        internal static string CheckSell(User player, Goods[] goods, int[] goodsQuantity,int choice)
         {
-            int choice = UserInterface.GetInput();
+            
             if (choice == 0)
             {
                 return null;
             }
-            else if (choice == 8)
+            if (choice == 8)
             {
                 UserInterface.DisplayInventory(player,goodsQuantity);
                 return null;
             }
-            else
-            {
                 Console.WriteLine(
-                    $"You currently have {goodsQuantity[choice - 1]} peices of {goods[i].GetNameOfGood()}. How many would you like to sell? ");
+                    $"You currently have {goodsQuantity[choice - 1]} peices of {goods[choice].GetNameOfGood()}. How many would you like to sell? ");
                 int quantity = UserInterface.GetInput();
                 string message = goods[choice-1].SellGood(player, quantity, choice, goodsQuantity);
                 return message;
-            }
+            
         }
     }
 }
