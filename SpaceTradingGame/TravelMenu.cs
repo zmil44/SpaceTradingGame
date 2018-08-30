@@ -37,7 +37,7 @@ namespace SpaceTradingGame
                 choice = UserInterface.GetInput();
                 for (int i = 0; i < options.Count; i++)
                 {
-                    if (choice == 0)
+                    if (choice == -1)
                     {
                         return choice;
                     }
