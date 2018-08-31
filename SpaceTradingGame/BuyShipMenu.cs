@@ -33,9 +33,13 @@ namespace SpaceTradingGame
             player.SetMaxCargo(currentShip.GetCargoSpace());
         }
 
-        internal static string TryBuyShip(User player, Ship currentShip, Ship[] ships,int choice)
+        internal static string TryBuyShip(User player, Ship currentShip, Ship[] ships)
         {
-            
+            int choice;
+            do
+            {
+                choice = UserInterface.GetInput();
+            } while (choice < 0 || choice > 5);
             if (choice == 0)
             {
                 return "You have decided not to buy a ship. Press enter to continue";

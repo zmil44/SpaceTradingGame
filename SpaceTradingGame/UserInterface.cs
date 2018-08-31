@@ -75,8 +75,7 @@ namespace SpaceTradingGame
                     case 2:
                         Console.Clear();
                         sellMenu.DisplaySellMenu(player, goods);
-                        choice = GetInput();
-                        Console.WriteLine(SellMenu.CheckSell(player, goods,goodsQuantity,choice));
+                        Console.WriteLine(SellMenu.CheckSell(player, goods,goodsQuantity));
                         Console.ReadLine();
                         break;
                     case 3:
@@ -89,8 +88,7 @@ namespace SpaceTradingGame
                     case 4:
                         Console.Clear();
                         buyShipMenu.DisplayBuyShipMenu(player, ships, currentShip);
-                        choice = GetInput();
-                        Console.WriteLine(BuyShipMenu.TryBuyShip(player,currentShip,ships,choice));
+                        Console.WriteLine(BuyShipMenu.TryBuyShip(player,currentShip,ships));
                         Console.ReadLine();
                         break;
                     case 5:
@@ -199,6 +197,11 @@ namespace SpaceTradingGame
                 catch (FormatException)
                 {
                     Console.WriteLine("Im sorry you did not enter a valid input. Please try again.");
+                    badInput = true;
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("You entered an incorrect number. Please try again.");
                     badInput = true;
                 }
             } while (badInput);

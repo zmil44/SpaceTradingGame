@@ -26,19 +26,27 @@ namespace SpaceTradingGame
 
         internal string CheckBuy(User player, Goods[] goods)
         {
-            int choice = UserInterface.GetInput();
+            int choice;
+            do
+            {
+                choice = UserInterface.GetInput();
+            } while (choice < 0 || choice > 8);
+            
             if (choice == 8)
             {
                 UserInterface.DisplayInventory(player, player.GetCurrentInventoryQuantities());
                 return null;
             }
+
+            if (choice == 0)
+            {
+                return "You have chosen not to buy anything.";
+            }
+
             if (choice >= 1 || choice <= 7)
             {
                
-                    if (choice == 0)
-                    {
-                        return "You have chosen not to buy anything.";
-                    }
+                    
                     Console.WriteLine(
                         $"How many {goods[choice].GetNameOfGood()} would you like to buy? " +
                         $"(note each item will take up 1 cargo space");

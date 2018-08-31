@@ -23,9 +23,14 @@ namespace SpaceTradingGame
             Console.WriteLine("8. Get Current Inventory\n0. Return to previous Menu");
         }
 
-        internal static string CheckSell(User player, Goods[] goods, int[] goodsQuantity,int choice)
+        internal static string CheckSell(User player, Goods[] goods, int[] goodsQuantity)
         {
-            
+            int choice;
+            do
+            {
+                choice = UserInterface.GetInput();
+            } while (choice < 0 || choice > 8);
+
             if (choice == 0)
             {
                 return "You have decided not to sell anything.";
