@@ -39,7 +39,7 @@ namespace SpaceTradingGame
             do
             {
                 var goodsQuantity = player.GetCurrentInventoryQuantities();
-                var choice = -2;
+                int choice;
                 Console.Clear();
                 player.CalculateYears();
                 exit = CheckExitCondition(player);

@@ -52,10 +52,11 @@ namespace SpaceTradingGame
 
         public string SellGood(User player, int quantity, int choice,int[] currentInventory)
         {
-            int totalPrice = priceOfGood * quantity;
-            if (currentInventory[choice] <= quantity)
+            
+            if (currentInventory[choice-1] >= quantity)
             {
-                for (int i = 0; i < quantity; i++)
+                var totalPrice = priceOfGood * quantity;
+                for (var i = 0; i < quantity; i++)
                 {
                     player.RemoveCargo(nameOfGood);
                 }
