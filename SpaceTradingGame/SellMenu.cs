@@ -43,6 +43,10 @@ namespace SpaceTradingGame
                 Console.WriteLine(
                     $"You currently have {goodsQuantity[choice]} pieces of {goods[choice].GetNameOfGood()}. How many would you like to sell? ");
                 int quantity = UserInterface.GetInput();
+            if(quantity==0)
+            {
+                return "You have selected not to sell anything.";
+            }
                 string message = goods[choice].SellGood(player, quantity, choice, goodsQuantity);
                 return message;
         }
